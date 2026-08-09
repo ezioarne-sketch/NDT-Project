@@ -1,0 +1,36 @@
+# Credentials — never commit these
+# A Figma personal access token was committed to this public repo once already.
+# Deleting a file does not remove it from git history; only revoking the token does.
+*token*
+*Token*
+*.key
+*.pem
+*.pat
+.env
+.env.*
+secrets.*
+credentials.*
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+._*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Design software temp files
+*.fig.bak
+~$*
+*.tmp
+
+# Python (used for asset and Figma analysis)
+__pycache__/
+*.pyc
+venv/
+.venv/
