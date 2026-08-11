@@ -1,20 +1,43 @@
 # Roadmap — Assessment Task 3
 
-Planned backwards from submission. **W-0 is the Week 12 due date (`<Week 12 date>`)**; W-6 is six weeks before it. Adjust to your actual calendar and replace the owner placeholders.
+> **Status, 11 August 2026.** The plan below was written when Task 2 had not started and was three quarters of the remaining work. **Tasks 1, 2 and 4 are now done** — the app is built, tested and exported. What remains is writing.
+>
+> **The due date is still `<Week 12 date>`.** Everything here is planned backwards from it, so until a real date replaces that placeholder the schedule is decorative. This is a two-minute fix with the largest downstream consequence of anything in the repository.
 
-The plan is deliberately lopsided. Task 2 is roughly three quarters of the remaining effort, so it gets three weeks and everything else works around it.
+Planned backwards from submission. **W-0 is the Week 12 due date**; W-6 is six weeks before it.
 
 ---
 
 ## Effort at a glance
 
-| Task | Remaining work | Weeks allocated |
+| Task | Remaining work | Status |
 |---|---|---|
-| 1 — Wireframe | Naming and export only | W-6 |
-| **2 — Final design** | **21 screens** | **W-5 → W-3** |
-| 3 — Planning docs | Two documents | W-4 (parallel) |
-| 4 — Prototype wiring | Re-wire 21 screens + video | W-2 |
-| 5 — Rationale | 500+ words | W-2 → W-1 |
+| 1 — Wireframe | — | ✅ Done (15 screens, Figma) |
+| 2 — Final design | — | ✅ Done (21 screens + 3 overlays, built in code) |
+| 3 — Planning docs | **Two documents to write** | 🟡 Scaffold ready |
+| 4 — Prototype | — | ✅ Done (app runs; 78s video; test passes clean) |
+| 5 — Rationale | **900 words to write** | 🟡 Scaffold + measured evidence ready |
+
+**The critical path is now writing, not designing.** Roughly 2,000 words across the concept plan and rationale, plus verifying the Harvard sources and completing the AI log's reflection sections.
+
+### Revised order of work
+
+| # | Do this | Why it is first |
+|---|---|---|
+| 1 | Put a real date on W-0 | Nothing else can be scheduled until this exists |
+| 2 | Enable GitHub Pages, confirm the link opens in a private window | The prototype is not submittable until it is reachable |
+| 3 | Rewrite the three story chapters against sources actually read | They carry the app's factual claims and are the biggest integrity exposure |
+| 4 | Verify every Harvard reference | Feeds both documents; cannot be rushed at the end |
+| 5 | Write the concept plan (Task 3) | Its material feeds the rationale |
+| 6 | Write the rationale (Task 5) | Needs everything above settled |
+| 7 | Complete the AI log's `<add>` and Reflection sections | The parts that carry the marks and cannot be delegated |
+| 8 | Cover sheet, PDF export, submit | — |
+
+---
+
+## Original plan
+
+Retained below for the record. Phases W-6 to W-3 are complete.
 
 ---
 

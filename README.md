@@ -7,9 +7,24 @@ Weighting **40%** · ULO3 · Due **Week 12 (`<Week 12 date>`)**
 
 ## What this repository is
 
-This is the working repository for a **university design assignment**. It holds the brand assets, planning documentation and prototype references for a mobile app concept.
+This is the working repository for a **university design assignment**. It holds the brand assets, the planning documentation, and a **working prototype of the app, built in code**.
 
-**No application is being built.** There is no source code here and none is planned. The assessed deliverables are a Figma prototype and a set of written documents. This repository exists to keep the team's assets, planning and evidence trail in one place.
+**The prototype is a real mobile web app, not a Figma clickthrough.** The brief permits this:
+
+> "The recommended software for this task is Figma, though other appropriate software is acceptable." *(brief, p.2)*
+>
+> "…submit a prototype and/or video of the working app. A link may be provided if the prototype is online." *(brief, p.3)*
+
+Building it in code means the scrolling, swiping, animation and overlays the brief asks for are real rather than simulated, the accessibility settings actually change the running app, and the ULO's "experimental applications" is answered by something that runs. The Figma wireframe still stands as the Task 1 deliverable.
+
+**Live prototype:** `https://ezioarne-sketch.github.io/NDT-Project/`
+*(Pages must be enabled once by the repository owner — see [Deploying](#deploying).)*
+
+Run it locally with any static server:
+
+```bash
+python -m http.server 8765     # then open http://127.0.0.1:8765/app/
+```
 
 ---
 
@@ -31,11 +46,11 @@ The app's narrative spine runs through three content screens tracing that histor
 
 | # | Task | Requirement | Status |
 |---|---|---|---|
-| 1 | **Wireframe diagram** | ≥10 screens, every member contributing | ✅ **Done** — 15 screens, interconnected |
-| 2 | **Final app design** | ≥10 screens with full design assets; overlays, animation, carousels | 🔴 **Not started — critical path** |
-| 3 | **Planning documentation** | Inclusions list, event concept plan, support material (PDF) | ⬜ Not started |
-| 4 | **Working prototype** | Live links and actions — scroll, tap, swipe; prototype and/or video | 🟡 Logic exists in wireframe; must carry to final design |
-| 5 | **Written rationale** | Min 500 words: member roles, features, accessibility, languages, ages, social/cultural demands, special needs | ⬜ Not started |
+| 1 | **Wireframe diagram** | ≥10 screens, every member contributing | ✅ **Done** — 15 screens, interconnected (Figma) |
+| 2 | **Final app design** | ≥10 screens with full design assets; overlays, animation, carousels | ✅ **Done** — 21 screens + 3 overlays, built and exported to [Assets/Screens/](Assets/Screens/) |
+| 3 | **Planning documentation** | Inclusions list, event concept plan, support material (PDF) | 🟡 Scaffold ready — [01-Concept-Plan.md](Docs/01-Concept-Plan.md) needs writing |
+| 4 | **Working prototype** | Live links and actions — scroll, tap, swipe; prototype and/or video | ✅ **Done** — app runs; [78s walkthrough video](Assets/Walkthrough/); no dead ends, verified by test |
+| 5 | **Written rationale** | Min 500 words: member roles, features, accessibility, languages, ages, social/cultural demands, special needs | 🟡 Scaffold + measured evidence ready — [04-Rationale.md](Docs/04-Rationale.md) needs writing |
 
 **Also mandatory**
 
@@ -103,14 +118,62 @@ The icon set maps one-to-one onto the wireframe's bottom navigation: **Home · E
 
 ---
 
-## Prototype
+## The app
 
-Figma file `f3PA95klt9cu4tpNdiOkGK` — "Notte Della Taranta"
+**21 screens and 3 overlays**, built as a static web app — no framework, no build step, no third-party runtime dependency.
+
+| Area | Screens |
+|---|---|
+| Entry | Splash, Language |
+| Home | Home, About, 3 × Story chapter |
+| Event | Event hub, Map (Flemington), Schedule, Transport & Access |
+| Music | Player, Now Playing, Library, Artist profile |
+| Commerce | Shop, Product, Digital ticket, Login |
+| Settings | Accessibility & display, Virtual visitor |
+| Overlays | Map pin, Workshop detail, Cart sheet |
+
+**What actually works** — scrolling, swipe carousels with keyboard support, overlays that render over the live screen with focus trapping and Escape to close, a music transport with a seekable native-range scrubber, a shopping bag, timezone conversion for virtual visitors, and accessibility settings that change the running app and persist.
+
+**Interesting bits**
+
+- **Flemington map** — original SVG artwork: the course, the Straight Six running to the winning post, grandstands on the home straight, the Maribyrnong, Epsom Road, Smithfield Road, the station and the Nursery car park. Twelve filterable pins where type is carried by **shape as well as colour**, plus a dashed step-free route from the station to the main stage. Drawn rather than embedded so there is no attribution problem, no visual identity clash, and no dependency on signal at a festival site.
+- **Digital ticket** — a genuinely scannable QR encoding `NDT-2026-004718`. The QR panel is the only light surface in the app, because a dark QR does not scan.
+- **No third-party content** — the wireframe's UI-kit boards carried lorem ipsum and real artists. All replaced with the festival's own invented lineup. All prices in AUD.
+
+### Tooling
+
+Everything below is reproducible; the deliverables are build outputs, not manual exports.
+
+| Script | Does |
+|---|---|
+| `python tools/build-assets.py` | 20MB of print-res source art → 0.45MB of WebP, plus the ticket QR |
+| `python tools/capture.py --sheet` | Drives Chrome through all 21 routes → [Assets/Screens/](Assets/Screens/) at 412×917 @2x — **the Task 2 deliverable** |
+| `python tools/contrast.py` | Regenerates [Docs/07-Contrast-Report.md](Docs/07-Contrast-Report.md) from the live palette |
+| `node tools/clickthrough.mjs` | **The Task 4 evidence.** Renders every screen, resolves every link, walks the graph for orphans, opens and Escapes every overlay, measures every target against 44px |
+| `node tools/walkthrough.mjs` + `python tools/encode-video.py` | Records the 78s walkthrough video |
+
+Scripts need a local server running: `python -m http.server 8765`.
+
+---
+
+## Deploying
+
+The app is served from the repository root by GitHub Pages. **This must be enabled once by the repository owner** (it needs admin rights):
+
+> **Settings** → **Pages** → Source: **Deploy from a branch** → Branch: **main**, folder: **/ (root)** → Save
+
+The site then appears at `https://ezioarne-sketch.github.io/NDT-Project/`. A `.nojekyll` file is present so Pages serves files verbatim, and every path in the app is relative, so it works from that subdirectory unchanged.
+
+---
+
+## Figma wireframe
+
+Retained as the Task 1 deliverable. File `f3PA95klt9cu4tpNdiOkGK` — "Notte Della Taranta"
 
 - **Prototype:** https://www.figma.com/proto/f3PA95klt9cu4tpNdiOkGK/Untitled?node-id=0-1
 - **Dev mode:** https://www.figma.com/design/f3PA95klt9cu4tpNdiOkGK/Untitled?node-id=0-1&m=dev
 
-Contains **15 mobile wireframe screens** (412×917) plus two overlays, all interconnected. Full inventory and proposed naming in [Docs/02-Screen-Spec.md](Docs/02-Screen-Spec.md); the interaction map is in [Docs/03-Prototype-Wiring.md](Docs/03-Prototype-Wiring.md).
+**15 wireframe screens** (412×917) plus two overlays, all interconnected. Inventory in [Docs/02-Screen-Spec.md](Docs/02-Screen-Spec.md); interaction map in [Docs/03-Prototype-Wiring.md](Docs/03-Prototype-Wiring.md).
 
 ---
 
@@ -120,17 +183,28 @@ Contains **15 mobile wireframe screens** (412×917) plus two overlays, all inter
 .
 ├── README.md                     ← you are here
 ├── ROADMAP.md                    ← phased plan + contribution log
+├── index.html                    ← redirect to app/
+├── app/                          ← THE PROTOTYPE
+│   ├── index.html
+│   ├── css/    tokens · base · components · screens
+│   ├── js/     app (router) · data (all content) · ui · screens-* · overlays
+│   └── assets/ fonts · icons · img
+├── tools/                        ← build, capture, test
+│   ├── build-assets.py  capture.py  contrast.py
+│   └── clickthrough.mjs  walkthrough.mjs  encode-video.py
 ├── Docs/
 │   ├── 01-Concept-Plan.md        ← Task 3
 │   ├── 02-Screen-Spec.md         ← Tasks 1 & 2
 │   ├── 03-Prototype-Wiring.md    ← Task 4
 │   ├── 04-Rationale.md           ← Task 5
 │   ├── 05-AI-Use-Log.md          ← AI Scale 5 compliance
-│   └── 06-References.md          ← Harvard reference list
+│   ├── 06-References.md          ← Harvard reference list
+│   └── 07-Contrast-Report.md     ← generated; measured WCAG ratios
 └── Assets/
+    ├── Screens/                  ← generated; the Task 2 deliverable
+    ├── Walkthrough/              ← generated; the Task 4 video
     ├── Icons/  Logo/  Merch/  Pages Bsckground/
-    ├── Assessment_Task_3_LABG204_20262.pdf
-    └── Prototype Like.txt
+    └── Assessment_Task_3_LABG204_20262.pdf
 ```
 
 ---
@@ -139,63 +213,59 @@ Contains **15 mobile wireframe screens** (412×917) plus two overlays, all inter
 
 | Member | Role | Screens owned | Written sections |
 |---|---|---|---|
-| `<Name 1>` | `<role>` | `<screens>` | `<sections>` |
-| `<Name 2>` | `<role>` | `<screens>` | `<sections>` |
-| `<Name 3>` | `<role>` | `<screens>` | `<sections>` |
-| `<Name 4>` | `<role>` | `<screens>` | `<sections>` |
+| Lorenzo Arnesano | Sole author — concept, design direction, writing | All 21 | All |
 
-Task 5 requires each member's contribution to be documented. Record work as it happens in the **Contribution Log** at the bottom of [ROADMAP.md](ROADMAP.md) — reconstructing it in Week 12 from memory is how marks get lost on the Independence and Collaboration criterion.
+**This is a single-author submission.** The brief is written for teams — it asks for "each design team member's roles and contributions" and for "each team member contributing to the development of the design and prototype". Task 5 should say plainly that the work was carried alone rather than leave a marker to infer it from a table with one row.
+
+Record work as it happens in the **Contribution Log** at the bottom of [ROADMAP.md](ROADMAP.md). It is still worth keeping solo: it is the evidence for the *Independence and Collaboration* rubric criterion, which for a single author is assessed on self-direction and time management.
 
 ---
 
-## Known issues
+## What's left
 
-Ordered by how much they could cost.
+Ordered by how much it could cost.
 
-### 1. Task 2 has not begun — this is the critical path
-All 15 wireframe screens are structural placeholders (`Rectangle 2`, `Ellipse 3`, `Pic`, `Text`). None of the logo, backgrounds, icons or palette has been applied. With the six additions below, that is **21 screens** of design work. Everything else in the roadmap is short by comparison.
+### 1. The written documents — this is now the critical path
+Tasks 3 and 5 are scaffolds with prompts, not prose. [01-Concept-Plan.md](Docs/01-Concept-Plan.md) and [04-Rationale.md](Docs/04-Rationale.md) both need writing, and the rationale has a 900-word budget against the brief's 500-word minimum. The evidence they need already exists — measured contrast figures, a screen inventory, a test report — but the argument has to be written.
 
-### 2. Six screens are missing, each tied to a marked requirement
+### 2. The story-chapter prose is scaffold, not final
+The three chapters in [data.js](app/js/data.js) currently state *what each chapter must cover* rather than being finished writing. They carry the app's factual claims about tarantism and are the most reference-exposed content in the project. **They must be rewritten against sources actually read**, and every claim Harvard-cited. Citing a work you have not read is an integrity problem, not a shortcut.
 
-| Missing screen | Required by |
-|---|---|
-| Splash | Task 2 — named in the brief's suggested list |
-| Artist profiles | Task 2 — named in the brief's suggested list |
-| Digital ticket / QR | Task 2 — named; "Tickets" appears as a label on the Shop screen with no screen behind it |
-| Language selection | Task 5 — "languages" |
-| Accessibility settings | Task 5 — "accessibility", "special needs" |
-| Virtual visitor / live stream | Task 1 and the Expectations section both stress virtual visitors |
+### 3. Harvard references are still leads, not citations
+[06-References.md](Docs/06-References.md) lists starting points. Each one needs to be found, read, and its publication details verified against the copy in hand. The AI tools, open-source typefaces and libraries listed in [05-AI-Use-Log.md](Docs/05-AI-Use-Log.md) all need entries too.
 
-### 3. Third-party template content in the Figma file
-Three large boards — "Login", "Music", "E-commerce" — are community UI-kit templates. They carry *lorem ipsum*, placeholder products ("Amazing T-shirt"), euro prices, and **real copyrighted artists** (Imagine Dragons, Odesza).
+### 4. Pages is not enabled
+The prototype is pushed but the site is not live until the repository owner enables Pages — see [Deploying](#deploying). Confirm the link opens in a private browser window before submitting it.
 
-Two problems. Unattributed third-party assets are an academic-integrity risk under the Harvard requirement. And a pizzica festival app playing "Believer" is a cultural mismatch a marker will spot immediately. Either cite the kits in [Docs/06-References.md](Docs/06-References.md) and keep them off the submitted screens, or replace the content with the festival's own artists and merch.
+### 5. Content is a first draft
+The lineup, set times, prices and ticket types are plausible placeholders, isolated in [data.js](app/js/data.js) so revising them is editing a list rather than rebuilding screens. The held ticket carries a real name on a public repository — change it if that is unwanted.
 
-**Prices must be AUD, not EUR** — the festival is in Melbourne.
-
-### 4. Navigation inconsistency
-The About screen shows five nav items including "Social". Every other screen shows four, and only four icons exist. Either design a Social icon and screen or drop the item — an inconsistent nav bar is a visible defect on screens marked for consistency.
-
-### 5. The map must become Flemington
-The map screen is currently generic pins on a blank field. It needs a recognisable **Flemington Racecourse** layout with stages placed, and — since Task 5 asks about special needs — accessible entrances, step-free routes, first aid and quiet zones marked. Transport & Access should carry real Melbourne detail: Flemington Racecourse station, tram routes, event shuttles.
-
-### 6. Pixel typeface legibility — decision needed
-Pixel fonts read poorly at body sizes and degrade badly under screen magnification, which works against the accessibility case Task 5 asks you to argue. Recommended: **pixel type for display and headings only, an accessible sans for body copy.** This is the team's design call, not a change to make silently.
-
-### 7. Housekeeping
+### 6. Housekeeping
 - `Assets/Pages Bsckground/` is misspelled (should be *Backgrounds*). Left as-is — Figma and other submissions may reference the path.
-- Merch renders average ~4 MB; `Bottle.jpg` is 10.9 MB. Fine for a design repo, worth compressing if they go anywhere else.
-- Backgrounds are 360×800 but the frames are 412×917. They need rescaling or regenerating at 412 width, or they will not tile cleanly.
-- The Figma file is named "Notte Della Taranta" but the URLs still read `Untitled`.
+- The Figma file is named "Notte Della Taranta" but its URLs still read `Untitled`.
+- The Figma wireframe frames are still on defaults (`Android Compact - 1` …). Only worth renaming if the wireframe is submitted as a Task 1 artefact in its own right.
 
-### 8. Resolved — exposed API token
-A Figma personal access token was committed to this **public** repository. It has been **revoked** at Figma's end, which is the only fix that works: deleting a file does not remove it from git history, and public repositories are scraped by credential bots within minutes. The file has been deleted and a `.gitignore` now blocks token, key and `.env` files.
+---
+
+## Resolved
+
+Kept as a record — several of these were live risks.
+
+- **Task 2 had not begun.** All 21 screens now built, exported and consistent with the campaign identity.
+- **Six screens were missing**, each tied to a marked requirement — splash, artist profiles, digital ticket, language select, accessibility settings, virtual visitor. All built.
+- **Third-party template content.** The wireframe's UI-kit boards carried lorem ipsum, placeholder products and real copyrighted artists. None of it survives; the app uses an invented lineup and the campaign's own merch renders. Prices are AUD.
+- **Navigation inconsistency.** The About screen showed five nav items where every other screen showed four. The nav is now one component rendered from one place, so it cannot drift.
+- **The map was generic pins on a blank field.** Now a drawn Flemington with stages, facilities, accessible entrances, step-free routes and a quiet zone.
+- **Pixel typeface legibility.** Resolved as recommended: pixel type for display and short labels only, Atkinson Hyperlegible for body copy.
+- **Backgrounds were 360×800 against 412×917 frames.** Moot in code — `background-size: cover` handles the fit.
+- **Exposed API token.** A Figma personal access token was committed to this public repository and has been **revoked** at Figma's end, which is the only fix that works: deleting a file does not remove it from git history. A `.gitignore` now blocks token, key and `.env` files.
 
 ---
 
 ## Getting started
 
 1. Read this file and [ROADMAP.md](ROADMAP.md).
-2. Fill in your name and role in the Team table above.
-3. Open the Figma prototype and check it against [Docs/02-Screen-Spec.md](Docs/02-Screen-Spec.md).
-4. Log every AI interaction in [Docs/05-AI-Use-Log.md](Docs/05-AI-Use-Log.md) as you go — the brief requires it, and backfilling is obvious to a marker.
+2. Run the prototype: `python -m http.server 8765`, then open `http://127.0.0.1:8765/app/`.
+3. Enable GitHub Pages — see [Deploying](#deploying) — and check the live link opens in a private window.
+4. Write [01-Concept-Plan.md](Docs/01-Concept-Plan.md) and [04-Rationale.md](Docs/04-Rationale.md).
+5. Log every AI interaction in [Docs/05-AI-Use-Log.md](Docs/05-AI-Use-Log.md) as you go, and complete the `<add>` and Reflection sections — those are the parts that carry the marks, and they cannot be written for you.
