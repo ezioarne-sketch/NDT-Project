@@ -39,7 +39,11 @@ const Data = {
   /* --- The three story screens ---------------------------------------------
      These carry the app's factual claims and are the most reference-exposed
      content in the project. Body copy here is scaffold: it states what each
-     screen must cover. Lorenzo writes the final prose against read sources. */
+     screen must cover. Lorenzo writes the final prose against read sources.
+
+     `cite` keys must correspond to entries in Docs/06-References.md. Do not
+     add a key for a work that has not been read — the screen renders the
+     count of sources, so an invented key becomes a visible false claim. */
   stories: [
     {
       id: 'dionysian',
@@ -61,7 +65,7 @@ const Data = {
       title: 'Menades and Tarantate',
       standfirst: 'The maenads and their Apulian descendants.',
       readTime: '5 min',
-      cite: ['demartino-1961', 'lapassade-1994'],
+      cite: ['demartino-2005', 'ludtke-2009'],
       status: 'DRAFT — needs Lorenzo\'s prose against read sources',
       body: [
         'In the Salento the rite reappears under another name. A woman bitten — really or symbolically — by the taranta falls into a state that only music can lift.',
@@ -75,7 +79,7 @@ const Data = {
       title: 'Di Martino and the Modern Age',
       standfirst: 'The 1959 fieldwork, and what came after.',
       readTime: '5 min',
-      cite: ['demartino-1961', 'chiriatti-2011'],
+      cite: ['demartino-2005', 'ludtke-2009'],
       status: 'DRAFT — needs Lorenzo\'s prose against read sources',
       body: [
         'In June 1959 the ethnographer Ernesto de Martino took a team into the Salento to document tarantism while it was still practised. The resulting study framed it as a cultural institution rather than a curiosity.',
