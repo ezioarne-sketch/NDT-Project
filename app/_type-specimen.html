@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NDT — display face candidates</title>
+<link rel="stylesheet" href="css/tokens.css">
+<style>
+  @font-face { font-family:'Silkscreen';     src:url('assets/fonts/Silkscreen-400-normal.woff2') format('woff2'); font-weight:400; font-display:block; }
+  @font-face { font-family:'Silkscreen';     src:url('assets/fonts/Silkscreen-700-normal.woff2') format('woff2'); font-weight:700; font-display:block; }
+  @font-face { font-family:'Press Start 2P'; src:url('assets/fonts/PressStart2P-400-normal.woff2') format('woff2'); font-weight:400; font-display:block; }
+  @font-face { font-family:'Pixelify Sans';  src:url('assets/fonts/PixelifySans-400_700-normal.woff2') format('woff2'); font-weight:400 700; font-display:block; }
+  @font-face { font-family:'Atkinson Hyperlegible'; src:url('assets/fonts/Atkinson-400-normal.woff2') format('woff2'); font-weight:400; font-display:block; }
+  @font-face { font-family:'Atkinson Hyperlegible'; src:url('assets/fonts/Atkinson-700-normal.woff2') format('woff2'); font-weight:700; font-display:block; }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--ground); color:var(--white); font-family:var(--font-body); padding:28px; }
+  h1 { font-size:15px; letter-spacing:.14em; text-transform:uppercase; color:var(--mint); margin-bottom:6px; font-weight:700; }
+  .note { color:var(--text-muted); font-size:14px; margin-bottom:26px; max-width:900px; line-height:1.6; }
+
+  .ref { border:1px solid var(--line); border-radius:12px; padding:20px; margin-bottom:26px; display:flex; align-items:center; gap:26px; }
+  .ref img { width:230px; image-rendering:pixelated; }
+  .ref p { color:var(--text-muted); font-size:14px; line-height:1.6; }
+
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .col { border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface-1); }
+  .colhead { padding:12px 18px; background:var(--surface-2); border-bottom:1px solid var(--line);
+             font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--mint); font-weight:700; }
+  .body { padding:22px 18px 26px; }
+
+  .display   { font-size:26px; line-height:1.15; letter-spacing:.02em; margin-bottom:16px; }
+  .h1        { font-size:19px; line-height:1.2;  margin-bottom:16px; color:var(--mint); }
+  .label     { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-muted); margin-bottom:14px; }
+  .time      { font-size:30px; margin-bottom:16px; }
+  .nav       { display:flex; gap:14px; font-size:11px; letter-spacing:.08em; margin-bottom:20px; color:var(--text-muted); }
+  .nav b     { color:var(--mint); font-weight:400; }
+  .prose     { font-family:'Atkinson Hyperlegible', sans-serif; font-size:15px; line-height:1.6; color:var(--text-secondary); border-top:1px solid var(--line); padding-top:16px; }
+
+  .c1 .display,.c1 .h1,.c1 .label,.c1 .time,.c1 .nav { font-family:'Silkscreen',monospace; }
+  .c2 .display,.c2 .h1,.c2 .label,.c2 .time,.c2 .nav { font-family:'Press Start 2P',monospace; }
+  .c3 .display,.c3 .h1,.c3 .label,.c3 .time,.c3 .nav { font-family:'Pixelify Sans',monospace; }
+  .c2 .display { font-size:19px; }
+  .c2 .h1 { font-size:14px; }
+  .c2 .time { font-size:24px; }
+  .c2 .nav { font-size:9px; }
+</style>
+</head>
+<body>
+  <h1>Display face — three candidates</h1>
+  <p class="note">All three are open-licence (SIL OFL), so they can be embedded and cited. Body copy is Atkinson Hyperlegible in every column — that one is not up for debate unless you dislike it, because it was drawn by the Braille Institute specifically for low-vision readers and gives Task 5 a sourced accessibility claim rather than an asserted one.</p>
+
+  <div class="ref">
+    <img src="assets/img/wordmark.png" alt="Notte Della Taranta wordmark">
+    <p><strong>The campaign wordmark, for reference.</strong><br>
+    The wordmark PNG itself gets reused wherever the logo appears, so the display face only has to sit comfortably beside it — it does not have to match it exactly.</p>
+  </div>
+
+  <div class="grid">
+    <div class="col c1">
+      <div class="colhead">A · Silkscreen</div>
+      <div class="body">
+        <div class="display">Menades and Tarantate</div>
+        <div class="h1">The Dionysian Cult</div>
+        <div class="label">Schedule · Stage 2</div>
+        <div class="time">21:40</div>
+        <div class="nav"><b>HOME</b><span>EVENT</span><span>MUSIC</span><span>SHOP</span></div>
+        <p class="prose">Body copy in Atkinson Hyperlegible. The tarantate danced for days to music that was itself the cure.</p>
+      </div>
+    </div>
+    <div class="col c2">
+      <div class="colhead">B · Press Start 2P</div>
+      <div class="body">
+        <div class="display">Menades and Tarantate</div>
+        <div class="h1">The Dionysian Cult</div>
+        <div class="label">Schedule · Stage 2</div>
+        <div class="time">21:40</div>
+        <div class="nav"><b>HOME</b><span>EVENT</span><span>MUSIC</span><span>SHOP</span></div>
+        <p class="prose">Body copy in Atkinson Hyperlegible. The tarantate danced for days to music that was itself the cure.</p>
+      </div>
+    </div>
+    <div class="col c3">
+      <div class="colhead">C · Pixelify Sans</div>
+      <div class="body">
+        <div class="display">Menades and Tarantate</div>
+        <div class="h1">The Dionysian Cult</div>
+        <div class="label">Schedule · Stage 2</div>
+        <div class="time">21:40</div>
+        <div class="nav"><b>HOME</b><span>EVENT</span><span>MUSIC</span><span>SHOP</span></div>
+        <p class="prose">Body copy in Atkinson Hyperlegible. The tarantate danced for days to music that was itself the cure.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

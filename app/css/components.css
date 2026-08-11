@@ -1,0 +1,399 @@
+/* ==========================================================================
+   Components — built once, used across all 21 screens.
+   This file is the code equivalent of a Figma component library: the bottom
+   nav exists in exactly one place, so it cannot drift between screens.
+   ========================================================================== */
+
+/* --- Status bar ------------------------------------------------------------- */
+
+.statusbar {
+  height: var(--statusbar-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--gutter);
+  font-family: var(--font-display); font-size: 11px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+.statusbar .sb-icons { display: flex; gap: 5px; align-items: center; }
+.statusbar .sb-bar { width: 3px; background: currentColor; border-radius: 1px; }
+
+/* --- App bar ---------------------------------------------------------------- */
+
+.appbar {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-2) var(--gutter) var(--s-4);
+  flex-shrink: 0;
+  min-height: 56px;
+}
+.appbar h1 { font-family: var(--font-display); font-weight: 700;
+             font-size: var(--size-h1); line-height: var(--leading-tight);
+             letter-spacing: var(--tracking-display); }
+.appbar .spacer { flex: 1; }
+
+.iconbtn {
+  width: var(--tap-min); height: var(--tap-min);
+  display: grid; place-items: center;
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.iconbtn:hover  { background: rgba(255, 255, 255, 0.08); }
+.iconbtn:active { background: rgba(255, 255, 255, 0.14); }
+
+/* Pixel icons are drawn as masks filled with currentColor, so a single asset
+   serves every colour and state. The alternative — tinting an <img> with a
+   filter chain — only approximates the target colour and breaks silently.
+
+   The url() lives here rather than in an inline style on the element: a
+   relative URL inside a custom property is resolved against the stylesheet
+   that substitutes it, not against the document, so an inline
+   `--ico:url('assets/...')` is looked for under /app/css/ and 404s into an
+   empty mask. Declaring it here makes the path unambiguous. */
+.ico {
+  display: block;
+  width: 24px; height: 24px;
+  background-color: currentColor;
+  -webkit-mask: var(--ico) center / contain no-repeat;
+          mask: var(--ico) center / contain no-repeat;
+  flex-shrink: 0;
+}
+.ico-home  { --ico: url('../assets/icons/home.png'); }
+.ico-event { --ico: url('../assets/icons/event.png'); }
+.ico-music { --ico: url('../assets/icons/music.png'); }
+.ico-shop  { --ico: url('../assets/icons/shop.png'); }
+.ico-back  { --ico: url('../assets/icons/back.png'); }
+
+.iconbtn .ico { width: 22px; height: 22px; color: var(--white); }
+
+/* --- Bottom navigation -------------------------------------------------------
+   One component, four items. Every screen renders this same markup, which is
+   what makes the nav identical everywhere — the defect the wireframe had. */
+
+.navbar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: rgba(8, 11, 11, 0.94);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--line);
+  z-index: var(--z-nav);
+}
+.navbar button {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px;
+  min-height: var(--tap-min);
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+  position: relative;
+}
+.navbar button .ico {
+  opacity: 0.62;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+.navbar button span {
+  font-family: var(--font-display); font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.navbar button:hover .ico { opacity: 0.85; }
+
+/* Active state is carried by colour AND a bar AND aria-current — never by
+   colour alone, which would fail for colourblind users. */
+.navbar button[aria-current='page'] { color: var(--mint); }
+.navbar button[aria-current='page'] .ico { opacity: 1; transform: translateY(-1px); }
+.navbar button[aria-current='page']::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 26px; height: 2px; background: var(--mint);
+  box-shadow: var(--glow-mint);
+}
+
+/* --- Buttons ------------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--s-6);
+  border-radius: var(--r-pill);
+  font-family: var(--font-display); font-size: var(--size-h3);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  text-decoration: none;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-primary   { background: var(--mint); color: var(--text-on-mint); font-weight: 700; }
+.btn-primary:hover { background: #97E5BA; }
+
+.btn-secondary { background: transparent; color: var(--mint); border: 1px solid var(--line-mint); }
+.btn-secondary:hover { background: rgba(127, 217, 168, 0.10); }
+
+.btn-ghost     { background: rgba(255, 255, 255, 0.07); color: var(--white); }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.13); }
+
+.btn-block     { display: flex; width: 100%; }
+
+/* --- Cards --------------------------------------------------------------------- */
+
+.card {
+  display: block; width: 100%; text-align: left;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s-4);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+.card:hover  { border-color: var(--line-mint); background: var(--surface-2); }
+.card:active { transform: scale(0.985); }
+
+/* Card with artwork above the text. */
+.card-media { padding: 0; overflow: hidden; }
+.card-media .media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-2); }
+.card-media .media img { width: 100%; height: 100%; object-fit: cover; }
+.card-media .body { padding: var(--s-4); }
+
+/* A row that behaves like a list item. */
+.listrow {
+  display: flex; align-items: center; gap: var(--s-3);
+  width: 100%; text-align: left;
+  min-height: 56px;
+  padding: var(--s-3) var(--s-3);
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.listrow:hover { background: var(--surface-1); border-color: var(--line); }
+.listrow + .listrow { margin-top: var(--s-1); }
+.listrow .num {
+  font-family: var(--font-display); font-size: var(--size-micro);
+  color: var(--text-muted); width: 22px; flex-shrink: 0;
+}
+
+/* --- Chips / tags ---------------------------------------------------------------- */
+
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 11px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  font-family: var(--font-display); font-size: 10px;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.chip-mint  { background: rgba(127, 217, 168, 0.14); border-color: var(--line-mint); color: var(--mint); }
+.chip-green { background: rgba(27, 122, 74, 0.28);  border-color: rgba(27, 122, 74, 0.6); color: #A8E8C4; }
+
+/* Horizontal scrolling chip row. */
+.chiprow {
+  display: flex; gap: var(--s-2);
+  overflow-x: auto; padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+.chiprow::-webkit-scrollbar { display: none; }
+.chiprow > * { flex-shrink: 0; }
+
+/* --- Section heading -------------------------------------------------------------- */
+
+.sectionhead {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-6) var(--gutter) var(--s-3);
+}
+.sectionhead h2 {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--size-h2);
+  letter-spacing: 0.04em;
+}
+
+/* --- Carousel -----------------------------------------------------------------------
+   Swipe on touch, drag on desktop, arrow keys for keyboard. Scroll-snap does
+   the work so it stays smooth without a library. */
+
+.carousel {
+  display: flex; gap: var(--s-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-inline: var(--gutter);
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel > * {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+}
+.dots { display: flex; gap: 6px; justify-content: center; padding-top: var(--s-3); }
+.dots button {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--line-strong);
+  transition: background var(--dur-fast), width var(--dur-base) var(--ease-out);
+}
+.dots button[aria-current='true'] { background: var(--mint); width: 20px; border-radius: 4px; }
+
+/* --- Overlays / sheets ---------------------------------------------------------------
+   Rendered over the parent screen, which stays visible behind the scrim —
+   the wireframe wired these as screen swaps, which loses the context. */
+
+.scrim {
+  position: absolute; inset: 0;
+  background: rgba(2, 4, 4, 0.72);
+  backdrop-filter: blur(3px);
+  z-index: var(--z-overlay);
+  animation: fade-in var(--dur-base) var(--ease-out) both;
+}
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.overlay {
+  position: absolute; left: var(--s-4); right: var(--s-4);
+  top: 50%; transform: translateY(-50%);
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-overlay);
+  z-index: calc(var(--z-overlay) + 1);
+  padding: var(--s-5);
+  max-height: 76%; overflow-y: auto;
+  animation: overlay-in var(--dur-base) var(--ease-out) both;
+}
+@keyframes overlay-in {
+  from { opacity: 0; transform: translateY(calc(-50% + 14px)) scale(0.97); }
+  to   { opacity: 1; transform: translateY(-50%) scale(1); }
+}
+
+/* Bottom sheet variant — used for the cart. */
+.sheet {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  background: var(--surface-2);
+  border-top: 1px solid var(--line-strong);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  box-shadow: var(--shadow-overlay);
+  z-index: calc(var(--z-overlay) + 1);
+  padding: var(--s-3) var(--s-5) var(--s-6);
+  max-height: 80%; overflow-y: auto;
+  animation: sheet-in var(--dur-base) var(--ease-out) both;
+}
+@keyframes sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+.sheet .grabber {
+  width: 40px; height: 4px; border-radius: 2px;
+  background: var(--line-strong); margin: 0 auto var(--s-4);
+}
+
+.overlay-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--s-3); margin-bottom: var(--s-3);
+}
+.overlay-head h2 { font-family: var(--font-display); font-size: var(--size-h2); letter-spacing: 0.03em; }
+.closebtn {
+  width: var(--tap-min); height: var(--tap-min); margin: -10px -10px 0 0;
+  display: grid; place-items: center; border-radius: var(--r-sm);
+  color: var(--text-muted); font-size: 20px; line-height: 1;
+  flex-shrink: 0;
+}
+.closebtn:hover { background: rgba(255, 255, 255, 0.09); color: var(--white); }
+
+/* --- Form controls ------------------------------------------------------------------
+   Labels sit above inputs, never inside as placeholder-only — a placeholder
+   disappears the moment the user types, taking the field's meaning with it. */
+
+.field { display: flex; flex-direction: column; gap: var(--s-2); margin-bottom: var(--s-4); }
+.field label {
+  font-family: var(--font-display); font-size: var(--size-micro);
+  letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--text-secondary);
+}
+.field input, .field select {
+  min-height: var(--tap-min);
+  padding: 0 var(--s-4);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  color: var(--white);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.field input:focus-visible { border-color: var(--mint); }
+.field .hint  { font-size: var(--size-small); color: var(--text-muted); }
+.field .error { font-size: var(--size-small); color: #FFB4B4; display: flex; align-items: center; gap: 6px; }
+
+/* Toggle — state is announced by text as well as position, never colour alone. */
+.toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+  width: 100%; min-height: 60px; padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--line); text-align: left;
+}
+.toggle:last-child { border-bottom: none; }
+.toggle .tg-text  { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.toggle .tg-title { font-size: var(--size-body); color: var(--white); line-height: var(--leading-snug); }
+.toggle .tg-desc  { font-size: var(--size-small); color: var(--text-muted); line-height: var(--leading-snug); }
+.toggle .tg-state {
+  font-family: var(--font-display); font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); margin-right: var(--s-2);
+}
+.toggle[aria-pressed='true'] .tg-state { color: var(--mint); }
+.tg-switch {
+  width: 50px; height: 28px; border-radius: var(--r-pill);
+  background: var(--surface-3); border: 1px solid var(--line-strong);
+  position: relative; flex-shrink: 0;
+  transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.tg-switch::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+.toggle[aria-pressed='true'] .tg-switch { background: rgba(127, 217, 168, 0.26); border-color: var(--mint); }
+.toggle[aria-pressed='true'] .tg-switch::after { transform: translateX(22px); background: var(--mint); }
+
+/* --- Toast --------------------------------------------------------------------------- */
+
+.toast {
+  position: absolute; left: var(--s-4); right: var(--s-4);
+  bottom: calc(var(--nav-h) + var(--s-4));
+  background: var(--mint); color: var(--text-on-mint);
+  border-radius: var(--r-md); padding: var(--s-3) var(--s-4);
+  font-size: var(--size-small); font-weight: 700;
+  z-index: var(--z-toast);
+  display: flex; align-items: center; gap: var(--s-2);
+  box-shadow: var(--shadow-overlay);
+  animation: toast-in var(--dur-base) var(--ease-out) both;
+}
+@keyframes toast-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* --- Empty / hero blocks ---------------------------------------------------------------- */
+
+.hero-wordmark { width: 172px; image-rendering: pixelated; }
+
+.divider { height: 1px; background: var(--line); margin: var(--s-5) var(--gutter); }
+
+/* ==========================================================================
+   Target size — WCAG 2.5.5 (44x44 minimum)
+   Collected here because these were failures found by tools/clickthrough.mjs,
+   not guesses. The test asserts the rule; this section satisfies it.
+   ========================================================================== */
+
+/* Chips used as controls. Decorative chips (stage pills, tags) stay compact —
+   they are not targets. */
+button.chip { min-height: var(--tap-min); padding-inline: 15px; }
+
+/* Section-heading links ("All three →", "Library →", "Profile →"). */
+.sectionhead button { min-height: var(--tap-min); padding: 0 2px; display: inline-flex; align-items: center; }
+
+/* Carousel dots keep their small visual size but get a full-size hit area. */
+.dots { gap: 0; }
+.dots button {
+  width: var(--tap-min); height: var(--tap-min);
+  background: none; border-radius: 0;
+  display: grid; place-items: center;
+  position: relative;
+}
+.dots button::after {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--line-strong);
+  transition: background var(--dur-fast), width var(--dur-base) var(--ease-out);
+}
+.dots button[aria-current='true'] { background: none; width: var(--tap-min); }
+.dots button[aria-current='true']::after { background: var(--mint); width: 20px; border-radius: 4px; }
+
+/* Inline text links that act as navigation. */
+.np-artist { min-height: var(--tap-min); display: flex; align-items: center; }

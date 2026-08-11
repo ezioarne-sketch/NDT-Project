@@ -34,3 +34,6 @@ __pycache__/
 *.pyc
 venv/
 .venv/
+
+# Node — tooling only (puppeteer-core drives the click-through test)
+node_modules/

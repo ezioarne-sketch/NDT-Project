@@ -1,0 +1,24 @@
+{
+  "name": "ndl-project",
+  "version": "1.0.0",
+  "description": "**LCI Melbourne · LABG204 Design Laboratory Global · Assessment Task 3 · Semester 20262**\r Weighting **40%** · ULO3 · Due **Week 12 (`<Week 12 date>`)**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezioarne-sketch/NDT-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ezioarne-sketch/NDT-Project/issues"
+  },
+  "homepage": "https://github.com/ezioarne-sketch/NDT-Project#readme",
+  "dependencies": {
+    "puppeteer-core": "^25.5.0"
+  }
+}

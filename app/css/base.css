@@ -1,0 +1,277 @@
+/* ==========================================================================
+   Base — fonts, reset, device frame, screen system, motion, focus
+   ========================================================================== */
+
+/* --- Fonts -----------------------------------------------------------------
+   Self-hosted so the app works offline and has no third-party dependency.
+   Both families are SIL Open Font Licence; see Docs/06-References.md. */
+
+@font-face {
+  font-family: 'NDT Display';
+  src: url('../assets/fonts/Silkscreen-400-normal.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'NDT Display';
+  src: url('../assets/fonts/Silkscreen-700-normal.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('../assets/fonts/Atkinson-400-normal.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('../assets/fonts/Atkinson-700-normal.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('../assets/fonts/Atkinson-400-italic.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
+/* --- Reset ----------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  background: #000;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+img { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; background: none; border: none; }
+button { cursor: pointer; }
+a { color: var(--text-accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+ul, ol { list-style: none; }
+
+/* --- Focus -----------------------------------------------------------------
+   One ring, everywhere, never removed. :focus-visible keeps it off mouse
+   clicks while guaranteeing it for keyboard and switch-device users. */
+
+:focus { outline: none; }
+:focus-visible {
+  outline: var(--focus-width) solid var(--focus);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--r-sm);
+}
+
+/* The router moves focus to each new screen's heading so screen-reader users
+   are told where they landed. That heading is not interactive, so it takes the
+   focus without the ring — a ring on a heading reads as a rendering bug. */
+h1[tabindex='-1']:focus-visible,
+[data-focus][tabindex='-1']:focus-visible { outline: none; }
+
+/* Skip link — first stop for keyboard users on every screen. */
+.skip-link {
+  position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+  z-index: var(--z-toast); background: var(--mint); color: var(--text-on-mint);
+  padding: 10px 18px; border-radius: 0 0 var(--r-md) var(--r-md);
+  font-family: var(--font-display); font-size: var(--size-micro);
+  letter-spacing: var(--tracking-label); text-transform: uppercase; text-decoration: none;
+}
+.skip-link:focus { top: 0; }
+
+/* --- Device frame ----------------------------------------------------------
+   412x917 is the Android Compact frame the Figma wireframe was drawn at.
+   On a real phone the frame chrome disappears and the app fills the viewport. */
+
+.stage {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #12191A 0%, #000 62%);
+  padding: 20px;
+}
+
+.device {
+  position: relative;
+  width: var(--frame-w);
+  height: var(--frame-h);
+  max-height: calc(100vh - 40px);
+  background: var(--ground);
+  border-radius: 34px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 10px #0B0E0E,
+    0 0 0 11px #262E2E,
+    0 30px 80px rgba(0, 0, 0, 0.9);
+  isolation: isolate;
+}
+
+@media (max-width: 520px), (max-height: 940px) and (pointer: coarse) {
+  .stage { padding: 0; background: var(--ground); }
+  .device {
+    width: 100%; height: 100%; max-height: none;
+    border-radius: 0; box-shadow: none;
+  }
+}
+
+/* Capture mode (?capture=1). Pins the frame to exactly 412x917 at the top-left
+   so tools/capture.py can crop a deterministic region. Windows enforces a
+   minimum Chrome window width, so the window cannot simply be sized to 412. */
+body.capture .stage {
+  padding: 0; display: block; background: var(--ground);
+  height: auto; place-items: initial;
+}
+body.capture .device {
+  width: var(--frame-w); height: var(--frame-h); max-height: none;
+  border-radius: 0; box-shadow: none; margin: 0;
+}
+
+/* --- Screens ---------------------------------------------------------------
+   All screens are stacked in the same box. Only .is-active is displayed.
+   Each screen owns its own scroll container so scroll position is per-screen,
+   the way a native app behaves. */
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  background: var(--ground);
+}
+.screen.is-active { display: flex; }
+
+/* Section artwork sits behind content with a scrim over it. The scrim is what
+   guarantees the measured contrast ratios hold over the magenta forms —
+   without it, white text over the lighter magenta areas is not safe.
+
+   The url() is declared here, not set as an inline custom property by the
+   router: a relative URL inside a custom property resolves against the
+   stylesheet that substitutes it, so an inline value would be looked for
+   under /app/css/ and silently 404 into no artwork at all. */
+.bg-home  { --screen-bg: url('../assets/img/bg-home.webp'); }
+.bg-event { --screen-bg: url('../assets/img/bg-event.webp'); }
+.bg-music { --screen-bg: url('../assets/img/bg-music.webp'); }
+.bg-back  { --screen-bg: url('../assets/img/bg-back.webp'); }
+
+.screen::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: var(--screen-bg, none);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.screen::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(4, 6, 6, 0.78) 0%,
+    rgba(4, 6, 6, 0.70) 40%,
+    rgba(4, 6, 6, 0.88) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+/* High-contrast mode drops the artwork entirely — decoration is not worth a
+   contrast risk for a user who has asked for maximum legibility. */
+[data-contrast='high'] .screen::before { display: none; }
+[data-contrast='high'] .screen::after  { background: var(--ground); }
+
+.screen > * { position: relative; z-index: 1; }
+
+/* Screen entry animation. Direction is set by the router. */
+.screen.is-entering  { animation: screen-in var(--dur-screen) var(--ease-out) both; }
+.screen.is-entering-back { animation: screen-in-back var(--dur-screen) var(--ease-out) both; }
+
+@keyframes screen-in      { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+@keyframes screen-in-back { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
+
+/* --- Scroll region ---------------------------------------------------------- */
+
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+  overscroll-behavior: contain;
+}
+.scroll::-webkit-scrollbar { width: 5px; }
+.scroll::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
+.scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* Bottom padding so content clears the fixed nav. */
+.scroll.has-nav > :last-child { margin-bottom: calc(var(--nav-h) + var(--s-6)); }
+
+/* --- Typography helpers ------------------------------------------------------ */
+
+.t-display {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--size-display); line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+}
+.t-h1 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--size-h1); line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+}
+.t-h2 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: var(--size-h2); line-height: var(--leading-snug);
+}
+.t-label {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: var(--size-micro); letter-spacing: var(--tracking-label);
+  text-transform: uppercase; color: var(--text-muted);
+}
+.t-body   { font-size: var(--size-body); line-height: var(--leading-body); color: var(--text-secondary); }
+.t-small  { font-size: var(--size-small); line-height: var(--leading-snug); color: var(--text-muted); }
+.t-mint   { color: var(--mint); }
+.t-white  { color: var(--white); }
+
+/* Long-form reading measure. Keeps line length near 60-70 characters even
+   when the user has scaled text up. */
+.prose p + p { margin-top: var(--s-4); }
+.prose { font-size: var(--size-body); line-height: var(--leading-body); color: var(--text-secondary); }
+.prose strong { color: var(--white); font-weight: 700; }
+
+/* --- Motion ------------------------------------------------------------------
+   A user who has asked their OS for less motion, or set it in the app's own
+   settings screen, gets none. Nothing here is load-bearing. */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+[data-motion='reduced'] *,
+[data-motion='reduced'] *::before,
+[data-motion='reduced'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* --- Utilities ---------------------------------------------------------------- */
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.pad     { padding-inline: var(--gutter); }
+.stack   { display: flex; flex-direction: column; }
+.row     { display: flex; align-items: center; }
+.between { justify-content: space-between; }
+.gap-2   { gap: var(--s-2); }
+.gap-3   { gap: var(--s-3); }
+.gap-4   { gap: var(--s-4); }
+.grow    { flex: 1; }

@@ -1,0 +1,7 @@
+Silkscreen|400|normal|Silkscreen-400-normal.woff2
+Silkscreen|700|normal|Silkscreen-700-normal.woff2
+Press Start 2P|400|normal|PressStart2P-400-normal.woff2
+Pixelify Sans|400 700|normal|PixelifySans-400_700-normal.woff2
+Atkinson Hyperlegible|400|italic|Atkinson-400-italic.woff2
+Atkinson Hyperlegible|400|normal|Atkinson-400-normal.woff2
+Atkinson Hyperlegible|700|normal|Atkinson-700-normal.woff2
