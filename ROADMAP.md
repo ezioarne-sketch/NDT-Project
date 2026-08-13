@@ -1,10 +1,10 @@
 # Roadmap — Assessment Task 3
 
-> **Status, 11 August 2026.** The plan below was written when Task 2 had not started and was three quarters of the remaining work. **Tasks 1, 2 and 4 are now done** — the app is built, tested and exported. What remains is writing.
+> **Status, 13 August 2026.** The plan below was written when Task 2 had not started and was three quarters of the remaining work. **Tasks 1, 2 and 4 are now done** — the app is built, tested and exported. What remains is writing.
 >
-> **The due date is still `<Week 12 date>`.** Everything here is planned backwards from it, so until a real date replaces that placeholder the schedule is decorative. This is a two-minute fix with the largest downstream consequence of anything in the repository.
+> **Due Monday 24 August 2026. Target submission Wednesday 19 August** — five clear days of buffer, which is the right way round.
 
-Planned backwards from submission. **W-0 is the Week 12 due date**; W-6 is six weeks before it.
+**W-0 is Monday 24 August 2026.** The original six-week plan below is kept as a record; phases W-6 to W-2 are complete. What governs now is the day-by-day schedule immediately following.
 
 ---
 
@@ -20,18 +20,22 @@ Planned backwards from submission. **W-0 is the Week 12 due date**; W-6 is six w
 
 **The critical path is now writing, not designing.** Roughly 2,000 words across the concept plan and rationale, plus verifying the Harvard sources and completing the AI log's reflection sections.
 
-### Revised order of work
+### Schedule to 19 August
 
-| # | Do this | Why it is first |
+Six days from today. Roughly 2,000 words plus the story rewrite — comfortable if the reading starts today, tight if it starts Saturday.
+
+| Day | Do this | Notes |
 |---|---|---|
-| 1 | Put a real date on W-0 | Nothing else can be scheduled until this exists |
-| 2 | Enable GitHub Pages, confirm the link opens in a private window | The prototype is not submittable until it is reachable |
-| 3 | Rewrite the three story chapters against sources actually read | They carry the app's factual claims and are the biggest integrity exposure |
-| 4 | Verify every Harvard reference | Feeds both documents; cannot be rushed at the end |
-| 5 | Write the concept plan (Task 3) | Its material feeds the rationale |
-| 6 | Write the rationale (Task 5) | Needs everything above settled |
-| 7 | Complete the AI log's `<add>` and Reflection sections | The parts that carry the marks and cannot be delegated |
-| 8 | Cover sheet, PDF export, submit | — |
+| **Thu 13 Aug** *(today)* | **Enable GitHub Pages.** Then get the sources for the story chapters and read them. | Pages is two minutes and needs Lorenzo's admin. The reading is the long pole — everything in the next two days is gated on it. |
+| **Fri 14 Aug** | Rewrite the three story chapters against what was actually read. Resolve the four unsourced app claims. | The biggest integrity exposure in the project. Do it while fresh, not last. |
+| **Sat 15 Aug** | Verify every Harvard reference. Write the concept plan (Task 3). | References feed both documents; the concept plan's material feeds the rationale. |
+| **Sun 16 Aug** | Write the rationale (Task 5), ~950 words. | Needs everything above settled. |
+| **Mon 17 Aug** | Complete the AI log's `<add>` cells and Reflection. | The parts that carry the marks and cannot be delegated. |
+| **Tue 18 Aug** | Cover sheet, PDF export, confirm the prototype link opens in a private window, final read-through. | Leave a full day for this. Export always takes longer than it should. |
+| **Wed 19 Aug** | **Submit to Omnivox.** | |
+| Thu 20 – Mon 24 Aug | Buffer. | Five days. Use them for the read-through by someone who did not write it, not for writing. |
+
+**Two things must start today**, because both have someone else in the loop: Pages needs Lorenzo's repo admin, and the story chapters need sources in hand before a word can be written.
 
 ---
 
@@ -180,7 +184,7 @@ The brief names six UX themes: **accessibility, languages, variety of ages, soci
 
 ---
 
-## W-0 · Submit
+## W-0 · Submit — Monday 24 August 2026
 
 | Step | Owner | Done when |
 |---|---|---|

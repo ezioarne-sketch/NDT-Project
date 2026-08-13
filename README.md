@@ -1,7 +1,7 @@
 # Notte della Taranta — Event App & Prototype
 
 **LCI Melbourne · LABG204 Design Laboratory Global · Assessment Task 3 · Semester 20262**
-Weighting **40%** · ULO3 · Due **Week 12 (`<Week 12 date>`)**
+Weighting **40%** · ULO3 · Due **Monday 24 August 2026** *(Week 12)* · target submission **Wednesday 19 August**
 
 ---
 
