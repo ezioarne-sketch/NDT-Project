@@ -26,12 +26,12 @@ Six days from today. Roughly 2,000 words plus the story rewrite — comfortable 
 
 | Day | Do this | Notes |
 |---|---|---|
-| **Thu 13 Aug** *(today)* | **Enable GitHub Pages.** Then get the sources for the story chapters and read them. | Pages is two minutes and needs Lorenzo's admin. The reading is the long pole — everything in the next two days is gated on it. |
+| **Thu 13 Aug** *(today)* | ~~Enable GitHub Pages~~ ✅ **done — live and verified**. Get the sources for the story chapters and read them. | The site is up at https://ezioarne-sketch.github.io/NDT-Project/ — 41 assets checked, click-through passes against the live URL. The reading is now the only thing gating the rest of the week. |
 | **Fri 14 Aug** | Rewrite the three story chapters against what was actually read. Resolve the four unsourced app claims. | The biggest integrity exposure in the project. Do it while fresh, not last. |
 | **Sat 15 Aug** | Verify every Harvard reference. Write the concept plan (Task 3). | References feed both documents; the concept plan's material feeds the rationale. |
 | **Sun 16 Aug** | Write the rationale (Task 5), ~950 words. | Needs everything above settled. |
 | **Mon 17 Aug** | Complete the AI log's `<add>` cells and Reflection. | The parts that carry the marks and cannot be delegated. |
-| **Tue 18 Aug** | Cover sheet, PDF export, confirm the prototype link opens in a private window, final read-through. | Leave a full day for this. Export always takes longer than it should. |
+| **Tue 18 Aug** | Cover sheet, PDF export, final read-through. Re-run the click-through against the **live** URL: `NDT_BASE=https://ezioarne-sketch.github.io/NDT-Project/app/index.html node tools/clickthrough.mjs`, and open the link in a private window. | Leave a full day for this. Export always takes longer than it should. **Test the deployed copy, not the local one** — on 13 Aug they differed by a file that had never been committed. |
 | **Wed 19 Aug** | **Submit to Omnivox.** | |
 | Thu 20 – Mon 24 Aug | Buffer. | Five days. Use them for the read-through by someone who did not write it, not for writing. |
 

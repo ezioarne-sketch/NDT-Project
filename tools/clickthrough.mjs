@@ -13,12 +13,25 @@
  *
  * Requires a local server:  python -m http.server 8765
  * Usage:                    node tools/clickthrough.mjs
+ *
+ * To test the DEPLOYED app instead of the local copy — which is the artefact
+ * actually submitted, and the only one a marker ever sees:
+ *
+ *   NDT_BASE=https://ezioarne-sketch.github.io/NDT-Project/app/index.html \
+ *     node tools/clickthrough.mjs
+ *
+ * This matters. On 13 August the deployed app was missing tokens.css for two
+ * days — a .gitignore rule written to catch credentials (*token*) also caught
+ * the design token stylesheet, so it was never committed. Every local check
+ * passed, because the file was on disk. Only the deployed copy was broken, and
+ * nothing tested the deployed copy. Run this against the live URL before
+ * putting the link in a submission.
  */
 
 import puppeteer from 'puppeteer-core';
 
 const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
-const BASE = 'http://127.0.0.1:8765/app/index.html';
+const BASE = process.env.NDT_BASE || 'http://127.0.0.1:8765/app/index.html';
 const W = 412, H = 917;
 
 const ROUTES = [
