@@ -3,6 +3,10 @@
 # Deleting a file does not remove it from git history; only revoking the token does.
 *token*
 *Token*
+# ...but the design token stylesheet is not a credential. The rule above silently
+# excluded it from every push until 13 August, so the deployed app rendered with
+# no palette, no type scale and no spacing. Keep the broad guard; whitelist this one.
+!app/css/tokens.css
 *.key
 *.pem
 *.pat

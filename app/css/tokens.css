@@ -1,0 +1,136 @@
+/* ==========================================================================
+   Notte della Taranta — design tokens
+   The single source of truth for colour, type, space and motion.
+   Screens must never hard-code a hex value; if a colour is needed, it earns
+   a token here first.
+   ========================================================================== */
+
+:root {
+  /* --- Brand palette (from the Assessment Task 2 campaign) ----------------- */
+  --ground:         #040606;  /* page ground */
+  --magenta-deep:   #461E3C;  /* background form */
+  --magenta:        #4D2646;  /* background form */
+  --green:          #1B7A4A;  /* accent, merch */
+  --mint:           #7FD9A8;  /* accent text, active states */
+  --white:          #FFFFFF;
+
+  /* --- Derived surfaces ---------------------------------------------------
+     The campaign palette has no mid-tones, but an app needs raised surfaces
+     to separate cards from ground. These are the ground lifted slightly, so
+     nothing foreign enters the palette. */
+  --surface-1:      #0C1010;  /* cards on ground */
+  --surface-2:      #151A1A;  /* raised: sheets, overlays, inputs */
+  --surface-3:      #1E2424;  /* pressed / hover */
+
+  /* --- Lines --------------------------------------------------------------- */
+  --line:           rgba(255, 255, 255, 0.14);
+  --line-strong:    rgba(255, 255, 255, 0.28);
+  --line-mint:      rgba(127, 217, 168, 0.45);
+
+  /* --- Text ---------------------------------------------------------------
+     Text is white or mint ONLY. Magenta fails AA on ground (2.98:1) and is
+     restricted to decoration, fill and texture. Measured ratios are in
+     Docs/07-Contrast-Report.md — every value below passes AA at body size. */
+  --text:           #FFFFFF;              /* 20.31:1 on ground */
+  --text-secondary: rgba(255, 255, 255, 0.78);  /* 12.14:1 */
+  --text-muted:     rgba(255, 255, 255, 0.62);  /* 7.77:1  */
+  --text-accent:    var(--mint);          /* 11.99:1 on ground */
+  --text-on-mint:   #04120B;              /* for mint-filled buttons */
+
+  /* --- Focus ---------------------------------------------------------------
+     A single visible focus ring, used everywhere. Never removed. */
+  --focus:          var(--mint);
+  --focus-width:    3px;
+  --focus-offset:   2px;
+
+  /* --- Type ---------------------------------------------------------------
+     Display face is pixel, matching the campaign wordmark. Body face is
+     Atkinson Hyperlegible, designed by the Braille Institute for low-vision
+     readers — the accessibility argument in Task 5 rests on this choice.
+     Body text is NEVER set in the pixel face. */
+  --font-display: 'NDT Display', 'Courier New', monospace;
+  --font-body:    'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Type scale. Body sizes stay >= 16px; the pixel face is used at 14px+
+     only, and never for running text. */
+  --size-display:  30px;
+  --size-h1:       22px;
+  --size-h2:       17px;
+  --size-h3:       14px;
+  --size-body-lg:  18px;
+  --size-body:     16px;
+  --size-small:    14px;
+  --size-micro:    12px;  /* labels and metadata only, never prose */
+
+  --leading-tight: 1.15;
+  --leading-snug:  1.35;
+  --leading-body:  1.6;   /* long-form reading */
+
+  --tracking-display: 0.02em;
+  --tracking-label:   0.14em;
+
+  /* --- Space (4px base) ---------------------------------------------------- */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* --- Radius -------------------------------------------------------------- */
+  --r-sm:   6px;
+  --r-md:   12px;
+  --r-lg:   18px;
+  --r-pill: 999px;
+
+  /* --- Layout -------------------------------------------------------------
+     412x917 is the Android Compact frame the wireframe was built at. */
+  --frame-w:      412px;
+  --frame-h:      917px;
+  --gutter:       20px;
+  --nav-h:        72px;
+  --statusbar-h:  32px;
+  --tap-min:      44px;   /* WCAG 2.5.5 minimum target */
+
+  /* --- Elevation ----------------------------------------------------------- */
+  --shadow-card:    0 2px 12px rgba(0, 0, 0, 0.55);
+  --shadow-overlay: 0 12px 40px rgba(0, 0, 0, 0.75);
+  --glow-mint:      0 0 20px rgba(127, 217, 168, 0.22);
+
+  /* --- Motion -------------------------------------------------------------
+     Every duration below collapses to 0.01ms under prefers-reduced-motion
+     (see base.css). Nothing in this app depends on motion to be usable. */
+  --dur-fast:   140ms;
+  --dur-base:   240ms;
+  --dur-slow:   420ms;
+  --dur-screen: 320ms;
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --z-nav:     40;
+  --z-sheet:   60;
+  --z-overlay: 70;
+  --z-toast:   80;
+}
+
+/* --- Accessibility settings (screen 20) -----------------------------------
+   These are set on the app root by the settings screen. They are real
+   preferences that change the running app, not mock toggles. */
+
+[data-textsize='large']  { --size-body: 18px; --size-body-lg: 20px; --size-small: 16px; --size-h1: 24px; }
+[data-textsize='xlarge'] { --size-body: 21px; --size-body-lg: 23px; --size-small: 18px; --size-h1: 27px; }
+
+/* High-contrast mode: removes the background artwork behind text, lifts muted
+   text to full white, and strengthens every line. */
+[data-contrast='high'] {
+  --text-secondary: #FFFFFF;
+  --text-muted:     rgba(255, 255, 255, 0.88);
+  --line:           rgba(255, 255, 255, 0.42);
+  --line-strong:    rgba(255, 255, 255, 0.72);
+  --surface-1:      #000000;
+  --surface-2:      #0A0D0D;
+}
