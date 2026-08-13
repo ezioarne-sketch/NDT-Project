@@ -32,7 +32,7 @@ SCREENS = [
     ("02-about",           "about",              "About the Festival"),
     ("03-story-dionysian", "story/dionysian",    "The Dionysian Cult"),
     ("04-story-menades",   "story/menades",      "Menades and Tarantate"),
-    ("05-story-dimartino", "story/dimartino",    "Di Martino and the Modern Age"),
+    ("05-story-dimartino", "story/dimartino",    "De Martino and the Modern Age"),
     ("06-event-hub",       "event",              "Event hub"),
     ("07-map",             "map",                "Map — Flemington"),
     ("08-schedule",        "schedule",           "Schedule"),

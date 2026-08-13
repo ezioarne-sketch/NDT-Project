@@ -76,7 +76,9 @@ const Data = {
     {
       id: 'dimartino',
       n: '03',
-      title: 'Di Martino and the Modern Age',
+      /* "De Martino", not "Di Martino" — the wireframe had it wrong. The route id
+         stays `dimartino` so links and test fixtures keep working. */
+      title: 'De Martino and the Modern Age',
       standfirst: 'The 1959 fieldwork, and what came after.',
       readTime: '5 min',
       cite: ['demartino-2005', 'ludtke-2009'],

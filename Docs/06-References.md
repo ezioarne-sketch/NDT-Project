@@ -33,17 +33,23 @@ From the brief, p.10.
 
 The three story screens carry the most factual claims in the project. This is the section most exposed on referencing, and the prose in those screens is **still scaffold** — it must be rewritten against these sources once read.
 
-**⚠ Core**
+> 📋 **See [08-Story-Claims-Audit.md](08-Story-Claims-Audit.md) before reading any of these.** It takes every assertion in the three chapters and says which source has to carry it — including the eleven specific things to read *for*. It turns three hundred pages into a targeted search.
 
-- De Martino, E. (1961). *La terra del rimorso*. Milan: Il Saggiatore.
-  - English: De Martino, E. (2005). *The Land of Remorse: A Study of Southern Italian Tarantism*. Trans. D.L. Zinn. London: Free Association Books.
-  - *The foundational ethnography and the source behind story chapter 3. The 1959 expedition date used in the app comes from here — verify it, and verify the translator and edition against your copy.*
+**✔ Bibliographic details verified 13 August 2026** *(details only — the books still have to be read)*
 
-- Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York: Berghahn Books.
-  - *The modern revival and the festival economy — directly relevant to a fictional festival built on the tradition, and to the "a festival is not a cure" argument in chapter 3.*
+- De Martino, E. (2005). *The Land of Remorse: A Study of Southern Italian Tarantism*. Translated and annotated by D.L. Zinn, foreword by V. Crapanzano. London: Free Association Books. (First published as *La terra del rimorso: Contributo a una storia religiosa del Sud*. Milan: Il Saggiatore, 1961.)
+  - *The foundational ethnography and the source behind story chapter 3. **The June 1959 expedition date used in the app is confirmed**, as is the interdisciplinary team — a psychiatrist, a psychologist, an ethnomusicologist and a social anthropologist. Translator, foreword, original title and both publishers verified.*
+
+- Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York and Oxford: Berghahn Books. Epistemologies of Healing series, vol. 4.
+  - *The modern revival and the festival economy — directly relevant to a fictional festival built on the tradition, and to the "a festival is not a cure" argument in chapter 3. **Her term is "neo-tarantism"** — use it. Series and volume verified.*
+
+- Dodds, E.R. (1951). *The Greeks and the Irrational*. Berkeley: University of California Press. Sather Classical Lectures, vol. 25.
+  - *Moved up from §2 because chapter 1 rests on it. **Chapter 3, "The Blessings of Madness", is the relevant chapter** — you do not need the whole book. Series and volume verified.*
+
+**⚠ Still a lead**
 
 - Rouget, G. (1985). *Music and Trance: A Theory of the Relations between Music and Possession*. Chicago: University of Chicago Press.
-  - *On the relationship between music and trance states generally. Useful for the claim that the music is doing the work, not accompanying it. Originally published in French — check which edition you have.*
+  - *On the relationship between music and trance states generally. Useful for the claim that the music is doing the work, not accompanying it. Originally published in French — check which edition you have. Not verified; drop it if you do not read it.*
 
 **⚠ Still to find**
 
@@ -78,11 +84,10 @@ For story chapter 1.
 
 **⚠ Leads**
 
-- Dodds, E.R. (1951). *The Greeks and the Irrational*. Berkeley: University of California Press.
-  - *The standard reference on ecstatic and irrational elements in Greek religion. Relevant to the "licensed space for ecstasy" framing in chapter 1.*
+- Dodds, E.R. (1951). — **moved to §1**, since chapter 1 rests on it. Details verified there.
 
 - Burkert, W. (1985). *Greek Religion*. Trans. J. Raffan. Cambridge, MA: Harvard University Press.
-  - *General reference on Dionysian cult practice.*
+  - *General reference on Dionysian cult practice. **Not verified** — this title has multiple printings and a UK Blackwell edition, so check the title page of the copy you use.*
 
 - Euripides. *The Bacchae*. `<add your edition, translator and year>`
 
@@ -208,12 +213,12 @@ Alphabetical by author surname. Assemble at W-1 and paste into each PDF. **Delet
 4. Burkert, W. (1985). *Greek Religion*. Trans. J. Raffan. Cambridge, MA: Harvard University Press. ⚠
 5. Changing Places Australia. *Why Changing Places*. Viewed 13 August 2026. https://changingplaces.org.au/why-changing-places/ ✔
 6. Clark, A. and contributors. *Pillow* [Python library]. Viewed `<date>`. https://python-pillow.org/
-7. De Martino, E. (2005). *The Land of Remorse: A Study of Southern Italian Tarantism*. Trans. D.L. Zinn. London: Free Association Books. ⚠
-8. Dodds, E.R. (1951). *The Greeks and the Irrational*. Berkeley: University of California Press. ⚠
+7. De Martino, E. (2005). *The Land of Remorse: A Study of Southern Italian Tarantism*. Trans. and annotated by D.L. Zinn, foreword by V. Crapanzano. London: Free Association Books. (First published as *La terra del rimorso*. Milan: Il Saggiatore, 1961.) ✔ *details — read it*
+8. Dodds, E.R. (1951). *The Greeks and the Irrational*. Berkeley: University of California Press. Sather Classical Lectures, vol. 25. ✔ *details — read ch. 3*
 9. Google. *Puppeteer* [Software]. Viewed `<date>`. https://pptr.dev/
 10. Heuer, L. *Segno* [Python library]. Viewed `<date>`. https://github.com/heuer/segno
 11. Kottke, J. *Silkscreen* [Typeface]. SIL Open Font License 1.1. Viewed `<date>`. https://fonts.google.com/specimen/Silkscreen ⚠
-12. Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York: Berghahn Books. ⚠
+12. Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York and Oxford: Berghahn Books. Epistemologies of Healing, vol. 4. ✔ *details — read it*
 13. Perkins, M., Furze, L., Roe, J. & MacVaugh, J. (2025). *Navigating the generative AI era: Introducing the AI assessment scale for ethical GenAI assessment*. Viewed `<date>`. https://leonfurze.com/2023/12/18/the-ai-assessment-scale-version-2/
 14. Rouget, G. (1985). *Music and Trance: A Theory of the Relations between Music and Possession*. Chicago: University of Chicago Press. ⚠
 15. Victoria Racing Club. *Getting to Flemington*. Viewed 13 August 2026. https://www.vrc.com.au/visit-us/plan-your-visit/getting-to-flemington/ ✔

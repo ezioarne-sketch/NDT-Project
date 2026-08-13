@@ -38,7 +38,7 @@ The app's narrative spine runs through three content screens tracing that histor
 
 1. **The Dionysian Cult** — ecstatic rite in the ancient Mediterranean
 2. **Menades and Tarantate** — the maenads and their Apulian descendants
-3. **Di Martino and the Modern Age** — Ernesto de Martino's mid-century ethnography and the tradition's revival
+3. **De Martino and the Modern Age** — Ernesto de Martino's mid-century ethnography and the tradition's revival
 
 ---
 
@@ -199,7 +199,8 @@ Retained as the Task 1 deliverable. File `f3PA95klt9cu4tpNdiOkGK` — "Notte Del
 │   ├── 04-Rationale.md           ← Task 5
 │   ├── 05-AI-Use-Log.md          ← AI Scale 5 compliance
 │   ├── 06-References.md          ← Harvard reference list
-│   └── 07-Contrast-Report.md     ← generated; measured WCAG ratios
+│   ├── 07-Contrast-Report.md     ← generated; measured WCAG ratios
+│   └── 08-Story-Claims-Audit.md  ← every story claim, and what must source it
 └── Assets/
     ├── Screens/                  ← generated; the Task 2 deliverable
     ├── Walkthrough/              ← generated; the Task 4 video
