@@ -270,26 +270,35 @@ Data.workshops = [
     detail: 'The 1959 expedition, what it recorded, and the argument about what the revival owes it.' },
 ];
 
-/* --- Transport ------------------------------------------------------- DRAFT
-   Real Melbourne detail. Service patterns are indicative for a fictional event
-   and should not be relied on as timetable information. */
+/* --- Transport -------------------------------------------------------------
+   Real Melbourne infrastructure; invented service times. Everything structural
+   here is sourced — the racecourse line runs from Southern Cross (VRC), route 57
+   has no low-floor trams and is not a Night Network route (Yarra Trams). Only
+   the frequencies and last-service times are invented for a fictional event, and
+   the screen says so. Do not "improve" the tram access note back into a promise
+   of level access: the whole point is that it directs mobility-aid users to the
+   train, which is what the VRC itself advises. */
 Data.transport = [
   {
     id: 'train', name: 'Train', headline: 'Flemington Racecourse Station',
     lines: [
-      'Special event services run direct from Flinders Street on the Racecourse line.',
+      'Event services run direct from Southern Cross on the racecourse line.',
       'The station sits at the south-east corner, roughly 300m from Gate 3.',
       'Last service departs 01:20. After that, use the shuttle to Newmarket.',
     ],
-    access: 'Step-free from platform to Gate 3. Staff on the platform all night.',
+    access: 'The most accessible way here. Trains are wheelchair accessible and the '
+          + 'route is step-free from platform to Gate 3. Staff on the platform all night.',
   },
   {
     id: 'tram', name: 'Tram', headline: 'Route 57 — Epsom Road',
     lines: [
-      'Route 57 to West Maribyrnong stops on Epsom Road, a 500m walk to Gate 1.',
-      'Runs every 12 minutes until midnight, then every 30 minutes on the Night Network.',
+      'Route 57 to West Maribyrnong stops at Flemington Drive (Stop 30) on Epsom Road, '
+      + 'a 500m walk to Gate 1.',
+      'Roughly every 15 minutes through the evening. Route 57 is not a Night Network '
+      + 'route, so plan your way home on the train or the shuttle.',
     ],
-    access: 'Route 57 is served by low-floor trams. The Epsom Road stop is a level-access platform stop.',
+    access: 'Route 57 does not run low-floor trams and Stop 30 is not a level-access stop. '
+          + 'If you use a mobility aid, take the train instead — see above.',
   },
   {
     id: 'shuttle', name: 'Shuttle', headline: 'Free festival shuttle',

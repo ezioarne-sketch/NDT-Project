@@ -335,8 +335,9 @@ App.register({
 
           <div class="callout">
             <p class="t-label">Companion Card</p>
-            <p class="t-small" style="margin-top:6px">Companion Card holders receive a free
-            second ticket. Present the card with your ticket at Gate 3.</p>
+            <p class="t-small" style="margin-top:6px">This festival is a Companion Card
+            affiliate, so a cardholder's companion is admitted free. Present the card with
+            your ticket at Gate 3. Companions also travel free on Victorian public transport.</p>
           </div>
 
           <div class="callout">
@@ -344,6 +345,11 @@ App.register({
             <p class="t-small" style="margin-top:6px">Assistance animals are welcome across the
             whole site. A relief area and water are provided beside the quiet zone.</p>
           </div>
+
+          <p class="t-small" style="color:var(--text-muted);margin-top:var(--s-2)">
+            <strong>Note:</strong> Notte della Taranta Melbourne is a fictional event. Routes,
+            stations and accessibility information are real; frequencies and last-service times
+            are illustrative. Check the PTV app on the night.</p>
         </div>
       </div>`;
   },

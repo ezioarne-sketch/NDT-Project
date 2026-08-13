@@ -119,7 +119,7 @@ Trim to ~950 in editing. Do not go below 500.
 ## 7. Languages and international visitors *(90 words)*
 
 > **Material**
-> - Six languages: English, Italiano, 简体中文, Ελληνικά, Tiếng Việt, العربية — the festival's Italian roots plus four reflecting Melbourne's actual demographics. ⚠ Cite the ABS Census for that claim or soften it.
+> - Six languages: English, Italiano, 简体中文, Ελληνικά, Tiếng Việt, العربية — the festival's Italian roots plus four reflecting Melbourne's actual demographics. Cite the ABS 2021 Census; see [06-References.md](06-References.md) §1.
 > - Each is shown **in its own script**, not translated into English. Say why: a visitor scanning for their language recognises the script before they read anything.
 > - **No flags.** A flag names a country, not a language, and gets it wrong for most of them.
 > - The **virtual visitor** screen is the other half: live stream, captions on every stage rather than only the main one, and set times converted to the viewer's timezone — someone in Lecce watching a Melbourne festival at their own hour.
@@ -163,7 +163,8 @@ Trim to ~950 in editing. Do not go below 500.
 > **Material** — all of this is on the built screens and can be pointed at.
 > - **On the map**: step-free route drawn from the station through Gate 3 to the main stage; accessible entrances; a **Changing Places** facility with hoist and adult change table; accessible cubicles; first aid; and a **quiet zone** with low light, no amplified sound, seating and ear defenders.
 > - **Sensory**: an explicit warning that Il Ragno uses strobe and haze from midnight, so it can be avoided rather than discovered.
-> - **Transport**: accessible parking 80m from Gate 3 on a sealed step-free path, low-floor trams, wheelchair-accessible shuttles with two securement spaces, **Companion Card** accepted, assistance animals welcome with a relief area.
+> - **Transport**: accessible parking 80m from Gate 3 on a sealed step-free path, wheelchair-accessible shuttles with two securement spaces, **Companion Card** affiliation, assistance animals welcome with a relief area.
+> - **The transport screen is worth a sentence of its own, and it is the most interesting thing in this section.** An earlier version claimed Route 57 ran low-floor trams to a level-access stop. Fact-checking against Yarra Trams and the VRC found the opposite: *"Route 57 does not operate low-floor trams. Passengers using mobility aids are advised to take the train to Flemington Racecourse for easier access."* The screen now says so and routes those visitors to the train. **Make the design argument, not just the correction** — an accessibility feature that reassures falsely is worse than none, because someone plans their night around it. Naming a mistake you found and fixed reads as judgement; it is also the kind of specific, sourced detail the rubric rewards.
 > - **Per workshop**: capacity, language and an access note — seated versions, adjustable tables, left-handed instruments, hearing loops, live captions.
 > - **In settings**: reduced motion for vestibular sensitivity, captions for deaf and hard-of-hearing visitors.
 > - **The ticket works offline.** Connectivity at a crowded venue is unreliable, and a ticket that needs signal is not a ticket.

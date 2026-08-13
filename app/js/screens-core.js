@@ -204,10 +204,9 @@ App.register({
           <p class="t-body" style="color:var(--white);font-size:var(--size-body-lg)">${f.blurb}</p>
 
           <h2 class="t-h2" style="margin:var(--s-6) 0 var(--s-3)">Why Melbourne</h2>
-          <p>Melbourne holds one of the largest Italian-descended populations outside Italy,
-             and a share of it traces back to post-war emigration from the south — including
-             Puglia. This festival is addressed to that community first and to everyone else
-             second.</p>
+          <p>At the 2021 Census, 384,688 Victorians reported Italian ancestry — and a large
+             share of that traces back to post-war emigration from the south, Puglia included.
+             This festival is addressed to that community first and to everyone else second.</p>
 
           <h2 class="t-h2" style="margin:var(--s-6) 0 var(--s-3)">Why Flemington</h2>
           <p>Flemington Racecourse already handles crowds at this scale, has a dedicated

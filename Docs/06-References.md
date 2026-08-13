@@ -52,13 +52,23 @@ The three story screens carry the most factual claims in the project. This is th
 | Pizzica as a music and dance form | Music screens, artist bios | ⬜ |
 | The *tarantate* — gender, poverty and social context | Story 2, cultural sensitivity | ⬜ |
 | The real *Notte della Taranta*, Melpignano | Concept plan — the acknowledged inspiration | ⬜ |
-| Italian-Australian community in Melbourne, post-war emigration from Puglia | Concept plan, About screen | ⬜ |
+| Italian-Australian community in Melbourne, post-war emigration from Puglia | Concept plan, About screen | ✔ **partly** — see below |
 | The tamburello — construction and playing technique | Merch, workshop content | ⬜ |
 | The *pumo* — Apulian ceramic tradition | Merch | ⬜ |
 
 > **Cite the real festival.** *La Notte della Taranta* in Melpignano, Salento, is an actual annual event. This project is a fictional festival borrowing its name and tradition. Acknowledging that explicitly is both good practice and a far better look than appearing not to know it exists.
 
-> **The About screen makes a demographic claim** — that Melbourne holds one of the largest Italian-descended populations outside Italy. Source it from the ABS Census or delete it. An unsourced statistic on a screen is exactly what the Harvard requirement is aimed at.
+**✔ Verified 13 August 2026 — the About screen's demographic claim**
+
+- Victorian Government. *Italian community profile*. Viewed 13 August 2026. https://www.vic.gov.au/italian-community-profile
+  - *"There are **384,688 people in Victoria who have Italian ancestry**" and 64,796 born in Italy, both from the 2021 Census. This is the citation the About screen now rests on.*
+
+- Australian Bureau of Statistics. (2022). *Greater Melbourne, 2021 Census All persons QuickStats*. Viewed 13 August 2026. https://www.abs.gov.au/census/find-census-data/quickstats/2021/2GMEL
+  - *Supporting: Greater Melbourne population 4,917,750, and Italy is a top response for country of birth of father at 163,063 (3.3%) — a useful second-generation proxy, and arguably the more interesting number for a festival aimed at descendants rather than migrants.*
+
+> **The superlative was replaced, not sourced.** The About screen said Melbourne holds *"one of the largest Italian-descended populations outside Italy"*. That is probably true but it is a **ranking claim**, and ranking claims need a comparative source across every country — which does not exist in a citable form. It now states the Census figure instead. A verifiable number is worth more than an unverifiable superlative, and it cost nothing to make the swap.
+>
+> ⚠ **One caveat to carry into the writing:** 384,688 is a **Victoria-wide** figure, and the screen introduces it under the heading "Why Melbourne". Greater Melbourne holds most but not all of it. If you want to be strict, either say "Victorians" in the surrounding prose or find the Greater Melbourne ancestry figure in ABS TableBuilder. The screen currently says "Victorians", which is accurate — keep it that way.
 
 ---
 
@@ -96,10 +106,17 @@ Supports the rationale's accessibility section and [07-Contrast-Report.md](07-Co
 | Legibility research behind Atkinson Hyperlegible | Typeface decision | ⬜ |
 | Designing for vestibular disorders / reduced motion | Settings screen | ⬜ |
 | Captioning standards for live streaming | Virtual visitor screen | ⬜ |
-| Companion Card scheme (Victoria) | Ticketing, transport screens | ⬜ |
-| Changing Places accessible facilities standard | Map — the facility is named on screen | ⬜ |
+**✔ Verified 13 August 2026 — the two named schemes**
 
-> Two named schemes appear in the app as fact — **Companion Card** and **Changing Places**. Both are real Australian programmes. Cite them or rename them.
+- Victorian Government, Department of Families, Fairness and Housing. *Companion Card*. Viewed 13 August 2026. https://www.companioncard.vic.gov.au/
+  - *The scheme is real and the app's use of it is accurate. The card is for people with a significant, permanent disability who need attendant care support to participate in community activities. **The nuance that matters:** only businesses that are **affiliates** of the scheme provide the second ticket free — so the app now says the festival "is a Companion Card affiliate" rather than implying the card works everywhere by default. Companions also travel free on Victorian public transport at all times, which is why it appears on the transport screen as well as the ticket screen.*
+
+- Changing Places Australia. *Why Changing Places*. Viewed 13 August 2026. https://changingplaces.org.au/why-changing-places/
+  - *Also real, and the app's description matches the specification: "a height-adjustable adult-sized change table, a constant-charging ceiling track hoist system, a centrally-located peninsula toilet, additional circulation space more than standard accessible toilets, an automatic door with a clear opening of 950 mm at a minimum, and a privacy screen." The app names the hoist and the adult change table, which is the right level of detail for a map pin.*
+  - *Useful for the rationale: Australia was the first country to regulate for these facilities in its building code — the **National Construction Code 2019** requires Accessible Adult Change Facilities, based on Changing Places designs, in certain classes of public building. That turns the map pin from a nice gesture into a code-referenced decision.*
+
+- Australian Building Codes Board. (2019). *National Construction Code 2019, Specification F2.9 — Accessible adult change facilities*. Viewed 13 August 2026. https://ncc.abcb.gov.au/editions/2019-a1/ncc-2019-volume-one-amendment-1/section-f-health-and-amenity/specification-f29
+  - ⚠ *Optional. Cite only if you actually use the NCC point in the rationale. NCC 2022 has it at Specification 27 — cite whichever edition you read.*
 
 ---
 
@@ -107,12 +124,22 @@ Supports the rationale's accessibility section and [07-Contrast-Report.md](07-Co
 
 The map is **original artwork**, not a reproduction, which removes the image-licensing problem. The underlying geography is still a factual claim.
 
-**⚠ To find**
+**✔ Verified 13 August 2026 — and three claims were wrong**
 
-- `<Victoria Racing Club / Flemington Racecourse — official site, for site layout, capacity and access information>`
-- `<Public Transport Victoria — Flemington Racecourse station, Route 57 tram, Night Network services>`
+- Victoria Racing Club. *Getting to Flemington*. Viewed 13 August 2026. https://www.vrc.com.au/visit-us/plan-your-visit/getting-to-flemington/
+- Yarra Trams. *Route 57 — West Maribyrnong to Flinders Street Station*. Viewed 13 August 2026. https://yarratrams.com.au/route-guides/route-57
 
-> The Transport & Access screen states specific service patterns — last train 01:20, Route 57 every 12 minutes, low-floor trams, level-access platform stop. These are **indicative for a fictional event**. Either source them from PTV and cite, or add a visible line stating they are illustrative. The app currently does not say either. This is the weakest unsourced content in the project.
+> **This section previously flagged the transport screen as "the weakest unsourced content in the project". Checking it found three factual errors, one of them an accessibility claim that was the exact reverse of the truth.** All three are now corrected in the app.
+>
+> | The app said | The sources say | Now says |
+> |---|---|---|
+> | "Route 57 is served by **low-floor trams**. The Epsom Road stop is a **level-access platform stop**." | Yarra Trams: *"This route is not currently serviced by low-floor trams."* Stop 30 is not among the route's level-access stops. VRC: *"Route 57 does not operate low-floor trams. Passengers using mobility aids are advised to take the train to Flemington Racecourse for easier access."* | Route 57 does not run low-floor trams and Stop 30 is not level-access; mobility-aid users are directed to the train |
+> | Event trains "direct from **Flinders Street**" | VRC: *"Metro trains run directly between **Southern Cross** Station and Flemington Racecourse on all race days"* | Southern Cross |
+> | "every 30 minutes on the **Night Network**" | Night Network trams run on routes 19, 67, 75, 86, 96 and 109 only. **Route 57 is not a Night Network route.** | States plainly that route 57 is not a Night Network route and to return by train or shuttle |
+>
+> **Worth a sentence in the rationale.** The corrected screen is *better design*, not just more accurate: it now routes mobility-aid users to the option that actually works, which is what the venue itself advises. An accessibility feature that reassures falsely is worse than no feature.
+>
+> Service **frequencies and last-service times remain invented** for a fictional event. The transport screen now carries a visible note saying so — routes, stations and accessibility information are real; timings are illustrative.
 
 ---
 
@@ -175,23 +202,27 @@ Cited in the brief itself, p.9:
 
 Alphabetical by author surname. Assemble at W-1 and paste into each PDF. **Delete anything you did not read.**
 
-1. Anthropic. (2026). *Claude Opus* [Large language model]. Viewed 11 August 2026. https://claude.ai/
-2. Braille Institute of America. *Atkinson Hyperlegible* [Typeface]. Viewed `<date>`. https://fonts.google.com/specimen/Atkinson+Hyperlegible
-3. Burkert, W. (1985). *Greek Religion*. Trans. J. Raffan. Cambridge, MA: Harvard University Press. ⚠
-4. Clark, A. and contributors. *Pillow* [Python library]. Viewed `<date>`. https://python-pillow.org/
-5. De Martino, E. (2005). *The Land of Remorse: A Study of Southern Italian Tarantism*. Trans. D.L. Zinn. London: Free Association Books. ⚠
-6. Dodds, E.R. (1951). *The Greeks and the Irrational*. Berkeley: University of California Press. ⚠
-7. Google. *Puppeteer* [Software]. Viewed `<date>`. https://pptr.dev/
-8. Heuer, L. *Segno* [Python library]. Viewed `<date>`. https://github.com/heuer/segno
-9. Kottke, J. *Silkscreen* [Typeface]. SIL Open Font License 1.1. Viewed `<date>`. https://fonts.google.com/specimen/Silkscreen ⚠
-10. Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York: Berghahn Books. ⚠
-11. Perkins, M., Furze, L., Roe, J. & MacVaugh, J. (2025). *Navigating the generative AI era: Introducing the AI assessment scale for ethical GenAI assessment*. Viewed `<date>`. https://leonfurze.com/2023/12/18/the-ai-assessment-scale-version-2/
-12. Rouget, G. (1985). *Music and Trance: A Theory of the Relations between Music and Possession*. Chicago: University of Chicago Press. ⚠
-13. W3C. (2018). *Web Content Accessibility Guidelines (WCAG) 2.1*. Viewed `<date>`. https://www.w3.org/TR/WCAG21/
-14. `<Australian Bureau of Statistics — Census 2021, language and ancestry, for the Melbourne claims>`
-15. `<Victoria Racing Club / Flemington Racecourse — site and access information>`
-16. `<Public Transport Victoria — services to Flemington>`
-17. `<add the tarantism and pizzica sources you actually read>`
+1. Anthropic. (2026). *Claude Opus* [Large language model]. Viewed 13 August 2026. https://claude.ai/
+2. Australian Bureau of Statistics. (2022). *Greater Melbourne, 2021 Census All persons QuickStats*. Viewed 13 August 2026. https://www.abs.gov.au/census/find-census-data/quickstats/2021/2GMEL ✔
+3. Braille Institute of America. *Atkinson Hyperlegible* [Typeface]. Viewed `<date>`. https://fonts.google.com/specimen/Atkinson+Hyperlegible
+4. Burkert, W. (1985). *Greek Religion*. Trans. J. Raffan. Cambridge, MA: Harvard University Press. ⚠
+5. Changing Places Australia. *Why Changing Places*. Viewed 13 August 2026. https://changingplaces.org.au/why-changing-places/ ✔
+6. Clark, A. and contributors. *Pillow* [Python library]. Viewed `<date>`. https://python-pillow.org/
+7. De Martino, E. (2005). *The Land of Remorse: A Study of Southern Italian Tarantism*. Trans. D.L. Zinn. London: Free Association Books. ⚠
+8. Dodds, E.R. (1951). *The Greeks and the Irrational*. Berkeley: University of California Press. ⚠
+9. Google. *Puppeteer* [Software]. Viewed `<date>`. https://pptr.dev/
+10. Heuer, L. *Segno* [Python library]. Viewed `<date>`. https://github.com/heuer/segno
+11. Kottke, J. *Silkscreen* [Typeface]. SIL Open Font License 1.1. Viewed `<date>`. https://fonts.google.com/specimen/Silkscreen ⚠
+12. Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York: Berghahn Books. ⚠
+13. Perkins, M., Furze, L., Roe, J. & MacVaugh, J. (2025). *Navigating the generative AI era: Introducing the AI assessment scale for ethical GenAI assessment*. Viewed `<date>`. https://leonfurze.com/2023/12/18/the-ai-assessment-scale-version-2/
+14. Rouget, G. (1985). *Music and Trance: A Theory of the Relations between Music and Possession*. Chicago: University of Chicago Press. ⚠
+15. Victoria Racing Club. *Getting to Flemington*. Viewed 13 August 2026. https://www.vrc.com.au/visit-us/plan-your-visit/getting-to-flemington/ ✔
+16. Victorian Government. *Italian community profile*. Viewed 13 August 2026. https://www.vic.gov.au/italian-community-profile ✔
+17. Victorian Government, Department of Families, Fairness and Housing. *Companion Card*. Viewed 13 August 2026. https://www.companioncard.vic.gov.au/ ✔
+18. W3C. (2018). *Web Content Accessibility Guidelines (WCAG) 2.1*. Viewed `<date>`. https://www.w3.org/TR/WCAG21/
+19. Yarra Trams. *Route 57 — West Maribyrnong to Flinders Street Station*. Viewed 13 August 2026. https://yarratrams.com.au/route-guides/route-57 ✔
+20. `<add the tarantism and pizzica sources you actually read>`
+21. `<Australian Building Codes Board NCC — only if you use the adult change facility point>`
 
 ---
 
@@ -199,9 +230,9 @@ Alphabetical by author surname. Assemble at W-1 and paste into each PDF. **Delet
 
 - [ ] Every ⚠ entry has been found, read, and its details verified against the copy used
 - [ ] Every factual claim on the three story screens is cited
-- [ ] The Melbourne Italian-descent claim on the About screen is sourced or removed
-- [ ] The transport service patterns are sourced or marked illustrative
-- [ ] Companion Card and Changing Places are cited or renamed
+- [x] ~~The Melbourne Italian-descent claim on the About screen is sourced or removed~~ — **superlative replaced with the 2021 Census figure, 13 Aug**
+- [x] ~~The transport service patterns are sourced or marked illustrative~~ — **both: infrastructure sourced and three errors corrected, timings marked illustrative on screen, 13 Aug**
+- [x] ~~Companion Card and Changing Places are cited or renamed~~ — **both cited from official sources, 13 Aug**
 - [ ] Both typefaces are credited and their licences confirmed
 - [ ] Every AI tool is listed
 - [ ] The real Melpignano festival is acknowledged as the inspiration
