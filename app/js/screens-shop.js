@@ -63,14 +63,6 @@ App.register({
               </div>
             </button>`).join('')}
         </div>
-
-        <div class="pad">
-          <div class="callout">
-            <p class="t-label">Prototype</p>
-            <p class="t-small" style="margin-top:6px">This is a student prototype for a fictional
-            festival. Nothing is for sale and no payment is ever taken.</p>
-          </div>
-        </div>
       </div>`;
   },
   mount(el) {
