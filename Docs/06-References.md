@@ -31,7 +31,9 @@ From the brief, p.10.
 
 ## 1. Tarantism, pizzica and Salento
 
-The three story screens carry the most factual claims in the project. This is the section most exposed on referencing, and the prose in those screens is **still scaffold** — it must be rewritten against these sources once read.
+The three story screens carry the most factual claims in the project. This is the section most exposed on referencing.
+
+> **Status changed 15 August 2026.** The screens now carry **Lorenzo's prose**, not scaffold. That closes the biggest gap in the project and opens a smaller, sharper one: the chapters currently cite **one** source each — the documentary below — because that is the only source there is evidence of having been used. Every book in this section is still unread, and the screens honestly say so. Adding a book to a chapter's `cite` array in `app/js/data.js` is what turns the reading into a visible claim, so **do the reading first, then add the key**.
 
 > 📋 **See [08-Story-Claims-Audit.md](08-Story-Claims-Audit.md) before reading any of these.** It takes every assertion in the three chapters and says which source has to carry it — including the eleven specific things to read *for*. It turns three hundred pages into a targeted search.
 
@@ -42,6 +44,15 @@ The three story screens carry the most factual claims in the project. This is th
 
 - Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York and Oxford: Berghahn Books. Epistemologies of Healing series, vol. 4.
   - *The modern revival and the festival economy — directly relevant to a fictional festival built on the tradition, and to the "a festival is not a cure" argument in chapter 3. **Her term is "neo-tarantism"** — use it. Series and volume verified.*
+
+**⚠ The film — the one source the chapters actually cite**
+
+Lorenzo's draft ends with a YouTube link. It is the only source there is evidence of, so it is the only key in the `cite` arrays. Its title was confirmed on 15 August 2026:
+
+- *La Taranta — Ernesto de Martino* [Video]. YouTube. Viewed 15 August 2026. https://www.youtube.com/watch?v=5pEEtmE8CX8
+  - ⚠ **Incomplete, and it must not be submitted like this.** A Harvard entry for a video needs the **uploader** and the **upload year**, and this has neither — the page has them, they just have to be read off it. Fill in `<uploader>` and `<year>`.
+  - ⚠ **Check what you are actually citing.** A subtitled upload of a documentary is not the documentary. If this is a film with a director, a year and a production company, cite *the film* and note the YouTube upload as where you viewed it. That is a stronger citation and a marker will read it as one. If it is an original upload, cite it as a video. **Do not guess** which — open the page and look.
+  - *The `cite` key for this entry is `lataranta-film` in `app/js/data.js`.*
 
 - Dodds, E.R. (1951). *The Greeks and the Irrational*. Berkeley: University of California Press. Sather Classical Lectures, vol. 25.
   - *Moved up from §2 because chapter 1 rests on it. **Chapter 3, "The Blessings of Madness", is the relevant chapter** — you do not need the whole book. Series and volume verified.*
@@ -150,19 +161,41 @@ The map is **original artwork**, not a reproduction, which removes the image-lic
 
 ## 5. Design and visual references
 
-**✔ Resolved — no third-party visual content remains**
+### 5a. Third-party artwork in the app — **new, 15 August 2026**
+
+Until 15 August the app contained **no third-party images at all**: every visual was originated for the project, which is why this section used to say "resolved". Three chapter images changed that. They are the only third-party visual content in the build, and each is credited **on the screen it appears on**, not just here.
+
+| # | Image | Chapter | Status |
+|---|---|---|---|
+| 1 | Dionysus riding a panther — ancient Greek pebble mosaic | 01 | **Public domain.** The work is ancient. |
+| 2 | Maenad dancing with cymbals — line engraving | 02 | **Public domain** on its face — a 19th-century book engraving. |
+| 3 | Tarantism ritual, Salento — photograph by **Franco Pinna**, Archivio Accademia Nazionale di Santa Cecilia | 03 | **In copyright.** Pinna died in 1978, so Italian copyright runs to 2049. |
+
+**⚠ Two things to finish on these**
+
+- **Entries 1 and 2 need provenance.** Lorenzo supplied them as hash-named files with no source page, so the object identifications above are read off the images themselves and are *not* verified. Before submitting, find where each came from and record: for the mosaic, the site or museum and approximate date; for the engraving, the artist, book and year. `<add>`
+- **Entry 3 is the one to be deliberate about.** It is reproduced under fair dealing for criticism and review — the chapter is *about* de Martino's 1959 fieldwork and this photograph documents that fieldwork — and fair dealing requires **sufficient acknowledgement**, which is why the credit is rendered on the screen. That argument is sound for a student prototype and it is worth a sentence in the rationale. If you would rather carry no in-copyright image at all, one line in `app/js/data.js` removes it. `<your decision, and why>`
+
+**✖ Rejected — do not put this back**
+
+- *Puglia — La Pizzica Tarantata* by **Alessandro Morandi** (2011), Flickr, **All Rights Reserved**. Supplied for chapter 2 and deliberately not used. Licence checked 15 August 2026.
+  - Three reasons, in order of weight: it is All Rights Reserved with no permission sought; it shows **identifiable living people**; and unlike the Pinna photograph it would have been *decoration* rather than something the chapter discusses, which is exactly the ground fair dealing does not cover. A public-domain engraving carries the same idea at none of the risk. The file is kept at `Assets/Story/menades/flickr-5946384625-*.jpg` so the decision is auditable — it is not built into the app.
+  - If you want it, it is licensable: Flickr has a contact link and photographers routinely grant student use. Ask, get it in writing, then it can go in.
+
+### 5b. Reference material and originated assets
 
 The three Figma community UI-kit boards ("Login", "Music", "E-commerce") carried *lorem ipsum*, placeholder products and real copyrighted artists (Imagine Dragons, Odesza). **None of it appears in the built app.** All copy, product data and artist material is original to this project.
 
 | Source | Status |
 |---|---|
-| Figma community UI kits | Used as wireframe reference only; no content survives into the final app. `<cite here if the wireframe itself is submitted as a Task 1 artefact>` |
+| Figma community UI kits | Used as wireframe reference only; no content survives into the final app. **The wireframe IS now a submitted Task 1 artefact** (`Assets/Wireframes/wireframe-flow.png`), so the kits must be cited or those boards deleted from the file — see the note below. `<cite here>` |
 | Brand assets — wordmark, spider mark, icons, backgrounds, merch renders | Originated by the author in Assessment Task 2. No citation needed; state the provenance in the rationale |
 | Flemington site map | Original SVG artwork drawn for this project. Geography referenced from the sources in §4 |
 | Artist artwork in the music screens | Generated from the campaign palette — deliberately not photography, so no image licensing is involved |
-| Merch renders | Author's own, from Assessment Task 2 |
+| Merch renders | Author's own, from Assessment Task 2. Re-rendered 15 August 2026 — brighter key light throughout, and the bottle relabelled |
+| Story chapter prose | Author's own, delivered 15 August 2026. `Assets/Story/Story-Text-Lorenzo.docx` is the source of truth |
 
-> **If the Figma wireframe is submitted alongside the app**, the UI-kit boards are still in that file and still need citing. Either cite them or delete those boards from the file before submitting it.
+> **The Figma wireframe is now being submitted**, so this is no longer hypothetical: the UI-kit boards are still in that file and still need citing. Either cite them or delete those boards before exporting again.
 
 ---
 
@@ -215,19 +248,25 @@ Alphabetical by author surname. Assemble at W-1 and paste into each PDF. **Delet
 6. Clark, A. and contributors. *Pillow* [Python library]. Viewed `<date>`. https://python-pillow.org/
 7. De Martino, E. (2005). *The Land of Remorse: A Study of Southern Italian Tarantism*. Trans. and annotated by D.L. Zinn, foreword by V. Crapanzano. London: Free Association Books. (First published as *La terra del rimorso*. Milan: Il Saggiatore, 1961.) ✔ *details — read it*
 8. Dodds, E.R. (1951). *The Greeks and the Irrational*. Berkeley: University of California Press. Sather Classical Lectures, vol. 25. ✔ *details — read ch. 3*
-9. Google. *Puppeteer* [Software]. Viewed `<date>`. https://pptr.dev/
-10. Heuer, L. *Segno* [Python library]. Viewed `<date>`. https://github.com/heuer/segno
-11. Kottke, J. *Silkscreen* [Typeface]. SIL Open Font License 1.1. Viewed `<date>`. https://fonts.google.com/specimen/Silkscreen ⚠
-12. Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York and Oxford: Berghahn Books. Epistemologies of Healing, vol. 4. ✔ *details — read it*
-13. Perkins, M., Furze, L., Roe, J. & MacVaugh, J. (2025). *Navigating the generative AI era: Introducing the AI assessment scale for ethical GenAI assessment*. Viewed `<date>`. https://leonfurze.com/2023/12/18/the-ai-assessment-scale-version-2/
-14. Rouget, G. (1985). *Music and Trance: A Theory of the Relations between Music and Possession*. Chicago: University of Chicago Press. ⚠
-15. Victoria Racing Club. *Getting to Flemington*. Viewed 13 August 2026. https://www.vrc.com.au/visit-us/plan-your-visit/getting-to-flemington/ ✔
-16. Victorian Government. *Italian community profile*. Viewed 13 August 2026. https://www.vic.gov.au/italian-community-profile ✔
-17. Victorian Government, Department of Families, Fairness and Housing. *Companion Card*. Viewed 13 August 2026. https://www.companioncard.vic.gov.au/ ✔
-18. W3C. (2018). *Web Content Accessibility Guidelines (WCAG) 2.1*. Viewed `<date>`. https://www.w3.org/TR/WCAG21/
-19. Yarra Trams. *Route 57 — West Maribyrnong to Flinders Street Station*. Viewed 13 August 2026. https://yarratrams.com.au/route-guides/route-57 ✔
-20. `<add the tarantism and pizzica sources you actually read>`
-21. `<Australian Building Codes Board NCC — only if you use the adult change facility point>`
+9. `<artist>`. `<year>`. *[Line engraving of a maenad dancing with cymbals]*. `<book or collection>`. ⚠ **Story chapter 2 artwork — provenance not established. Find it or drop the image.**
+10. Google. *Puppeteer* [Software]. Viewed `<date>`. https://pptr.dev/
+11. Heuer, L. *Segno* [Python library]. Viewed `<date>`. https://github.com/heuer/segno
+12. Kottke, J. *Silkscreen* [Typeface]. SIL Open Font License 1.1. Viewed `<date>`. https://fonts.google.com/specimen/Silkscreen ⚠
+13. *La Taranta — Ernesto de Martino* [Video]. `<uploader>`, `<year>`. YouTube. Viewed 15 August 2026. https://www.youtube.com/watch?v=5pEEtmE8CX8 ⚠ **The only source the story chapters cite. Title confirmed; uploader and year are not.**
+14. Lüdtke, K. (2009). *Dances with Spiders: Crisis, Celebrity and Celebration in Southern Italy*. New York and Oxford: Berghahn Books. Epistemologies of Healing, vol. 4. ✔ *details — read it*
+15. Perkins, M., Furze, L., Roe, J. & MacVaugh, J. (2025). *Navigating the generative AI era: Introducing the AI assessment scale for ethical GenAI assessment*. Viewed `<date>`. https://leonfurze.com/2023/12/18/the-ai-assessment-scale-version-2/
+16. Pinna, F. `<year>`. *[Photograph of a tarantism ritual, Salento]*. Archivio Accademia Nazionale di Santa Cecilia, Rome. ⚠ **Story chapter 3 artwork — in copyright, reproduced for study with acknowledgement. Confirm the year and the archive's preferred credit line.**
+17. `<site or museum>`. *[Pebble mosaic of Dionysus riding a panther]*, `<date>`. ⚠ **Story chapter 1 artwork — provenance not established.**
+18. Rouget, G. (1985). *Music and Trance: A Theory of the Relations between Music and Possession*. Chicago: University of Chicago Press. ⚠
+19. Victoria Racing Club. *Getting to Flemington*. Viewed 13 August 2026. https://www.vrc.com.au/visit-us/plan-your-visit/getting-to-flemington/ ✔
+20. Victorian Government. *Italian community profile*. Viewed 13 August 2026. https://www.vic.gov.au/italian-community-profile ✔
+21. Victorian Government, Department of Families, Fairness and Housing. *Companion Card*. Viewed 13 August 2026. https://www.companioncard.vic.gov.au/ ✔
+22. W3C. (2018). *Web Content Accessibility Guidelines (WCAG) 2.1*. Viewed `<date>`. https://www.w3.org/TR/WCAG21/
+23. Yarra Trams. *Route 57 — West Maribyrnong to Flinders Street Station*. Viewed 13 August 2026. https://yarratrams.com.au/route-guides/route-57 ✔
+24. `<add the tarantism and pizzica sources you actually read>`
+25. `<Australian Building Codes Board NCC — only if you use the adult change facility point>`
+
+> **Entries 9, 13, 16 and 17 are the new ones and four of them are incomplete.** They are all images or video — the category the brief calls out by name ("including visual references"). An unattributed image in a referencing-assessed piece is the same defect as an unattributed quotation, and it is more visible, because the marker can see it on the screen.
 
 ---
 
@@ -241,6 +280,9 @@ Alphabetical by author surname. Assemble at W-1 and paste into each PDF. **Delet
 - [ ] Both typefaces are credited and their licences confirmed
 - [ ] Every AI tool is listed
 - [ ] The real Melpignano festival is acknowledged as the inspiration
-- [ ] The Dionysian continuity claim is hedged, not asserted
+- [ ] The Dionysian continuity claim is hedged, not asserted — **now the sharpest open item; see [08-Story-Claims-Audit.md](08-Story-Claims-Audit.md) §"What changed on 15 August"**
 - [ ] Consistent Harvard formatting throughout
 - [ ] Nothing in the master list is a work that was not actually read
+- [ ] **The three chapter images are attributed** — mosaic and engraving traced to a source, Pinna's year and credit line confirmed (entries 9, 16, 17)
+- [ ] **The video citation is complete** — uploader and year filled in, and it says whether it cites a film or an upload (entry 13)
+- [ ] **The Figma UI kits are cited**, now that the wireframe is a submitted artefact

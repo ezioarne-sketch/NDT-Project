@@ -147,7 +147,8 @@ Trim to ~950 in editing. Do not go below 500.
 > **Material**
 > - Tarantism was bound up with poverty, gender and distress in rural Puglia. The *tarantate* were overwhelmingly women and overwhelmingly poor. It was not a costume.
 > - The app leads with three history chapters rather than treating the spider as decoration. Say whether that was enough.
-> - The position taken in chapter 3 — *"A festival is not a cure. Saying so plainly is the honest version of the tribute."* Defend it, or say where you would go further.
+> - **The position chapter 3 takes, and the one it stopped taking.** Until 15 August the chapter ended *"A festival is not a cure. Saying so plainly is the honest version of the tribute."* Your rewrite ends on the transformation from private suffering to public celebration instead. Both are defensible. **Whichever you keep, this section is where you argue for it** — and the fact that you moved between the two positions while writing is itself worth a sentence.
+> - **The images are a live example of the same judgement.** Three chapter images went in on 15 August; a fourth was rejected because it was All Rights Reserved and, more to the point, would have been decoration rather than evidence. Franco Pinna's photograph of the 1959 fieldwork was kept because chapter 3 is *about* what it documents — and it is credited on the screen, not only in the bibliography. That is a concrete decision about handling somebody else's culture and somebody else's work, made under a real constraint, which is exactly what this section asks for.
 > - What staging it in Melbourne means for the Italian-Australian community, and for an audience meeting pizzica for the first time.
 > - Acknowledge the real *Notte della Taranta* at Melpignano as the source.
 > - **The unresolved part is worth admitting.** A festival brand built on a healing ritual is extraction of a kind however carefully handled. Naming that is stronger than claiming to have solved it.

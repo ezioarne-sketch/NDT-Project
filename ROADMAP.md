@@ -1,6 +1,8 @@
 # Roadmap — Assessment Task 3
 
-> **Status, 13 August 2026.** The plan below was written when Task 2 had not started and was three quarters of the remaining work. **Tasks 1, 2 and 4 are now done** — the app is built, tested and exported. What remains is writing.
+> **Status, 15 August 2026.** The plan below was written when Task 2 had not started and was three quarters of the remaining work. **Tasks 1, 2 and 4 are done** — the app is built, tested and deployed. What remains is writing.
+>
+> **The three story chapters are written and in the app**, delivered 15 August, along with chapter artwork, a Figma wireframe export and re-rendered merch. That was the largest remaining piece of authored content and it clears the way for the concept plan and the rationale.
 >
 > **Due Monday 24 August 2026. Target submission Wednesday 19 August** — five clear days of buffer, which is the right way round.
 
@@ -12,30 +14,30 @@
 
 | Task | Remaining work | Status |
 |---|---|---|
-| 1 — Wireframe | — | ✅ Done (15 screens, Figma) |
+| 1 — Wireframe | — | ✅ Done (15 frames + prototype links; exported to `Assets/Wireframes/`) |
 | 2 — Final design | — | ✅ Done (21 screens + 3 overlays, built in code) |
 | 3 — Planning docs | **Two documents to write** | 🟡 Scaffold ready |
-| 4 — Prototype | — | ✅ Done (app runs; 78s video; test passes clean) |
+| 4 — Prototype | — | ✅ Done (app runs; 75s video; test passes clean) |
 | 5 — Rationale | **900 words to write** | 🟡 Scaffold + measured evidence ready |
 
 **The critical path is now writing, not designing.** Roughly 2,000 words across the concept plan and rationale, plus verifying the Harvard sources and completing the AI log's reflection sections.
 
 ### Schedule to 19 August
 
-Six days from today. Roughly 2,000 words plus the story rewrite — comfortable if the reading starts today, tight if it starts Saturday.
+Four days to the target. Roughly 2,000 words across two documents, plus the reading and the chapter corrections.
 
 | Day | Do this | Notes |
 |---|---|---|
-| **Thu 13 Aug** *(today)* | ~~Enable GitHub Pages~~ ✅ **done — live and verified**. Get the sources for the story chapters and read them. | The site is up at https://ezioarne-sketch.github.io/NDT-Project/ — 41 assets checked, click-through passes against the live URL. The reading is now the only thing gating the rest of the week. |
-| **Fri 14 Aug** | Rewrite the three story chapters against what was actually read. Resolve the four unsourced app claims. | The biggest integrity exposure in the project. Do it while fresh, not last. |
-| **Sat 15 Aug** | Verify every Harvard reference. Write the concept plan (Task 3). | References feed both documents; the concept plan's material feeds the rationale. |
-| **Sun 16 Aug** | Write the rationale (Task 5), ~950 words. | Needs everything above settled. |
-| **Mon 17 Aug** | Complete the AI log's `<add>` cells and Reflection. | The parts that carry the marks and cannot be delegated. |
+| **Thu 13 Aug** | ~~Enable GitHub Pages~~ ✅ **done — live and verified**. | 41 assets checked, click-through passes against the live URL. |
+| **Fri 14 Aug** | ~~Rewrite the three story chapters~~ ✅ **written and in the app, 15 Aug**. ~~Resolve the four unsourced app claims~~ ✅ **done 13 Aug**. | Also delivered: chapter artwork, the Figma wireframe (Task 1 artefact), re-rendered merch. |
+| **Sat 15 Aug** *(today)* | ✅ **Wireframe, artwork and prose integrated.** Now: **the reading**, and fix the four flagged claims in the chapters. Then verify every Harvard reference. | The chapters are written but three sentences overstate the Dionysian continuity claim and one calls a Christian rite pagan — see [08-Story-Claims-Audit.md](Docs/08-Story-Claims-Audit.md). **The reading is still the only thing gating the rest of the week**, and it has not started. |
+| **Sun 16 Aug** | Write the concept plan (Task 3), then the rationale (Task 5), ~950 words. | Two documents in one day is the tightest square on this board. If Saturday's reading runs long, move the concept plan to Monday and push the AI log to Tuesday morning. |
+| **Mon 17 Aug** | Complete the AI log's 24 `<add>` cells and the Reflection. | The parts that carry the marks and cannot be delegated. Entry 23 is the one with the most to say. |
 | **Tue 18 Aug** | Cover sheet, PDF export, final read-through. Re-run the click-through against the **live** URL: `NDT_BASE=https://ezioarne-sketch.github.io/NDT-Project/app/index.html node tools/clickthrough.mjs`, and open the link in a private window. | Leave a full day for this. Export always takes longer than it should. **Test the deployed copy, not the local one** — on 13 Aug they differed by a file that had never been committed. |
 | **Wed 19 Aug** | **Submit to Omnivox.** | |
 | Thu 20 – Mon 24 Aug | Buffer. | Five days. Use them for the read-through by someone who did not write it, not for writing. |
 
-**Two things must start today**, because both have someone else in the loop: Pages needs Lorenzo's repo admin, and the story chapters need sources in hand before a word can be written.
+**The reading is the only remaining dependency on anything outside this repo**, and it now gates less than it did — the chapters exist. What it gates is fixing them, and filling the `cite` arrays honestly: the screens currently say each chapter draws on **one** source, because that is all there is evidence of.
 
 ---
 
@@ -57,7 +59,7 @@ Nothing gets designed until the screen list is final. Redesigning a screen becau
 | Resolve the "Social" nav item — design it or drop it | All | Nav is identical on every screen |
 | Decide the typeface split (pixel display / sans body) | All | Decision recorded in [Docs/04-Rationale.md](Docs/04-Rationale.md) |
 | Split all 21 screens across the team | All | Every screen has one name against it |
-| Export the wireframe frames as PNG → `Assets/Wireframes/` | `<Name>` | **Task 1 deliverable exists as a file** |
+| ~~Export the wireframe frames as PNG → `Assets/Wireframes/`~~ ✅ **done 15 Aug** | Lorenzo | **Task 1 deliverable exists as a file** — `wireframe-flow.png`, editor chrome trimmed |
 
 > **Task 1 is already satisfied on substance** — 15 screens, above the ten-screen minimum, fully interconnected. What it lacks is an exported artefact and a record of who contributed. Both are cheap now and awkward later.
 

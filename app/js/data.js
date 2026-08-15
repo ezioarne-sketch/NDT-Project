@@ -38,39 +38,62 @@ const Data = {
 
   /* --- The three story screens ---------------------------------------------
      These carry the app's factual claims and are the most reference-exposed
-     content in the project. Body copy here is scaffold: it states what each
-     screen must cover. Lorenzo writes the final prose against read sources.
+     content in the project.
 
-     `cite` keys must correspond to entries in Docs/06-References.md. Do not
-     add a key for a work that has not been read — the screen renders the
-     count of sources, so an invented key becomes a visible false claim. */
+     BODY COPY IS LORENZO'S, delivered 15 August and transcribed verbatim from
+     Assets/Story/Story-Text-Lorenzo.docx. It replaces the scaffold that stood
+     here. Two things were changed and nothing else:
+
+       1. Each chapter arrived as one ~200-word paragraph. They are split into
+          three at his own sentence boundaries — a legibility decision for a
+          412px screen, not an edit. No word is moved between sentences.
+       2. Two grammatical slips in chapter 2 are repaired ("Filling themselves
+          with" -> "Filled with"; "could be only cured" -> "could only be
+          cured"). Both are listed in Docs/08-Story-Claims-Audit.md so he can
+          revert either.
+
+     Do not tidy this prose further. It is the assessed writing and the marks
+     attach to it being his.
+
+     `cite` keys must correspond to entries in Docs/06-References.md, and only
+     to works actually READ — the screen renders the count, so a key for an
+     unread book is a visible false claim. `citePlanned` holds the reading list
+     that has not been done yet; it renders nowhere on purpose. Move keys from
+     `citePlanned` to `cite` as the reading gets done, not before. */
   stories: [
     {
       id: 'dionysian',
       n: '01',
       title: 'The Dionysian Cult',
       standfirst: 'Ecstatic rite in the ancient Mediterranean.',
-      readTime: '4 min',
-      cite: ['dodds-1951', 'burkert-1985'],
-      status: 'DRAFT — needs Lorenzo\'s prose against read sources',
+      image: 'story-dionysian',
+      credit: 'Dionysus riding a panther — ancient Greek pebble mosaic. Public domain.',
+      cite: ['lataranta-film'],
+      citePlanned: ['dodds-1951', 'burkert-1985'],
+      status: 'Lorenzo\'s prose. Standfirst is still scaffold; cite keys await the reading.',
       body: [
-        'The rites of Dionysus gave the ancient Mediterranean a licensed space for ecstasy — a controlled loss of control, held inside ritual rather than outside it.',
-        'Participants danced to exhaustion. The state they reached had a name and a place in the social order; it was not treated as an illness but as a visit.',
-        'What matters for this festival is the structure, not the spectacle: a community, a circle, music that does not stop, and a person at the centre who is permitted to come apart.',
+        'Notwithstanding its subsequent transformation into one of Italy\'s most prestigious folk music festivals, the mesmerizing rhythms of the Notte della Taranta (Night of the Tarantula) echo the mystical rituals of the ancient culture of Magna Graecia. The event is dedicated to the Pizzica, a high-paced traditional Apulian dance based on the folklore of "Tarantism" — an ancient belief that the venomous bite of a particular local tarantula could be cured exclusively by frenzied dancing to a specific beat until the poison sweats off.',
+        'However, it is believed that the roots of this ritual stretch far back into antiquity when the Cult of Dionysus existed. Dionysus (otherwise called Bacchus) is a Greek god of wine, religious ecstasy, and madness. His worshippers, primarily women, would participate in the frantic dances to the beat of the drums and tambourines, trying to enter a cathartic trance state.',
+        'Nowadays, the clear traces of Dionysian rites can still be found in the Notte della Taranta. When the rhythm of the tamburello (frame drum) takes hold of the crowd, dancers go into a frenzy, recreating the ecstasy of Dionysian followers and turning the pagan rite of exorcising from a spider bite into a modern celebration of life and freedom.',
       ],
     },
     {
       id: 'menades',
       n: '02',
-      title: 'Menades and Tarantate',
+      /* "Maenads", not "Menades". The open naming decision is settled by his own
+         draft, which uses "Maenads" throughout the body and "Maenades" only in
+         the heading. The route id stays `menades` so links and fixtures hold. */
+      title: 'Maenads and Tarantate',
       standfirst: 'The maenads and their Apulian descendants.',
-      readTime: '5 min',
-      cite: ['demartino-2005', 'ludtke-2009'],
-      status: 'DRAFT — needs Lorenzo\'s prose against read sources',
+      image: 'story-menades',
+      credit: 'Maenad dancing with cymbals — line engraving. Public domain.',
+      cite: ['lataranta-film'],
+      citePlanned: ['demartino-2005', 'ludtke-2009'],
+      status: 'Lorenzo\'s prose. Standfirst is still scaffold; cite keys await the reading.',
       body: [
-        'In the Salento the rite reappears under another name. A woman bitten — really or symbolically — by the taranta falls into a state that only music can lift.',
-        'Musicians are called to the house. They play until the right rhythm is found, and then they keep playing, sometimes for days, while she dances.',
-        'The tarantate were almost always women, and almost always poor. Reading the bite as purely medical misses what the ritual actually carried: grief, labour, confinement, and the absence of any other permitted outlet.',
+        'The beating heart of the Notte della Taranta lies in a centuries-old heritage of female catharsis, connecting the mythical Maenads of ancient Greece with the Tarantate of Apulia. In the ancient cult of Dionysus, the Maenads (also called Bacchantes) were the followers of the god of wine who, being possessed, abandoned all societal norms to dance furiously in the wilderness.',
+        'Centuries later, this exact ecstatic archetype was reborn in the folklore of Southern Italy in the Tarantate — local women who suffered from the venomous bite of a tarantula spider. Filled with deep lethargy, hysteria, or melancholy, these women could only be cured by the hypnotic beat of the tamburello (tambourine). Like the Maenads, the Tarantate fell into a deep trance, dancing for hours or even days non-stop to sweat out the venom.',
+        'Both phenomena were seen by anthropologists and historians as culturally approved ways of catharsis of women living in oppressive, patriarchal society. Through the masks of divine possession or a venomous spider bite, they could transgress all the rules, freely express themselves, and free themselves through music. Today, as the dancers of Notte della Taranta are spinning with their skirts flying and bare feet, they inherit the untamed spirit of the Maenads and Tarantate.',
       ],
     },
     {
@@ -80,13 +103,15 @@ const Data = {
          stays `dimartino` so links and test fixtures keep working. */
       title: 'De Martino and the Modern Age',
       standfirst: 'The 1959 fieldwork, and what came after.',
-      readTime: '5 min',
-      cite: ['demartino-2005', 'ludtke-2009'],
-      status: 'DRAFT — needs Lorenzo\'s prose against read sources',
+      image: 'story-dimartino',
+      credit: 'Tarantism in the Salento — photograph by Franco Pinna, Archivio Accademia Nazionale di Santa Cecilia. Reproduced for study.',
+      cite: ['lataranta-film'],
+      citePlanned: ['demartino-2005', 'ludtke-2009'],
+      status: 'Lorenzo\'s prose. Standfirst is still scaffold; cite keys await the reading.',
       body: [
-        'In June 1959 the ethnographer Ernesto de Martino took a team into the Salento to document tarantism while it was still practised. The resulting study framed it as a cultural institution rather than a curiosity.',
-        'The ritual as he found it has largely gone. What replaced it is a revival — festivals, recordings, staged pizzica — which keeps the music alive while detaching it from the crisis it once answered.',
-        'This app sits inside that contradiction rather than pretending it away. A festival is not a cure. Saying so plainly is the honest version of the tribute.',
+        'The very existence of the modern phenomenon of the Notte della Taranta is owed to the revolutionary fieldwork done by Italian anthropologist Ernesto De Martino. In 1959, De Martino organized an interdisciplinary expedition to the Salento area to research the disappearing phenomenon of tarantism, which resulted in his landmark book, "La Terra del Rimorso" ("The Land of Remorse") published in 1961.',
+        'Instead of seeing the spider-bite "disease" as hysterics or superstitions, he saw it as an institution of culture, which was allowing marginalized people — the poor peasant women suffering from severe social and economic oppression — to cathartically release their suppressed sorrow and alienation. By treating the dancers not as patients, but as the subjects of their history, De Martino elevated tarantism from the folklore phenomenon to a symbol of cultural resistance.',
+        'His profound study laid a foundation for the future "neo-tarantism" movement, decades later. Notte della Taranta was created in 1998 and used the legacy of De Martino, transforming the desperate private ritual of suffering into the public celebration of culture and history of Salento.',
       ],
     },
   ],
@@ -319,5 +344,21 @@ Data.transport = [
     access: 'Accessible parking is 80m from Gate 3 on a sealed step-free path. Book with your ticket; a valid permit must be displayed.',
   },
 ];
+
+/* Read time is derived, never typed.
+
+   It used to be a hand-written field, and when the scaffold body copy was
+   replaced with Lorenzo's the screens went on claiming "4 min read" over about
+   200 words. That is a small lie, but it is the same species as the tram
+   accessibility error: a plausible number nobody re-checked after the thing it
+   described had changed. Deriving it means it cannot go stale again.
+
+   200 words per minute is the conventional figure for screen reading, rounded
+   up so a chapter never advertises "0 min". */
+Data.stories.forEach(s => {
+  const words = s.body.join(' ').split(/\s+/).filter(Boolean).length;
+  s.words = words;
+  s.readTime = `${Math.max(1, Math.round(words / 200))} min`;
+});
 
 window.Data = Data;

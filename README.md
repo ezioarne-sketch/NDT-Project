@@ -34,10 +34,10 @@ python -m http.server 8765     # then open http://127.0.0.1:8765/app/
 
 The festival itself is invented. The cultural history behind it is not: tarantism, the *tarantate*, and the ethnographic work that documented them are real subjects and **must be Harvard-referenced** wherever the app's content screens draw on them. See [Docs/06-References.md](Docs/06-References.md).
 
-The app's narrative spine runs through three content screens tracing that history:
+The app's narrative spine runs through three content screens tracing that history. **The prose on all three is Lorenzo's**, delivered 15 August 2026 — the source of truth is [Assets/Story/Story-Text-Lorenzo.docx](Assets/Story/Story-Text-Lorenzo.docx), and the claim-by-claim audit of it is [Docs/08-Story-Claims-Audit.md](Docs/08-Story-Claims-Audit.md):
 
 1. **The Dionysian Cult** — ecstatic rite in the ancient Mediterranean
-2. **Menades and Tarantate** — the maenads and their Apulian descendants
+2. **Maenads and Tarantate** — the maenads and their Apulian descendants
 3. **De Martino and the Modern Age** — Ernesto de Martino's mid-century ethnography and the tradition's revival
 
 ---
@@ -46,10 +46,10 @@ The app's narrative spine runs through three content screens tracing that histor
 
 | # | Task | Requirement | Status |
 |---|---|---|---|
-| 1 | **Wireframe diagram** | ≥10 screens, every member contributing | ✅ **Done** — 15 screens, interconnected (Figma) |
+| 1 | **Wireframe diagram** | ≥10 screens, every member contributing | ✅ **Done** — 15 frames with prototype links, exported to [Assets/Wireframes/](Assets/Wireframes/) |
 | 2 | **Final app design** | ≥10 screens with full design assets; overlays, animation, carousels | ✅ **Done** — 21 screens + 3 overlays, built and exported to [Assets/Screens/](Assets/Screens/) |
 | 3 | **Planning documentation** | Inclusions list, event concept plan, support material (PDF) | 🟡 Scaffold ready — [01-Concept-Plan.md](Docs/01-Concept-Plan.md) needs writing |
-| 4 | **Working prototype** | Live links and actions — scroll, tap, swipe; prototype and/or video | ✅ **Done** — app runs; [78s walkthrough video](Assets/Walkthrough/); no dead ends, verified by test |
+| 4 | **Working prototype** | Live links and actions — scroll, tap, swipe; prototype and/or video | ✅ **Done** — app runs; [75s walkthrough video](Assets/Walkthrough/); no dead ends, verified by test |
 | 5 | **Written rationale** | Min 500 words: member roles, features, accessibility, languages, ages, social/cultural demands, special needs | 🟡 Scaffold + measured evidence ready — [04-Rationale.md](Docs/04-Rationale.md) needs writing |
 
 **Also mandatory**
@@ -106,7 +106,9 @@ Checked against WCAG 2.1. These figures are quotable in the Task 5 rationale.
 | [Assets/Logo/Logo.png](Assets/Logo/) | White wordmark on transparent, 596×842 |
 | [Assets/Icons/](Assets/Icons/) | Pixel-art nav icons, 2134×2134, plus `Icon.ai` source |
 | [Assets/Pages Bsckground/](Assets/Pages%20Bsckground/) | Section backgrounds, 360×800 |
-| [Assets/Merch/](Assets/Merch/) | Five product renders, 6500×4000 |
+| [Assets/Merch/](Assets/Merch/) | Five product renders, 6500×4000. Re-rendered 15 Aug 2026 |
+| [Assets/Wireframes/](Assets/Wireframes/) | Figma canvas export — `wireframe-flow.png` is the trimmed Task 1 artefact |
+| [Assets/Story/](Assets/Story/) | Chapter prose and eight candidate images. **Only three are built into the app** — see [Docs/06-References.md](Docs/06-References.md) §5a for why |
 | [Assets/Assessment_Task_3_LABG204_20262.pdf](Assets/) | The assignment brief, 12pp |
 | [Assets/Prototype Like.txt](Assets/) | Figma URLs |
 
@@ -150,7 +152,7 @@ Everything below is reproducible; the deliverables are build outputs, not manual
 | `python tools/capture.py --sheet` | Drives Chrome through all 21 routes → [Assets/Screens/](Assets/Screens/) at 412×917 @2x — **the Task 2 deliverable** |
 | `python tools/contrast.py` | Regenerates [Docs/07-Contrast-Report.md](Docs/07-Contrast-Report.md) from the live palette |
 | `node tools/clickthrough.mjs` | **The Task 4 evidence.** Renders every screen, resolves every link, walks the graph for orphans, opens and Escapes every overlay, measures every target against 44px |
-| `node tools/walkthrough.mjs` + `python tools/encode-video.py` | Records the 78s walkthrough video |
+| `node tools/walkthrough.mjs` + `python tools/encode-video.py` | Records the 75s walkthrough video |
 
 Scripts need a local server running: `python -m http.server 8765`.
 
@@ -204,6 +206,8 @@ Retained as the Task 1 deliverable. File `f3PA95klt9cu4tpNdiOkGK` — "Notte Del
 └── Assets/
     ├── Screens/                  ← generated; the Task 2 deliverable
     ├── Walkthrough/              ← generated; the Task 4 video
+    ├── Wireframes/               ← the Task 1 deliverable (Figma export)
+    ├── Story/                    ← chapter prose (.docx) + candidate artwork
     ├── Icons/  Logo/  Merch/  Pages Bsckground/
     └── Assessment_Task_3_LABG204_20262.pdf
 ```
@@ -229,14 +233,14 @@ Ordered by how much it could cost.
 ### 1. The written documents — this is now the critical path
 Tasks 3 and 5 are scaffolds with prompts, not prose. [01-Concept-Plan.md](Docs/01-Concept-Plan.md) and [04-Rationale.md](Docs/04-Rationale.md) both need writing, and the rationale has a 900-word budget against the brief's 500-word minimum. The evidence they need already exists — measured contrast figures, a screen inventory, a test report — but the argument has to be written.
 
-### 2. The story-chapter prose is scaffold, not final
-The three chapters in [data.js](app/js/data.js) currently state *what each chapter must cover* rather than being finished writing. They carry the app's factual claims about tarantism and are the most reference-exposed content in the project. **They must be rewritten against sources actually read**, and every claim Harvard-cited. Citing a work you have not read is an integrity problem, not a shortcut.
+### 2. The story chapters are written, and four claims in them need fixing
+The three chapters in [data.js](app/js/data.js) now carry Lorenzo's prose. What remains is targeted, not wholesale: three sentences overstate the Dionysian continuity claim ("clear traces", "this exact archetype", "reborn"), and one describes the tarantism exorcism as a "pagan rite" when it was addressed to St Paul — which contradicts the source chapter 3 is built on. Each chapter also cites exactly **one** source, because that is all there is evidence of. See [08-Story-Claims-Audit.md](Docs/08-Story-Claims-Audit.md). Citing a work you have not read is an integrity problem, not a shortcut — which is why the unread books sit in `citePlanned` and render nowhere.
 
 ### 3. Harvard references are still leads, not citations
 [06-References.md](Docs/06-References.md) lists starting points. Each one needs to be found, read, and its publication details verified against the copy in hand. The AI tools, open-source typefaces and libraries listed in [05-AI-Use-Log.md](Docs/05-AI-Use-Log.md) all need entries too.
 
-### 4. Pages is not enabled
-The prototype is pushed but the site is not live until the repository owner enables Pages — see [Deploying](#deploying). Confirm the link opens in a private browser window before submitting it.
+### 4. Image attribution
+Three third-party images entered the app on 15 August — the first the project has had. Two are public domain but **arrived with no provenance** and need tracing to a source; the third is Franco Pinna's in-copyright photograph of the 1959 fieldwork, credited on screen and reproduced for study. See [06-References.md](Docs/06-References.md) §5a. The brief asks for Harvard referencing on image sources by name.
 
 ### 5. Content is a first draft
 The lineup, set times, prices and ticket types are plausible placeholders, isolated in [data.js](app/js/data.js) so revising them is editing a list rather than rebuilding screens. The held ticket carries a real name on a public repository — change it if that is unwanted.
@@ -244,7 +248,8 @@ The lineup, set times, prices and ticket types are plausible placeholders, isola
 ### 6. Housekeeping
 - `Assets/Pages Bsckground/` is misspelled (should be *Backgrounds*). Left as-is — Figma and other submissions may reference the path.
 - The Figma file is named "Notte Della Taranta" but its URLs still read `Untitled`.
-- The Figma wireframe frames are still on defaults (`Android Compact - 1` …). Only worth renaming if the wireframe is submitted as a Task 1 artefact in its own right.
+- The Figma wireframe frames are still on defaults (`Android Compact - 1` …), and **the wireframe is now being submitted as a Task 1 artefact**, so the frame names are visible in it. Renaming them to the scheme in [02-Screen-Spec.md](Docs/02-Screen-Spec.md) and re-exporting is about ten minutes.
+- The wireframe still shows chapter 3 as "Di Martino" and chapter 2 as "Menades" — both corrected in the app since. A marker comparing wireframe to app will see the difference; that is fine, and saying it was a deliberate correction is better than hoping nobody notices.
 
 ---
 

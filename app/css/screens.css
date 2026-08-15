@@ -115,25 +115,62 @@
 
 .carousel-wrap { margin-bottom: var(--s-2); }
 .story-card { width: 232px; }
+/* Chapter artwork.
+
+   These panels were flat gradients with a chapter number on them until the
+   artwork arrived on 15 August. Each chapter now carries one image, tinted
+   back towards its original gradient so the three screens still read as a set
+   and the brand palette survives contact with a 4th-century BC mosaic.
+
+   The tint is an alpha gradient over the photograph rather than a blend mode:
+   blend modes on top of arbitrary artwork are unpredictable, and this has to
+   hold legible contrast for the chapter number over three very different
+   images. Same reason the number moved off centre — see .story-n below. */
 .story-media {
   aspect-ratio: 3 / 2;
-  display: grid; place-items: center;
   position: relative; overflow: hidden;
 }
-.story-media::after {
-  content: ''; position: absolute; inset: 0;
-  background: url('../assets/img/bg-home.webp') center/cover;
-  opacity: 0.42; mix-blend-mode: screen;
+/* `.card-media .media` in components.css sets a `background` SHORTHAND, which
+   resets background-image to none, and at 0,2,0 it outranks a bare
+   `.story-media`. That silently blanked every carousel tile the first time
+   this was wired up. The third selector exists to win that fight; the custom
+   properties below are unaffected either way, since a shorthand does not reset
+   custom properties. */
+.story-media, .story-hero, .card-media .media.story-media {
+  background-color: var(--ground);
+  background-image:
+    linear-gradient(140deg, var(--story-tint-a) 0%, var(--story-tint-b) 130%),
+    var(--story-art);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+/* Scrim under the chapter number, so it stays readable whatever the artwork
+   does in that corner. */
+.story-media::after, .story-hero::after {
+  content: ''; position: absolute; inset: auto 0 0 0; height: 62%;
+  background: linear-gradient(to top, rgba(4,6,6,0.86) 0%, rgba(4,6,6,0) 100%);
+  pointer-events: none;
+}
+/* Bottom-left, not centred. A 46px numeral in the middle of the panel sat
+   squarely on the figure in all three images — on Pinna's photograph it landed
+   on the tarantata. */
 .story-n {
   font-family: var(--font-display); font-weight: 700;
-  font-size: 46px; color: rgba(255,255,255,0.9);
-  position: relative; z-index: 1;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.7);
+  font-size: 46px; color: rgba(255,255,255,0.92);
+  position: absolute; left: var(--s-3); bottom: 2px; z-index: 1;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.9);
 }
-.story-media-dionysian { background: linear-gradient(140deg, #461E3C 0%, #1B7A4A 130%); }
-.story-media-menades   { background: linear-gradient(140deg, #4D2646 0%, #0E4F30 130%); }
-.story-media-dimartino { background: linear-gradient(140deg, #2A1730 0%, #1B7A4A 150%); }
+
+.story-media-dionysian { --story-tint-a: rgba(70,30,60,0.46);  --story-tint-b: rgba(27,122,74,0.46); --story-art: url('../assets/img/story-dionysian-tile.webp'); }
+.story-media-menades   { --story-tint-a: rgba(77,38,70,0.46);  --story-tint-b: rgba(14,79,48,0.46);  --story-art: url('../assets/img/story-menades-tile.webp'); }
+.story-media-dimartino { --story-tint-a: rgba(42,23,48,0.46);  --story-tint-b: rgba(27,122,74,0.46); --story-art: url('../assets/img/story-dimartino-tile.webp'); }
+
+/* The hero is twice the width of the carousel tile, so it gets the 800px build
+   rather than upscaling the 480px one. */
+.story-hero.story-media-dionysian { --story-art: url('../assets/img/story-dionysian.webp'); }
+.story-hero.story-media-menades   { --story-art: url('../assets/img/story-menades.webp'); }
+.story-hero.story-media-dimartino { --story-art: url('../assets/img/story-dimartino.webp'); }
 
 .nextup-time {
   font-family: var(--font-display); font-weight: 700;
@@ -151,23 +188,28 @@
    03-05 · Story chapters
    ========================================================================== */
 
+/* The figure carries the page margin so the credit line sits flush under the
+   image rather than at the screen gutter. */
+.story-hero-fig { margin: 0 var(--gutter) var(--s-5); }
 .story-hero {
-  height: 176px; margin: 0 var(--gutter) var(--s-5);
+  height: 176px;
   border-radius: var(--r-md);
-  display: grid; place-items: center;
   position: relative; overflow: hidden;
   border: 1px solid var(--line);
-}
-.story-hero::after {
-  content: ''; position: absolute; inset: 0;
-  background: url('../assets/img/bg-home.webp') center/cover;
-  opacity: 0.4; mix-blend-mode: screen;
 }
 .story-hero-n {
   font-family: var(--font-display); font-weight: 700;
   font-size: 76px; color: rgba(255,255,255,0.92);
-  position: relative; z-index: 1;
-  text-shadow: 0 3px 22px rgba(0,0,0,0.7);
+  position: absolute; left: var(--s-4); bottom: -6px; z-index: 1;
+  text-shadow: 0 3px 22px rgba(0,0,0,0.9);
+}
+/* Picture credits belong on the screen, not only in the bibliography. One of
+   the three images is in copyright and reproduced for study; a credit a reader
+   never sees is not an acknowledgement. */
+.story-credit {
+  margin-top: var(--s-2);
+  font-size: var(--size-micro); line-height: var(--leading-snug);
+  color: var(--text-muted);
 }
 
 .standfirst {

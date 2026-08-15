@@ -255,9 +255,12 @@ App.register({
       ${UI.appbar(s.title, { back: true, sub: `Chapter ${s.n} of 03 · ${s.readTime} read` })}
       <div class="scroll has-nav" id="main">
 
-        <div class="story-hero story-media-${s.id}">
-          <span class="story-hero-n" aria-hidden="true">${s.n}</span>
-        </div>
+        <figure class="story-hero-fig">
+          <div class="story-hero story-media-${s.id}" role="img" aria-label="${s.credit}">
+            <span class="story-hero-n" aria-hidden="true">${s.n}</span>
+          </div>
+          <figcaption class="story-credit">${s.credit}</figcaption>
+        </figure>
 
         <div class="pad">
           <p class="standfirst">${s.standfirst}</p>

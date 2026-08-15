@@ -10,7 +10,7 @@ Run from the repo root:  python tools/build-assets.py
 """
 
 import os
-from PIL import Image
+from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "Assets")
@@ -42,6 +42,43 @@ ICONS = {
     "Icon-04": "shop",
     "Icon-05": "back",
 }
+
+# Story chapter artwork: (chapter id, source file, invert?).
+#
+# ONE image per chapter, and the choice is a licensing decision as much as a
+# design one. Lorenzo supplied eight candidates; three are used.
+#
+#   dionysian  Pella pebble mosaic, 4th c. BC. Ancient work — public domain.
+#   menades    19th-century line engraving — public domain. Inverted, because
+#              the source is black line on white and the app ground is near-
+#              black; white line over the gradient is the same drawing.
+#   dimartino  Franco Pinna's photograph of the 1959 fieldwork, held by the
+#              Accademia Nazionale di Santa Cecilia. IN COPYRIGHT (Pinna d.
+#              1978). Used as academic criticism/review with acknowledgement,
+#              and credited on the screen itself — not just in the docs.
+#
+# Deliberately NOT used: Assets/Story/menades/flickr-5946384625-*.jpg, which is
+# "Puglia - La Pizzica Tarantata" by Alessandro Morandi (2011), published All
+# Rights Reserved. It is a fine photograph, but it would have been decoration
+# rather than something the chapter discusses, it shows identifiable living
+# people, and a public GitHub Pages site is not private study. A public-domain
+# engraving carries the same idea at none of the risk. See Docs/06-References.md.
+STORY = [
+    ("dionysian", "dionysian/pella-mosaic-dionysus-panther.webp", False),
+    ("menades", "menades/engraving-maenad-with-cymbals.webp", True),
+    ("dimartino", "dimartino/pinna-tarantism-musicians-santacecilia.jpg", False),
+]
+
+# Hero banner is 372x176 CSS px. The carousel tile is 232px wide at 16:9 —
+# `.card-media .media` outranks `.story-media`'s 3/2 on specificity, so 16:9 is
+# what actually renders. Both built at roughly 2x for high-DPI phones.
+STORY_HERO = (800, 380)
+STORY_TILE = (480, 270)
+
+# The Figma canvas screenshot arrives with the whole editor around it — panels,
+# toolbar, tooltips. Those crop bounds isolate the frames and their prototype
+# connections, which is the part Task 1 is evidence for.
+WIREFRAME_CROP = (596, 35, 1303, 1183)
 
 
 def ensure(*parts):
@@ -131,6 +168,83 @@ def build_merch():
         report(dst)
 
 
+def _fit_on_backdrop(im, size):
+    """
+    Fit artwork inside a banner without cropping it, and fill the leftover
+    width with a blurred, darkened copy of itself.
+
+    Cropping is the usual answer and it is the wrong one here. These are
+    artworks and documentary photographs: a centre crop to 2:1 cuts the
+    panther's legs off the Pella mosaic and takes the violinist out of Pinna's
+    photograph, which is the whole subject of the chapter. Fitting keeps every
+    image whole, and the blurred backdrop stops the letterboxing from reading
+    as a mistake.
+    """
+    tw, th = size
+
+    # Backdrop: cover the frame, blur hard, drop the exposure so the artwork
+    # in front stays the brightest thing in the banner.
+    scale = max(tw / im.width, th / im.height)
+    back = im.resize((max(1, int(im.width * scale)), max(1, int(im.height * scale))), Image.LANCZOS)
+    left = (back.width - tw) // 2
+    top = (back.height - th) // 2
+    back = back.crop((left, top, left + tw, top + th))
+    back = back.filter(ImageFilter.GaussianBlur(26))
+    back = ImageEnhance.Brightness(back).enhance(0.38)
+
+    canvas = Image.new("RGB", size, GROUND)
+    canvas.paste(back, (0, 0))
+
+    # Foreground: contain, centred.
+    fore = im.copy()
+    fore.thumbnail(size, Image.LANCZOS)
+    canvas.paste(fore, ((tw - fore.width) // 2, (th - fore.height) // 2))
+    return canvas
+
+
+def build_story():
+    """
+    Chapter artwork for the three story screens.
+
+    Until now the story heroes were bare CSS gradients with a big chapter
+    number on them. That was honest scaffolding — better an obvious placeholder
+    than a stock photo — but the chapters are the reference-exposed heart of the
+    project and they were the only screens carrying no evidence of the thing
+    they describe.
+    """
+    print("Story artwork (WebP: 800px hero + 480px tile, fitted not cropped)")
+    out = ensure(OUT, "img")
+    for slug, rel, invert in STORY:
+        im = Image.open(os.path.join(SRC, "Story", rel)).convert("RGB")
+        if invert:
+            im = ImageOps.invert(im)
+
+        for size, suffix in ((STORY_HERO, ""), (STORY_TILE, "-tile")):
+            dst = os.path.join(out, f"story-{slug}{suffix}.webp")
+            _fit_on_backdrop(im, size).save(dst, "WEBP", quality=86, method=6)
+            report(dst, f"from {im.width}x{im.height}{' (inverted)' if invert else ''}")
+
+
+def build_wireframe():
+    """
+    Trim the Figma editor UI off the canvas screenshot so Task 1 has a clean
+    artefact for the PDF.
+
+    This writes back into /Assets rather than /app — it is documentation, not
+    something the app serves.
+    """
+    src = os.path.join(SRC, "Wireframes", "figma-canvas-full.png")
+    if not os.path.exists(src):
+        print("Wireframe (skipped — no figma-canvas-full.png)")
+        return
+    print("Wireframe (editor chrome trimmed)")
+    out = ensure(SRC, "Wireframes")
+    im = Image.open(src).convert("RGB").crop(WIREFRAME_CROP)
+    dst = os.path.join(out, "wireframe-flow.png")
+    im.save(dst, "PNG", optimize=True)
+    report(dst, f"{im.width}x{im.height} — frames and prototype links only")
+
+
 def build_qr():
     """
     A real, scannable QR for the digital ticket screen, encoding the ticket
@@ -161,6 +275,8 @@ def main():
     build_logo()
     build_backgrounds()
     build_merch()
+    build_story()
+    build_wireframe()
     build_qr()
     total = sum(
         os.path.getsize(os.path.join(dp, f))
