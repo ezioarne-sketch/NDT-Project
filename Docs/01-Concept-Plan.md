@@ -185,7 +185,7 @@ Everything submitted alongside this document. All generated items are reproducib
 |---|---|---|
 | **21 final screens**, 412×917 @2x | [../Assets/Screens/](../Assets/Screens/) | Task 2 deliverable |
 | Contact sheet, all 21 on one page | `../Assets/Screens/_contact-sheet.png` | Task 2 overview |
-| **Walkthrough video**, 75s | [../Assets/Walkthrough/](../Assets/Walkthrough/) | Task 4 deliverable |
+| **Walkthrough video**, 74s | [../Assets/Walkthrough/](../Assets/Walkthrough/) | Task 4 deliverable |
 | Live prototype | `https://ezioarne-sketch.github.io/NDT-Project/` | Task 4 deliverable |
 | Contrast report, 14 measured pairs | [07-Contrast-Report.md](07-Contrast-Report.md) | Evidence for Task 5 accessibility |
 | Screen specification | [02-Screen-Spec.md](02-Screen-Spec.md) | Screen inventory and intent |

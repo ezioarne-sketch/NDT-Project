@@ -23,17 +23,25 @@ const Tracks = Data.artists.flatMap((a, ai) =>
 
 const mmss = s => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 
-/* Artwork stands in for photography we do not have and would have to licence.
-   Each artist gets a deterministic gradient from the campaign palette plus
-   their initials in the display face. */
+/* Cover art, one per artist, built by tools/build-assets.py.
+
+   These were flat CSS gradients with the artist's initials on them until 15
+   August. The lineup is invented, so there is no real release to reproduce and
+   nothing to licence — which is exactly why the covers are DRAWN rather than
+   sourced. Each carries a motif of what that artist actually plays: the ronda
+   is a circle, the tamburello has jingles in its rim, the electronic set is a
+   spectrum.
+
+   The initials stay as live text over the artwork rather than being baked into
+   the image: they scale with the user's text-size setting, and they are the
+   fallback if a cover ever fails to load. */
 function artwork(artistId, cls = '') {
   const a = Data.artists.find(x => x.id === artistId) || Data.artists[0];
-  const i = Data.artists.indexOf(a);
   const initials = a.name.split(' ').filter(w => /^[A-Z]/.test(w)).slice(0, 2)
     .map(w => w[0]).join('');
   return `
-    <div class="art art-${i % 6} ${cls}" aria-hidden="true">
-      <span class="art-initials">${initials}</span>
+    <div class="art art-${a.id} ${cls}" role="img" aria-label="${a.name} — cover art">
+      <span class="art-initials" aria-hidden="true">${initials}</span>
     </div>`;
 }
 
@@ -216,12 +224,6 @@ App.register({
             <button class="chip" data-go="library">Queue</button>
             <button class="chip" data-toast="Lyrics are not available for this track">Lyrics</button>
           </div>
-          <div class="callout" style="margin:var(--s-6) var(--gutter) 0">
-            <p class="t-label">Prototype note</p>
-            <p class="t-small" style="margin-top:6px">The transport, scrubber and queue all work.
-            No audio plays — every track here is by an invented artist, so there is nothing to
-            licence and nothing to stream.</p>
-          </div>
         </div>
       </div>`;
   },
@@ -247,9 +249,14 @@ App.register({
               <button class="t-label t-mint" data-go="artist/${a.id}" style="letter-spacing:.1em">Profile →</button>
             </div>
             <div class="pad stack">
+              ${/* Cover on every row. The library is the one screen that is a list of
+                    SONGS rather than a list of artists, and without artwork it read as
+                    a timetable. The artist profile deliberately does not repeat it —
+                    there the hero cover is directly above the same three tracks. */''}
               ${Tracks.filter(t => t.artistId === a.id).map((tr, i) => `
                 <button class="listrow" data-track="${tr.id}">
                   <span class="num">${String(i + 1).padStart(2, '0')}</span>
+                  ${artwork(a.id, 'art-sm')}
                   <span class="grow"><span class="t-white">${UI.esc(tr.name)}</span></span>
                   <span class="t-small">${mmss(tr.secs)}</span>
                 </button>`).join('')}

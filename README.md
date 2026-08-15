@@ -49,7 +49,7 @@ The app's narrative spine runs through three content screens tracing that histor
 | 1 | **Wireframe diagram** | ≥10 screens, every member contributing | ✅ **Done** — 15 frames with prototype links, exported to [Assets/Wireframes/](Assets/Wireframes/) |
 | 2 | **Final app design** | ≥10 screens with full design assets; overlays, animation, carousels | ✅ **Done** — 21 screens + 3 overlays, built and exported to [Assets/Screens/](Assets/Screens/) |
 | 3 | **Planning documentation** | Inclusions list, event concept plan, support material (PDF) | 🟡 Scaffold ready — [01-Concept-Plan.md](Docs/01-Concept-Plan.md) needs writing |
-| 4 | **Working prototype** | Live links and actions — scroll, tap, swipe; prototype and/or video | ✅ **Done** — app runs; [75s walkthrough video](Assets/Walkthrough/); no dead ends, verified by test |
+| 4 | **Working prototype** | Live links and actions — scroll, tap, swipe; prototype and/or video | ✅ **Done** — app runs; [74s walkthrough video](Assets/Walkthrough/); no dead ends, verified by test |
 | 5 | **Written rationale** | Min 500 words: member roles, features, accessibility, languages, ages, social/cultural demands, special needs | 🟡 Scaffold + measured evidence ready — [04-Rationale.md](Docs/04-Rationale.md) needs writing |
 
 **Also mandatory**
@@ -152,7 +152,7 @@ Everything below is reproducible; the deliverables are build outputs, not manual
 | `python tools/capture.py --sheet` | Drives Chrome through all 21 routes → [Assets/Screens/](Assets/Screens/) at 412×917 @2x — **the Task 2 deliverable** |
 | `python tools/contrast.py` | Regenerates [Docs/07-Contrast-Report.md](Docs/07-Contrast-Report.md) from the live palette |
 | `node tools/clickthrough.mjs` | **The Task 4 evidence.** Renders every screen, resolves every link, walks the graph for orphans, opens and Escapes every overlay, measures every target against 44px |
-| `node tools/walkthrough.mjs` + `python tools/encode-video.py` | Records the 75s walkthrough video |
+| `node tools/walkthrough.mjs` + `python tools/encode-video.py` | Records the 74s walkthrough video |
 
 Scripts need a local server running: `python -m http.server 8765`.
 

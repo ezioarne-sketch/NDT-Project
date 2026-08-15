@@ -10,7 +10,7 @@ Run from the repo root:  python tools/build-assets.py
 """
 
 import os
-from PIL import Image, ImageFilter, ImageEnhance, ImageOps
+from PIL import Image, ImageDraw, ImageFilter, ImageEnhance, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "Assets")
@@ -79,6 +79,26 @@ STORY_TILE = (480, 270)
 # toolbar, tooltips. Those crop bounds isolate the frames and their prototype
 # connections, which is the part Task 1 is evidence for.
 WIREFRAME_CROP = (596, 35, 1303, 1183)
+
+# Cover art: (artist id, gradient pair, motif).
+#
+# The lineup is invented — deliberately, to remove the copyright exposure the
+# Figma kit's real artists carried — so there are no real covers to license and
+# none to steal. These are drawn instead: one motif per artist, taken from what
+# that artist actually plays, in the campaign palette.
+#
+# The gradient pairs are the same six that were previously CSS-only, kept in the
+# same order, so the palette does not shift underneath the rest of the app.
+COVERS = [
+    ("canzoniere", ("#461E3C", "#1B7A4A"), "ronda"),      # ensemble — the circle
+    ("panico",     ("#4D2646", "#0E4F30"), "voice"),      # solo voice — one source
+    ("sette",      ("#2A1730", "#1B7A4A"), "tamburello"), # frame drum, with jingles
+    ("tarantate",  ("#1B7A4A", "#461E3C"), "spin"),       # dance collective
+    ("fasano",     ("#3A1A34", "#14603C"), "trio"),       # three players
+    ("elettrica",  ("#0E4F30", "#4D2646"), "spectrum"),   # live electronic
+]
+COVER_PX = 800
+MINT = (127, 217, 168)
 
 
 def ensure(*parts):
@@ -225,6 +245,141 @@ def build_story():
             report(dst, f"from {im.width}x{im.height}{' (inverted)' if invert else ''}")
 
 
+def _gradient(size, c0, c1):
+    """Diagonal two-stop gradient, matching the CSS `linear-gradient(140deg, …)`
+    the covers replace. Computed small and scaled up — it is a smooth ramp, so
+    nothing is lost and the per-pixel loop stays cheap."""
+    a = tuple(int(c0[i:i + 2], 16) for i in (1, 3, 5))
+    b = tuple(int(c1[i:i + 2], 16) for i in (1, 3, 5))
+    n = 64
+    g = Image.new("RGB", (n, n))
+    px = g.load()
+    for y in range(n):
+        for x in range(n):
+            # 140deg in CSS runs top-left to bottom-right, weighted to the vertical.
+            t = min(1.0, max(0.0, (x * 0.42 + y * 0.78) / (n * 1.05)))
+            px[x, y] = tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(3))
+    return g.resize(size, Image.BICUBIC)
+
+
+def _motif(draw, kind, S):
+    """Draw one artist's motif at supersampled scale S.
+
+    Each is the thing the artist plays, reduced to geometry: the ronda is a
+    circle, the tamburello is a circle with jingles in the rim, the electronic
+    set is a spectrum. That is what makes six covers read as one release series
+    rather than six random gradients.
+    """
+    def C(x, y): return (x * S, y * S)
+    def ring(cx, cy, r, w, alpha):
+        draw.ellipse([C(cx - r, cy - r), C(cx + r, cy + r)],
+                     outline=MINT + (alpha,), width=int(w * S))
+
+    if kind == "ronda":
+        # Concentric circles — the dancers' ring, opening outwards.
+        for i in range(7):
+            r = 0.075 + i * 0.062
+            ring(0.5, 0.5, r, 0.009 if i % 2 else 0.005, 235 - i * 22)
+        draw.ellipse([C(0.47, 0.47), C(0.53, 0.53)], fill=MINT + (255,))
+
+    elif kind == "voice":
+        # Arcs spreading from a single point at the base: one voice carrying.
+        for i in range(6):
+            r = 0.13 + i * 0.105
+            box = [C(0.5 - r, 0.86 - r), C(0.5 + r, 0.86 + r)]
+            draw.arc(box, 200, 340, fill=MINT + (240 - i * 30,), width=int(0.008 * S))
+        draw.ellipse([C(0.475, 0.835), C(0.525, 0.885)], fill=MINT + (255,))
+
+    elif kind == "tamburello":
+        # Frame drum seen face on: head, rim, and eight pairs of jingles set in it.
+        ring(0.5, 0.5, 0.40, 0.012, 255)
+        ring(0.5, 0.5, 0.335, 0.005, 150)
+        import math
+        for i in range(8):
+            th = math.radians(i * 45 + 22.5)
+            cx, cy = 0.5 + 0.368 * math.cos(th), 0.5 + 0.368 * math.sin(th)
+            for off in (-0.016, 0.016):
+                dx, dy = -math.sin(th) * off, math.cos(th) * off
+                ring(cx + dx, cy + dy, 0.026, 0.006, 255)
+
+    elif kind == "spin":
+        # Radiating strokes from a low centre — skirts opening in the turn.
+        import math
+        for i in range(28):
+            th = math.radians(i * (360 / 28) - 90)
+            # Longest stroke must stay inside the frame: 0.5 + 0.41 < 1.
+            r0, r1 = 0.095, 0.27 + (0.14 if i % 2 else 0.0)
+            draw.line([C(0.5 + r0 * math.cos(th), 0.5 + r0 * math.sin(th)),
+                       C(0.5 + r1 * math.cos(th), 0.5 + r1 * math.sin(th))],
+                      fill=MINT + (235 if i % 2 else 150,), width=int(0.007 * S))
+        ring(0.5, 0.5, 0.080, 0.010, 255)
+
+    elif kind == "trio":
+        # Three overlapping circles: organetto, violin, chitarra battente.
+        for cx, cy in ((0.5, 0.36), (0.355, 0.60), (0.645, 0.60)):
+            ring(cx, cy, 0.185, 0.011, 245)
+
+    elif kind == "spectrum":
+        # Hard bars — the one set on the bill that is made of samples.
+        heights = [0.14, 0.30, 0.21, 0.46, 0.35, 0.58, 0.40, 0.52, 0.26, 0.37, 0.18, 0.28]
+        w, gap = 0.048, 0.028
+        total = len(heights) * w + (len(heights) - 1) * gap
+        x = (1 - total) / 2
+        for h in heights:
+            draw.rectangle([C(x, 0.74 - h), C(x + w, 0.74)], fill=MINT + (240,))
+            x += w + gap
+        draw.line([C(0.10, 0.775), C(0.90, 0.775)], fill=MINT + (110,), width=int(0.006 * S))
+
+
+def build_covers():
+    """
+    Cover art for the six invented artists.
+
+    The music screens used to show the artist's initials on a flat CSS
+    gradient. That was honest — there is no photography to license and no real
+    release to reproduce — but six near-identical gradients made the strongest
+    section of the app look like the least finished one.
+
+    These are drawn from the campaign palette with one motif per artist, so
+    every cover is original to the project. Nothing here is searched for or
+    downloaded: the lineup does not exist, so a "real" cover would mean putting
+    some actual band's artwork under a fictional name.
+
+    The initials stay as live HTML text over the top rather than being baked
+    in — they scale with the user's text-size setting and stay selectable.
+    """
+    print(f"Cover art ({len(COVERS)} artists, {COVER_PX}px WebP, drawn not sourced)")
+    out = ensure(OUT, "img")
+    texture = Image.open(os.path.join(OUT, "img", "bg-music.webp")).convert("RGB")
+
+    S = 3  # supersample factor — draw big, shrink down, get clean edges for free
+    for slug, (c0, c1), kind in COVERS:
+        base = _gradient((COVER_PX, COVER_PX), c0, c1)
+
+        # Same texture the CSS used to screen over the top, baked in — but
+        # lightly. The music background is green-dominant, and at any real
+        # strength it pulls all six covers towards the same green and undoes
+        # the point of giving each artist its own gradient.
+        tex = texture.resize((COVER_PX, COVER_PX), Image.LANCZOS)
+        base = Image.blend(base, tex, 0.13)
+
+        layer = Image.new("RGBA", (COVER_PX * S, COVER_PX * S), (0, 0, 0, 0))
+        _motif(ImageDraw.Draw(layer), kind, COVER_PX * S)
+        layer = layer.resize((COVER_PX, COVER_PX), Image.LANCZOS)
+
+        cover = Image.alpha_composite(base.convert("RGBA"), layer).convert("RGB")
+
+        # A hairline inset rule, the one thing every cover shares.
+        d = ImageDraw.Draw(cover, "RGBA")
+        m = int(COVER_PX * 0.055)
+        d.rectangle([m, m, COVER_PX - m - 1, COVER_PX - m - 1],
+                    outline=(255, 255, 255, 38), width=2)
+
+        dst = os.path.join(out, f"cover-{slug}.webp")
+        cover.save(dst, "WEBP", quality=88, method=6)
+        report(dst, kind)
+
+
 def build_wireframe():
     """
     Trim the Figma editor UI off the canvas screenshot so Task 1 has a clean
@@ -276,6 +431,7 @@ def main():
     build_backgrounds()
     build_merch()
     build_story()
+    build_covers()
     build_wireframe()
     build_qr()
     total = sum(

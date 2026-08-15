@@ -375,34 +375,52 @@
    10-12, 19 · Music
    ========================================================================== */
 
-/* Artwork stands in for photography we would otherwise have to licence. */
+/* Cover art. One drawn cover per artist, from tools/build-assets.py.
+
+   These were six CSS gradients until 15 August. The gradients are still in
+   there — they are the ground each cover is built on — but the motif on top is
+   what makes a library list look like a library list rather than six swatches.
+   Nothing here is licensed artwork: the lineup is invented, so the covers are
+   drawn from the campaign palette. See the note in tools/build-assets.py.
+
+   The bg-music texture that used to be screened over the top is now baked into
+   the image, so there is no ::after overlay to wash the motif out. */
 .art {
   aspect-ratio: 1; width: 100%;
-  display: grid; place-items: center;
   position: relative; overflow: hidden;
   border-radius: var(--r-sm);
+  background-color: var(--ground);
+  background-size: cover; background-position: center;
 }
+/* Scrim behind the initials only — the artwork stays untouched above it. */
 .art::after {
-  content: ''; position: absolute; inset: 0;
-  background: url('../assets/img/bg-music.webp') center/cover;
-  opacity: 0.38; mix-blend-mode: screen;
+  content: ''; position: absolute; inset: auto 0 0 0; height: 44%;
+  background: linear-gradient(to top, rgba(4,6,6,0.78) 0%, rgba(4,6,6,0) 100%);
+  pointer-events: none;
 }
+/* Bottom-left, not centred. Every motif is centred, so a centred label sat on
+   top of all six of them. */
 .art-initials {
-  font-family: var(--font-display); font-weight: 700; font-size: 30px;
-  color: rgba(255,255,255,.92); position: relative; z-index: 1;
-  letter-spacing: .04em; text-shadow: 0 2px 14px rgba(0,0,0,.7);
+  font-family: var(--font-display); font-weight: 700; font-size: 19px;
+  color: rgba(255,255,255,.92); position: absolute; left: 8px; bottom: 3px; z-index: 1;
+  letter-spacing: .04em; text-shadow: 0 2px 14px rgba(0,0,0,.9);
 }
-.art-0 { background: linear-gradient(140deg,#461E3C,#1B7A4A 140%); }
-.art-1 { background: linear-gradient(140deg,#4D2646,#0E4F30 140%); }
-.art-2 { background: linear-gradient(140deg,#2A1730,#1B7A4A 150%); }
-.art-3 { background: linear-gradient(140deg,#1B7A4A,#461E3C 140%); }
-.art-4 { background: linear-gradient(140deg,#3A1A34,#14603C 150%); }
-.art-5 { background: linear-gradient(140deg,#0E4F30,#4D2646 150%); }
+.art-canzoniere { background-image: url('../assets/img/cover-canzoniere.webp'); }
+.art-panico     { background-image: url('../assets/img/cover-panico.webp'); }
+.art-sette      { background-image: url('../assets/img/cover-sette.webp'); }
+.art-tarantate  { background-image: url('../assets/img/cover-tarantate.webp'); }
+.art-fasano     { background-image: url('../assets/img/cover-fasano.webp'); }
+.art-elettrica  { background-image: url('../assets/img/cover-elettrica.webp'); }
 
 .art-lg   { width: 96px; flex-shrink: 0; }
+.art-lg .art-initials   { font-size: 22px; left: 10px; bottom: 4px; }
+/* Library rows. At 44px the initials and their scrim are illegible noise, so
+   both are dropped and the motif carries the identification on its own. */
+.art-sm   { width: 44px; flex-shrink: 0; border-radius: 4px; }
+.art-sm .art-initials, .art-sm::after { display: none; }
 .art-hero { width: calc(100% - 2*var(--gutter)); margin: 0 var(--gutter);
             aspect-ratio: 1; max-height: 264px; border-radius: var(--r-md); }
-.art-hero .art-initials { font-size: 62px; }
+.art-hero .art-initials { font-size: 34px; left: var(--s-4); bottom: 8px; }
 
 .nowcard {
   display: flex; align-items: center; gap: var(--s-4);
@@ -572,7 +590,22 @@
   position: relative; aspect-ratio: 16/10; overflow: hidden;
   border-radius: var(--r-md); border: 1px solid var(--line);
 }
-.stream-art { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; }
+/* The live-stream still.
+
+   This carries a cover class (`.art-canzoniere`) but NOT the base `.art` class,
+   so it never inherited the sizing from it. That was invisible while covers
+   were CSS gradients — a gradient has no intrinsic size and fills whatever box
+   it is given. The moment they became raster images the cover rendered at its
+   natural 800x800, anchored top-left, and the stream showed one magnified
+   corner. Hence the explicit sizing here.
+
+   The initials are hidden: the artist is already named in the bar underneath,
+   and at this size they land behind the captions. */
+.stream-art {
+  position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0;
+  background-size: cover; background-position: center;
+}
+.stream-art .art-initials { display: none; }
 .live-badge {
   position: absolute; top: var(--s-3); left: var(--s-3); z-index: 2;
   display: inline-flex; align-items: center; gap: 6px;

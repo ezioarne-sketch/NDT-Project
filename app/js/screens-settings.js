@@ -131,7 +131,9 @@ App.register({
         <div class="stream">
           <div class="stream-frame">
             <span class="live-badge"><span class="live-dot" aria-hidden="true"></span>LIVE</span>
-            <div class="stream-art art-0" aria-hidden="true"><span class="art-initials">CT</span></div>
+            <!-- Cover class is derived from the artist above, not hardcoded, so the
+                 artwork and the name in the bar below agree about who is on stage. -->
+            <div class="stream-art art-${now.id}" aria-hidden="true"><span class="art-initials">CT</span></div>
             <div class="stream-captions" aria-live="off">
               <span>[tamburello, fast] …and the circle opens for whoever needs it…</span>
             </div>

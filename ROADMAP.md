@@ -17,7 +17,7 @@
 | 1 — Wireframe | — | ✅ Done (15 frames + prototype links; exported to `Assets/Wireframes/`) |
 | 2 — Final design | — | ✅ Done (21 screens + 3 overlays, built in code) |
 | 3 — Planning docs | **Two documents to write** | 🟡 Scaffold ready |
-| 4 — Prototype | — | ✅ Done (app runs; 75s video; test passes clean) |
+| 4 — Prototype | — | ✅ Done (app runs; 74s video; test passes clean) |
 | 5 — Rationale | **900 words to write** | 🟡 Scaffold + measured evidence ready |
 
 **The critical path is now writing, not designing.** Roughly 2,000 words across the concept plan and rationale, plus verifying the Harvard sources and completing the AI log's reflection sections.
@@ -32,7 +32,7 @@ Four days to the target. Roughly 2,000 words across two documents, plus the read
 | **Fri 14 Aug** | ~~Rewrite the three story chapters~~ ✅ **written and in the app, 15 Aug**. ~~Resolve the four unsourced app claims~~ ✅ **done 13 Aug**. | Also delivered: chapter artwork, the Figma wireframe (Task 1 artefact), re-rendered merch. |
 | **Sat 15 Aug** *(today)* | ✅ **Wireframe, artwork and prose integrated.** Now: **the reading**, and fix the four flagged claims in the chapters. Then verify every Harvard reference. | The chapters are written but three sentences overstate the Dionysian continuity claim and one calls a Christian rite pagan — see [08-Story-Claims-Audit.md](Docs/08-Story-Claims-Audit.md). **The reading is still the only thing gating the rest of the week**, and it has not started. |
 | **Sun 16 Aug** | Write the concept plan (Task 3), then the rationale (Task 5), ~950 words. | Two documents in one day is the tightest square on this board. If Saturday's reading runs long, move the concept plan to Monday and push the AI log to Tuesday morning. |
-| **Mon 17 Aug** | Complete the AI log's 24 `<add>` cells and the Reflection. | The parts that carry the marks and cannot be delegated. Entry 23 is the one with the most to say. |
+| **Mon 17 Aug** | Complete the AI log's 26 `<add>` cells and the Reflection. | The parts that carry the marks and cannot be delegated. Entries 23 and 25 are the ones with the most to say. |
 | **Tue 18 Aug** | Cover sheet, PDF export, final read-through. Re-run the click-through against the **live** URL: `NDT_BASE=https://ezioarne-sketch.github.io/NDT-Project/app/index.html node tools/clickthrough.mjs`, and open the link in a private window. | Leave a full day for this. Export always takes longer than it should. **Test the deployed copy, not the local one** — on 13 Aug they differed by a file that had never been committed. |
 | **Wed 19 Aug** | **Submit to Omnivox.** | |
 | Thu 20 – Mon 24 Aug | Buffer. | Five days. Use them for the read-through by someone who did not write it, not for writing. |

@@ -29,6 +29,8 @@
  */
 
 import puppeteer from 'puppeteer-core';
+import { execFileSync } from 'node:child_process';
+import { readdirSync } from 'node:fs';
 
 const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const BASE = process.env.NDT_BASE || 'http://127.0.0.1:8765/app/index.html';
@@ -45,6 +47,26 @@ const ROUTES = [
 
 const problems = [];
 const note = (route, kind, msg) => problems.push({ route, kind, msg });
+
+// ------------------------------------------------- 0. Syntax pre-flight
+//
+// A syntax error in one screen file does NOT stop the app: the other files
+// still register, and the router quietly falls back to Home for anything the
+// broken file was supposed to own. On 15 August a stray pair of backticks
+// inside a template literal took out screens-settings.js, and every downstream
+// check still said OK because Home rendered in place of Settings and Virtual.
+// Failing here, loudly, costs a quarter of a second.
+console.log('Syntax check');
+for (const f of readdirSync('app/js').filter(f => f.endsWith('.js'))) {
+  try {
+    execFileSync(process.execPath, ['--check', `app/js/${f}`], { stdio: 'pipe' });
+  } catch (e) {
+    console.log(`\n  SYNTAX ERROR in app/js/${f}\n`);
+    console.log(String(e.stderr || e).split('\n').slice(0, 6).join('\n'));
+    process.exit(1);
+  }
+}
+console.log(`  OK   ${readdirSync('app/js').filter(f => f.endsWith('.js')).length} files parse\n`);
 
 const browser = await puppeteer.launch({
   executablePath: CHROME,
@@ -70,6 +92,11 @@ for (const route of ROUTES) {
   const report = await page.evaluate(() => {
     const screen = document.querySelector('.screen.is-active');
     if (!screen) return { rendered: false };
+    // The router sets id="screen-<id>". Comparing it to the route we asked for
+    // is the only way to tell "this screen rendered" from "SOMETHING rendered".
+    // The fallback path logs console.warn, not console.error, so the console
+    // listener below never saw it.
+    const actual = screen.id.replace(/^screen-/, '');
 
     const registered = [...App.screens.keys()];
     const targets = [...screen.querySelectorAll('[data-go]')]
@@ -86,6 +113,7 @@ for (const route of ROUTES) {
     const doc = document.documentElement;
     return {
       rendered: true,
+      actual,
       broken,
       small: [...new Set(small)].slice(0, 6),
       overflow: doc.scrollWidth > doc.clientWidth ? `${doc.scrollWidth} > ${doc.clientWidth}` : null,
@@ -95,6 +123,13 @@ for (const route of ROUTES) {
   });
 
   if (!report.rendered) { note(route, 'render', 'no active screen'); console.log(`  FAIL ${route}`); continue; }
+
+  const expected = route.split('/')[0];
+  if (report.actual !== expected) {
+    note(route, 'fallback', `asked for "${expected}", got "${report.actual}" — screen not registered?`);
+    console.log(`  FAIL ${route.padEnd(20)} rendered ${report.actual} instead`);
+    continue;
+  }
   if (report.broken.length) note(route, 'deadlink', `-> ${report.broken.join(', ')}`);
   if (report.overflow) note(route, 'overflow', report.overflow);
   report.small.forEach(s => note(route, 'target', s));

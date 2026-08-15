@@ -191,7 +191,7 @@ The three Figma community UI-kit boards ("Login", "Music", "E-commerce") carried
 | Figma community UI kits | Used as wireframe reference only; no content survives into the final app. **The wireframe IS now a submitted Task 1 artefact** (`Assets/Wireframes/wireframe-flow.png`), so the kits must be cited or those boards deleted from the file — see the note below. `<cite here>` |
 | Brand assets — wordmark, spider mark, icons, backgrounds, merch renders | Originated by the author in Assessment Task 2. No citation needed; state the provenance in the rationale |
 | Flemington site map | Original SVG artwork drawn for this project. Geography referenced from the sources in §4 |
-| Artist artwork in the music screens | Generated from the campaign palette — deliberately not photography, so no image licensing is involved |
+| Artist cover art in the music screens | **Drawn for this project**, one per artist, by `tools/build-assets.py` from the campaign palette. Deliberately not photography and deliberately not sourced: the lineup is invented, so a "real" cover would mean putting some actual band's artwork under a fictional name. Each motif is what that artist plays — the ronda is a circle, the tamburello has jingles in its rim, the electronic set is a spectrum. No citation needed; **worth a sentence in the rationale**, because it is the same decision as §5a made in the opposite direction |
 | Merch renders | Author's own, from Assessment Task 2. Re-rendered 15 August 2026 — brighter key light throughout, and the bottle relabelled |
 | Story chapter prose | Author's own, delivered 15 August 2026. `Assets/Story/Story-Text-Lorenzo.docx` is the source of truth |
 
