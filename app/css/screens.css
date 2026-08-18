@@ -362,6 +362,60 @@
 }
 .access-note strong { color: var(--mint); }
 
+/* --- Collapsible card body -------------------------------------------------
+   The transport cards open clamped to two lines. Height is derived from the
+   type tokens, NOT hardcoded: --size-small is changed by the text-size setting
+   in screen 20, and a fixed pixel height would show two lines at the default
+   and one and a bit at "extra large" — clipping a line mid-stroke on exactly
+   the setting chosen by the people least able to tolerate it.
+
+   Opening is driven by an inline max-height from UI.clamp(); everything here
+   is the closed state and the transition between the two. */
+.clamp {
+  position: relative;
+  overflow: hidden;
+  max-height: calc(2 * var(--size-small) * var(--leading-body));
+  transition: max-height var(--dur-base) var(--ease-out);
+  cursor: pointer;
+  /* Wrapping the list and the access note together took them out of
+     .transport-card's flex flow, which is what was spacing them apart. The
+     gap is restored here rather than as a margin, so it stays with the layout
+     that owns it. */
+  display: flex; flex-direction: column; gap: var(--s-3);
+}
+.clamp[data-open='true'] { cursor: auto; }
+
+/* Fades the clipped line out rather than guillotining it, so the card reads as
+   "there is more" instead of "this text is broken". */
+.clamp::after {
+  content: ''; position: absolute; inset: auto 0 0 0; height: 38%;
+  /* Shallow on purpose. A deep fade over a two-line block dims most of the
+     second line, and a line you can half-read is worse than a clean cut — the
+     job here is to signal "there is more", not to hide the sentence. */
+  background: linear-gradient(to top, var(--surface-1) 0%, rgba(12,16,16,0) 100%);
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.clamp[data-open='true']::after { opacity: 0; }
+
+.clamp-toggle {
+  display: flex; align-items: center; gap: 6px;
+  align-self: flex-start;
+  /* The label is small type, but the target is not: 44px is the minimum this
+     project holds every control to, and tools/clickthrough.mjs fails the build
+     if one slips under it. Padding buys the height without inflating the text. */
+  min-height: 44px; padding: 0 var(--s-2) 0 0; margin-top: calc(-1 * var(--s-2));
+  background: none; border: 0;
+  font-family: var(--font-display); font-size: var(--size-micro);
+  letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--mint); cursor: pointer;
+}
+.clamp-chev {
+  display: inline-block; font-size: 11px; line-height: 1;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.clamp-toggle[aria-expanded='true'] .clamp-chev { transform: rotate(180deg); }
+
 /* --- Definition list used in overlays ------------------------------------- */
 
 .deflist { display: grid; grid-template-columns: auto 1fr; gap: var(--s-2) var(--s-4); }
@@ -405,12 +459,23 @@
   color: rgba(255,255,255,.92); position: absolute; left: 8px; bottom: 3px; z-index: 1;
   letter-spacing: .04em; text-shadow: 0 2px 14px rgba(0,0,0,.9);
 }
-.art-canzoniere { background-image: url('../assets/img/cover-canzoniere.webp'); }
-.art-panico     { background-image: url('../assets/img/cover-panico.webp'); }
-.art-sette      { background-image: url('../assets/img/cover-sette.webp'); }
-.art-tarantate  { background-image: url('../assets/img/cover-tarantate.webp'); }
-.art-fasano     { background-image: url('../assets/img/cover-fasano.webp'); }
-.art-elettrica  { background-image: url('../assets/img/cover-elettrica.webp'); }
+
+/* The compilation sleeve, used on the song screens rather than the artist ones.
+   Built by build_compilation() in tools/build-assets.py, which masks the disc
+   off its white page so it sits on the app ground instead of in a white tile. */
+.art-compilation {
+  background-image: url('../assets/img/cover-compilation.webp');
+  /* `contain`, not the inherited `cover`. The hero slot is landscape (372x264)
+     while every cover is square, so `cover` crops — harmless on the artist
+     motifs, which are centred and abstract, but it slices the top and bottom
+     off a disc and the sleeve stops reading as a record. The letterboxing this
+     leaves is invisible: the image is already built on --ground, which is the
+     same colour .art paints behind it. Square slots are unaffected. */
+  background-size: contain; background-repeat: no-repeat;
+}
+/* No initials are drawn over this one — the sleeve carries its own wordmark —
+   so the scrim that exists to make initials legible would only dim the disc. */
+.art-compilation::after { display: none; }
 
 .art-lg   { width: 96px; flex-shrink: 0; }
 .art-lg .art-initials   { font-size: 22px; left: 10px; bottom: 4px; }
@@ -592,7 +657,7 @@
 }
 /* The live-stream still.
 
-   This carries a cover class (`.art-canzoniere`) but NOT the base `.art` class,
+   This carries a cover class (`.art-compilation`) but NOT the base `.art` class,
    so it never inherited the sizing from it. That was invisible while covers
    were CSS gradients — a gradient has no intrinsic size and fills whatever box
    it is given. The moment they became raster images the cover rendered at its

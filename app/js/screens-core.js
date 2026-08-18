@@ -108,7 +108,13 @@ App.register({
   bg: 'home',
   render() {
     const f = Data.festival;
-    const next = Data.artists.find(a => a.id === 'panico');
+    /* "Next up" is derived from the running order, not pinned to an id. The
+       lineup was replaced wholesale on 18 August and a hardcoded id would have
+       silently fallen back to the first artist. Sets run 20:15 to 02:00, so
+       anything before 12:00 belongs to the small hours of the next day. */
+    const mins = t => { const [h, m] = t.split(':').map(Number);
+                        return (h < 12 ? h + 24 : h) * 60 + m; };
+    const next = [...Data.artists].sort((a, b) => mins(a.time) - mins(b.time))[1];
     return `
       ${UI.statusbar()}
       <div class="scroll has-nav" id="main">

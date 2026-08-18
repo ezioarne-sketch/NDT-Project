@@ -40,7 +40,7 @@ SCREENS = [
     ("10-music",           "music",              "Music player"),
     ("11-now-playing",     "nowplaying",         "Now playing"),
     ("12-library",         "library",            "Track library"),
-    ("19-artist",          "artist/canzoniere",  "Artist profile"),
+    ("19-artist",          "artist/elodie",  "Artist profile"),
     ("13-shop",            "shop",               "Shop"),
     ("14-product",         "product/tambourine", "Product detail"),
     ("18-ticket",          "ticket",             "Digital ticket"),

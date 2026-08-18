@@ -321,16 +321,36 @@ App.register({
       ${UI.appbar('Getting here', { back: true, sub: 'Flemington Racecourse, Melbourne' })}
       <div class="scroll has-nav" id="main">
         <div class="pad stack gap-4">
+          ${/* Each card opens showing two lines and expands on tap.
+
+                Four modes, each with its route detail and its access note, is
+                a lot of copy to meet at once — and on the night nobody reads
+                all four. They read the one they are taking. Collapsed, the
+                whole screen is scannable in a glance; the detail is one tap
+                away and nothing is removed to get there. */''}
           ${Data.transport.map(t => `
             <section class="card transport-card">
               <div class="row between gap-3">
                 <h2 class="t-h2">${t.name}</h2>
                 <span class="chip">${UI.esc(t.headline)}</span>
               </div>
-              <ul class="tlist">
-                ${t.lines.map(l => `<li>${l}</li>`).join('')}
-              </ul>
-              <p class="access-note"><strong>Access:</strong> ${t.access}</p>
+              <div class="clamp" id="tr-${t.id}" data-clamp>
+                <ul class="tlist">
+                  ${t.lines.map(l => `<li>${l}</li>`).join('')}
+                </ul>
+                <p class="access-note"><strong>Access:</strong> ${t.access}</p>
+              </div>
+              ${/* The visible label is the same on all four cards, so the accessible
+                    name is not: a screen reader run through this screen would
+                    otherwise announce "Route and access" four times with nothing
+                    to tell the buttons apart. */''}
+              <button class="clamp-toggle" data-clamp-toggle="tr-${t.id}"
+                      aria-expanded="false" aria-controls="tr-${t.id}"
+                      aria-label="${UI.esc(t.name)} — route and access details">
+                <span class="clamp-label">Route + access</span>${/* "+" not "&": the pixel display font's ampersand reads as a dollar sign
+                       at label size. */''}
+                <span class="clamp-chev" aria-hidden="true">▾</span>
+              </button>
             </section>`).join('')}
 
           <div class="callout">
@@ -352,5 +372,26 @@ App.register({
             are illustrative. Check the PTV app on the night.</p>
         </div>
       </div>`;
+  },
+  mount(el) {
+    el.querySelectorAll('[data-clamp-toggle]').forEach(btn => {
+      const body = el.querySelector(`#${btn.dataset.clampToggle}`);
+      if (!body) return;
+
+      /* Tapping the collapsed text opens it too — the clamped block is the
+         obvious thing to press, and it is what people press. It is NOT the
+         accessible control: keyboard and screen-reader users get the real
+         button underneath, which is why this listener does nothing once the
+         card is already open (there the text is just text again). */
+      body.addEventListener('click', () => {
+        if (body.dataset.open !== 'true') btn.click();
+      });
+
+      btn.addEventListener('click', () => {
+        const open = body.dataset.open === 'true';
+        UI.clamp(body, !open);
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+    });
   },
 });

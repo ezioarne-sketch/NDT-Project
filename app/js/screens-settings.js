@@ -122,7 +122,9 @@ App.register({
   section: 'event',
   bg: 'music',
   render() {
-    const now = Data.artists.find(a => a.id === 'canzoniere');
+    // The stream is billed as La Ronda below, so pick whoever is on that
+    // stage rather than naming an artist id that the lineup may not keep.
+    const now = Data.artists.find(a => a.stage === 'ronda') || Data.artists[0];
     return `
       ${UI.statusbar()}
       ${UI.appbar('Watch live', { back: true, sub: 'All three stages, from anywhere' })}
@@ -131,9 +133,10 @@ App.register({
         <div class="stream">
           <div class="stream-frame">
             <span class="live-badge"><span class="live-dot" aria-hidden="true"></span>LIVE</span>
-            <!-- Cover class is derived from the artist above, not hardcoded, so the
-                 artwork and the name in the bar below agree about who is on stage. -->
-            <div class="stream-art art-${now.id}" aria-hidden="true"><span class="art-initials">CT</span></div>
+            <!-- The compilation sleeve, same as every other cover in the app since
+                 the per-artist artwork was dropped. The performer is named in the
+                 bar underneath, which is what identifies the stream. -->
+            <div class="stream-art art-compilation" aria-hidden="true"></div>
             <div class="stream-captions" aria-live="off">
               <span>[tamburello, fast] …and the circle opens for whoever needs it…</span>
             </div>

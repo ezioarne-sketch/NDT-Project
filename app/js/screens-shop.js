@@ -107,10 +107,22 @@ App.register({
           <p class="t-body" style="margin-top:var(--s-4)">${UI.esc(m.blurb)}</p>
           <p class="t-small" style="margin-top:var(--s-3)">${UI.esc(m.detail)}</p>
 
+          ${/* Only the wine carries a notice. It is rendered ABOVE the buy
+                button rather than under it, because a restriction the buyer
+                meets after committing is not a restriction, it is a surprise
+                at the merchandise tent. */''}
+          ${m.notice ? `
+            <div class="callout" style="margin-top:var(--s-4)">
+              <p class="t-label">${UI.esc(m.notice.label)}</p>
+              <p class="t-small" style="margin-top:6px">${UI.esc(m.notice.text)}</p>
+            </div>` : ''}
+
           <button class="btn btn-primary btn-block" style="margin-top:var(--s-5)"
                   data-add="${m.id}">Add to bag</button>
           <p class="t-small" style="margin-top:var(--s-3);text-align:center">
-            Collect at the merchandise tent, or post within Australia for $12.</p>
+            ${m.pickupOnly
+              ? 'Collect at the merchandise tent. This item cannot be posted.'
+              : 'Collect at the merchandise tent, or post within Australia for $12.'}</p>
         </div>
 
         ${UI.sectionhead('Also in the range')}

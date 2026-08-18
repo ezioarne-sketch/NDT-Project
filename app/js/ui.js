@@ -67,6 +67,36 @@ const UI = {
     return `<span class="chip ${cls}">${s.name}</span>`;
   },
 
+  /**
+   * Opens or closes a `.clamp` block, animating between the two heights.
+   *
+   * The collapsed height is CSS (two lines, derived from the type tokens so it
+   * follows the text-size setting). The OPEN height cannot be: `max-height`
+   * will not transition to `none`, and a hardcoded large value makes the
+   * easing wrong — the animation appears to finish early because most of the
+   * travel is empty space. So the real height is measured and set, and then
+   * cleared to `none` once the transition lands, which is what lets the block
+   * reflow correctly if the text size changes while it is open.
+   */
+  clamp(el, open) {
+    el.style.maxHeight = `${el.scrollHeight}px`;   // from: the current height
+    el.dataset.open = String(open);
+
+    if (open) {
+      // Drop the inline cap once expanded, so the block is free-height again.
+      el.addEventListener('transitionend', function done(e) {
+        if (e.propertyName !== 'max-height') return;
+        el.removeEventListener('transitionend', done);
+        if (el.dataset.open === 'true') el.style.maxHeight = 'none';
+      });
+    } else {
+      // Closing from `none` would jump. Force a reflow at the measured height
+      // first, then hand control back to the CSS clamp.
+      void el.offsetHeight;
+      el.style.maxHeight = '';
+    }
+  },
+
   /** Escapes text going into markup from data. */
   esc(s) {
     return String(s).replace(/[&<>"']/g, c =>

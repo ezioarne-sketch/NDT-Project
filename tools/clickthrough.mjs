@@ -40,7 +40,7 @@ const ROUTES = [
   'splash', 'language', 'home', 'about',
   'story/dionysian', 'story/menades', 'story/dimartino',
   'event', 'map', 'schedule', 'transport',
-  'music', 'nowplaying', 'library', 'artist/canzoniere',
+  'music', 'nowplaying', 'library', 'artist/elodie',
   'shop', 'product/tambourine', 'ticket', 'login',
   'settings', 'virtual',
 ];
@@ -153,7 +153,7 @@ const reach = await page.evaluate(async () => {
 
     const targets = [];
     let html = '';
-    try { html = def.render(id === 'story' ? ['dionysian'] : id === 'artist' ? ['canzoniere'] : ['tambourine']); }
+    try { html = def.render(id === 'story' ? ['dionysian'] : id === 'artist' ? ['elodie'] : ['tambourine']); }
     catch (e) { /* render failure is reported separately */ }
     const box = document.createElement('div');
     box.innerHTML = html;

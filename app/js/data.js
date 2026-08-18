@@ -116,65 +116,110 @@ const Data = {
     },
   ],
 
-  /* --- Lineup ---------------------------------------------------------- DRAFT
-     Invented performers, grounded in real Salentine instrumentation and roles.
-     None of these are real artists — that is deliberate, and it removes the
-     copyright exposure the wireframe's template content carried. */
+  /* --- Track metadata, read off the filename -------------------------------
+     Every file in /Music is named to the same pattern:
+
+       "<festival name> <year> - <title> - <performer>.mp3"
+       "Notte della Taranta 2022 - Pizzica di San Vito -  Elodie.mp3"
+
+     Splitting on " - " gives the three fields in order, so the year, title and
+     performer shown in the player are READ FROM THE FILE rather than typed out
+     a second time in this object. Retyping them is how a library ends up
+     displaying one title while playing another.
+
+     The pattern is not perfectly consistent — some files begin "La Notte della
+     Taranta", others "Notte della Taranta", and several carry a double space
+     after a separator — so the year is pulled with a regex and every field is
+     whitespace-collapsed rather than trusted as-is. */
+  trackMeta(file) {
+    const stem = file.replace(/\.mp3$/i, '');
+    const parts = stem.split(' - ').map(x => x.replace(/\s+/g, ' ').trim());
+    const [head, title, performer] = parts;
+    const year = (head && head.match(/(19|20)\d{2}/) || [])[0] || '';
+    return {
+      year,
+      title: title || stem,
+      // Falls back to the festival's own orchestra: an untitled third field
+      // means the recording is the Orchestra Popolare's, not a guest's.
+      performer: performer || 'Orchestra Popolare La Notte della Taranta',
+    };
+  },
+
+  /* --- Lineup ------------------------------------------------------------
+     Six real Notte della Taranta performances, one per artist, each with the
+     recording that goes with it in /Music at the repo root.
+
+     The invented lineup that stood here until 18 August (Canzoniere di Terra
+     Rossa, Rosaria Panico and four others) has been replaced. It existed to
+     avoid using real artists' names; that trade is now made the other way, so
+     that the player credits whoever actually performed the recording it is
+     playing rather than attributing their work to a fictional act.
+
+     TWO THINGS TO CHECK BEFORE SUBMISSION:
+       1. The recordings are NOT cleared for distribution. They are here so the
+          player works in the demo. See Docs/06-References.md.
+       2. Stage, set time and set length below are FICTIONAL — this is a
+          fictional Melbourne event and nobody listed has been booked for it.
+          The roles and origins are the only biographical claims made, and they
+          are kept deliberately thin for that reason.
+
+     Title, year and performer are NOT typed out below. They are parsed from
+     the filename by trackMeta(), so the file on disk is the single source of
+     truth and a mislabelled track cannot disagree with its own audio.
+
+     `secs` is each recording's true length, measured once from the files
+     themselves. It is stored rather than fetched because it is a fact about a
+     file that does not change, and the alternative — asking six 4-9MB files
+     for their metadata on every page load — cost six requests per visitor to
+     learn the same six numbers every time. Re-measure if the audio changes. */
   artists: [
-    {
-      id: 'canzoniere',
-      name: 'Canzoniere di Terra Rossa',
-      role: 'Ensemble — tamburello, violin, voice',
+    { id: 'castrignano',
+      file: 'Notte della Taranta 2018 -  Aria Caddhipulina - Antonio Castrignano.mp3',
+      secs: 432.681,
+      role: 'Tamburello, voice',
       origin: 'Lecce, Puglia',
-      stage: 'ronda', time: '23:00', duration: '90 min',
-      bio: 'A seven-piece formed around the tamburello, playing the long-form pizzica that the ronda is built on. Their sets do not have set lengths — they end when the circle does.',
-      tracks: ['Pizzica di San Vito', 'Ronda Grande', 'Aria di Terra'],
-    },
-    {
-      id: 'panico',
-      name: 'Rosaria Panico',
-      role: 'Voice',
-      origin: 'Galatina, Puglia',
-      stage: 'terra', time: '21:40', duration: '60 min',
-      bio: 'Unaccompanied and then not. Panico opens in the old style — a single voice carrying the melody — before the tamburelli arrive underneath her.',
-      tracks: ['Lu Rusciu de lu Mare', 'Canto alla Stesa', 'Nueva Taranta'],
-    },
-    {
-      id: 'sette',
-      name: 'Ambrogio Sette',
-      role: 'Tamburello',
-      origin: 'Nardò, Puglia',
       stage: 'terra', time: '20:15', duration: '45 min',
-      bio: 'A frame-drum player who treats the tamburello as a lead instrument rather than a timekeeper. Opens the night because the night opens with the drum.',
-      tracks: ['Solo per Tamburello', 'Il Morso', 'Quattro Tempi'],
-    },
-    {
-      id: 'tarantate',
-      name: 'Le Tarantate',
-      role: 'Voice and dance collective',
-      origin: 'Melbourne / Puglia',
-      stage: 'ronda', time: '01:00', duration: '75 min',
-      bio: 'An all-women collective splitting its members between Melbourne and the Salento. The set is as much choreography as concert, and the dancers move into the crowd rather than staying on the stage.',
-      tracks: ['Nove Notti', 'Sotto il Sole', 'La Cura'],
-    },
-    {
-      id: 'fasano',
-      name: 'Nico Fasano Trio',
-      role: 'Organetto, violin, chitarra battente',
-      origin: 'Melbourne',
+      bio: 'A Salentine percussionist and composer who works the tamburello as a lead instrument rather than a timekeeper. Opens the night, because the night opens with the drum.' },
+
+    { id: 'arisa',
+      file: 'La Notte della Taranta 2023 - Lu Ruciu Te Lu Mare - Arisa.mp3',
+      secs: 286.790,
+      role: 'Voice',
+      origin: 'Italy',
+      stage: 'terra', time: '21:40', duration: '60 min',
+      bio: 'A pop voice against traditional repertoire. "Lu Ruciu Te Lu Mare" — the sound of the sea — is carried in the old style first, and the tamburelli arrive underneath it.' },
+
+    { id: 'alfieri',
+      file: 'La Notte della Taranta 2025 - Pizzicarella - Consuelo Alfieri.mp3',
+      secs: 260.087,
+      role: 'Voice',
+      origin: 'Salento, Puglia',
       stage: 'terra', time: '22:30', duration: '60 min',
-      bio: 'Second-generation Italian-Australian players working the repertoire their grandparents brought over, with the accent that Melbourne gave it.',
-      tracks: ['Carlton Pizzica', 'Vecchia Via', 'Ritorno'],
-    },
-    {
-      id: 'elettrica',
-      name: 'Pizzica Elettrica',
+      bio: '"Pizzicarella mia" is one of the standards of the repertoire, and every reading of it is a position on how much the form should be allowed to move.' },
+
+    { id: 'elodie',
+      file: 'Notte della Taranta 2022 - Pizzica di San Vito -  Elodie.mp3',
+      secs: 364.646,
+      role: 'Voice',
+      origin: 'Rome, Italy',
+      stage: 'ronda', time: '23:00', duration: '90 min',
+      bio: 'The pizzica di San Vito belongs to the ronda — it is the tune the circle is built on. This is the set the ronda forms for.' },
+
+    { id: 'mango',
+      file: 'Notte della Taranta 2022 - Dici Ca Nu Me Voi Ca Su Piccinna - Angelina Mango.mp3',
+      secs: 298.167,
+      role: 'Voice',
+      origin: 'Basilicata, Italy',
+      stage: 'ronda', time: '01:00', duration: '75 min',
+      bio: 'Sung in Salentine dialect, late, when the crowd already knows the words. The title translates roughly as "you say you do not want me because I am small".' },
+
+    { id: 'stromae',
+      file: 'Notte della Taranta 2022 - Alors on dance - Stromae with Dardust.mp3',
+      secs: 389.306,
       role: 'Live electronic',
-      origin: 'Melbourne',
+      origin: 'Brussels, Belgium / Italy',
       stage: 'ragno', time: '02:00', duration: '120 min',
-      bio: 'Tamburello samples over a modular rig. The closing set: the tempo of the traditional pizzica held, everything else replaced.',
-      tracks: ['Taranta 128', 'Dawn Ronda', 'Southern Bite'],
-    },
+      bio: 'The closing set, and the furthest the festival travels from the source material: a Belgian pop record rebuilt with Dardust over the tempo of the pizzica.' },
   ],
 
   /* --- Merch ------------------------------------------------ prices DRAFT (AUD)
@@ -193,9 +238,23 @@ const Data = {
     { id: 'tambourine', name: 'Tamburello', price: 120,
       blurb: 'A playable frame drum with the taranta printed on the head. The instrument the night is built on.',
       detail: '26cm frame, goatskin head, eight pairs of jingles.', cite: ['tamburello'] },
-    { id: 'bottle', name: 'Water Bottle', price: 32,
-      blurb: 'Insulated bottle in festival black. Free refills at every water point on site.',
-      detail: '750ml, double-walled stainless steel.' },
+    { id: 'bottle', name: 'Negroamaro', price: 38,
+      blurb: 'The red grape of the Salento, bottled for the festival by Tenute Rossetti. '
+           + 'The name means "black bitter"; the label is the campaign artwork, printed for the night.',
+      detail: '750ml, Negroamaro del Salento. 13.5% alc/vol.',
+      /* This listing was a $32 insulated water bottle until 18 August. The
+         render it has always carried is a WINE bottle — capsule, vintage seal,
+         Tenute Rossetti on the label — so the copy described one product while
+         the photograph showed another. The copy was the part that was wrong.
+
+         Selling alcohol pulls in obligations a tote bag does not, so the item
+         carries them: over-18s only, ID on collection, and no postage. Nothing
+         else in the range is restricted, which is why this sits on the item
+         rather than in the shop's general terms. */
+      notice: { label: 'Liquor',
+                text: 'Over-18s only. Photo ID is checked when you collect, and '
+                    + 'alcohol cannot be added to a postal order.' },
+      pickupOnly: true },
   ],
 
   /* --- Tickets ------------------------------------------------------- DRAFT */
@@ -233,6 +292,25 @@ const Data = {
    x/y are percentages of the map artwork box, so pins stay put at any size.
    `type` drives the filter chips. Every pin carries a text label — nothing on
    this screen is identified by colour or icon shape alone. */
+/* Fold each track's parsed metadata onto its artist.
+
+   Done once, here, rather than in the music screens: the schedule, the artist
+   profiles and the live-stream screen all read `name`, and every one of them
+   would otherwise need to know how a filename is put together. `name` is the
+   performer credited on the recording, which is what makes the player, the
+   lineup and the profile agree about who this is.
+
+   `src` is resolved from /app, one level above /Music, and encoded because
+   every filename contains spaces. */
+Data.artists.forEach(a => {
+  const m = Data.trackMeta(a.file);
+  a.name = m.performer;
+  a.title = m.title;
+  a.year = m.year;
+  a.audio = a.file;
+  a.src = `../Music/${encodeURIComponent(a.file)}`;
+});
+
 Data.mapPins = [
   { id: 'ronda',    type: 'stage',  x: 50, y: 46, name: 'La Ronda',        sub: 'Main stage',
     detail: 'The circle. Capacity 12,000, standing. Wheelchair viewing platform on the north side with companion seating.', hours: '19:00 – 04:00' },
@@ -245,7 +323,7 @@ Data.mapPins = [
   { id: 'bar1',     type: 'food',   x: 60, y: 38, name: 'Bar — North',     sub: 'Licensed',
     detail: 'Licensed bar. Free water available at the bar without queueing separately.', hours: '18:00 – 03:30' },
   { id: 'water',    type: 'food',   x: 45, y: 71, name: 'Water refill',    sub: 'Free',
-    detail: 'Free chilled water. Bring a bottle or buy the festival one from the shop.', hours: 'All night' },
+    detail: 'Free chilled water. Bring your own bottle — refill stations are open all night.', hours: 'All night' },
   { id: 'wc1',      type: 'facil',  x: 28, y: 47, name: 'Toilets — West',  sub: 'Accessible',
     detail: 'Includes accessible cubicles and a Changing Places facility with hoist and adult change table.', hours: 'All night' },
   { id: 'wc2',      type: 'facil',  x: 71, y: 49, name: 'Toilets — East',  sub: 'Accessible',

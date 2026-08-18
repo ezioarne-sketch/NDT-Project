@@ -331,6 +331,63 @@ def _motif(draw, kind, S):
         draw.line([C(0.10, 0.775), C(0.90, 0.775)], fill=MINT + (110,), width=int(0.006 * S))
 
 
+def build_compilation():
+    """
+    The compilation cover, shared by every track in the app.
+
+    The six drawn covers below belong to the ARTISTS. This one belongs to the
+    RELEASE: the festival's own compilation, which is the fiction that lets a
+    single sleeve sit behind eighteen tracks by six different acts.
+
+    The source is a black disc on a white page, so the white has to go or the
+    cover reads as a white box in a near-black app. It is removed with a CIRCLE
+    MASK, not a colour key: keying every white pixel also punches out the white
+    inside the artwork — the wordmark, the eye, the moon's inner circle — and
+    leaves them showing the ground through. The disc is a true circle, so its
+    bounding box gives the mask exactly, and only the page around it is lost.
+
+    Output is the same 800px canvas the artist covers use, so every cover slot
+    in the app is one size and the layout does not shift between them.
+    """
+    print("Compilation cover (circle-masked off its page, scaled to the cover tile)")
+    out = ensure(OUT, "img")
+    im = Image.open(os.path.join(SRC, "Music", "Compilation.jpg")).convert("RGB")
+
+    # Bounding box of everything that is not page-white — i.e. the disc.
+    ink = im.convert("L").point(lambda v: 0 if v > 244 else 255)
+    bbox = ink.getbbox() or (0, 0, im.width, im.height)
+    disc = im.crop(bbox)
+
+    # Circular alpha, drawn at 4x and shrunk so the rim is antialiased.
+    S = 4
+    mask = Image.new("L", (disc.width * S, disc.height * S), 0)
+    ImageDraw.Draw(mask).ellipse((0, 0, disc.width * S - 1, disc.height * S - 1), fill=255)
+    disc.putalpha(mask.resize(disc.size, Image.LANCZOS))
+
+    # Scale the disc to fill the tile, inset slightly so the rim never touches
+    # the edge. resize(), NOT thumbnail(): thumbnail only ever shrinks, and the
+    # disc is ~430px inside its 600px page, so it was being pasted at its
+    # source size and left sitting in a field of dead black.
+    #
+    # This does upscale, by about 1.7x. It is a flat hard-edged graphic, which
+    # is the kind that survives it, and every place the cover is actually shown
+    # — 44px rows, a 96px card, a 264px hero — is smaller than the source disc
+    # anyway, so nothing is being invented at the size anyone sees it.
+    inner = int(COVER_PX * 0.9)
+    scale = inner / max(disc.width, disc.height)
+    disc = disc.resize(
+        (max(1, round(disc.width * scale)), max(1, round(disc.height * scale))),
+        Image.LANCZOS,
+    )
+
+    canvas = Image.new("RGB", (COVER_PX, COVER_PX), GROUND)
+    canvas.paste(disc, ((COVER_PX - disc.width) // 2, (COVER_PX - disc.height) // 2), disc)
+
+    dst = os.path.join(out, "cover-compilation.webp")
+    canvas.save(dst, "WEBP", quality=88, method=6)
+    report(dst, f"{COVER_PX}x{COVER_PX} from {im.width}x{im.height}")
+
+
 def build_covers():
     """
     Cover art for the six invented artists.
@@ -431,7 +488,12 @@ def main():
     build_backgrounds()
     build_merch()
     build_story()
-    build_covers()
+    # build_covers() is NOT called. It draws one cover per artist for the
+    # invented lineup that was replaced on 18 August; the app now shows a
+    # single compilation sleeve on every track. The function is kept because
+    # it is the record of that design work and it still runs, but its output
+    # is no longer shipped.
+    build_compilation()
     build_wireframe()
     build_qr()
     total = sum(

@@ -167,7 +167,7 @@ await tap('[data-player-toggle]', 1000);
 console.log('  library → artist');
 await go('library');
 await scroll(420, 1200);
-await go('artist/panico', 1300);
+await go('artist/arisa', 1300);
 await scroll(420, 1200);
 
 console.log('  shop → product → cart');
