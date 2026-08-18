@@ -33,6 +33,35 @@ const Overlays = {
     `);
   },
 
+  /** Transport mode detail.
+
+      The transport screen used to print every mode's route notes and access
+      note in full, then in a two-line preview that expanded in place. Both put
+      the same problem on screen: four modes of detailed copy competing at once,
+      and the titles — which are the only thing most people are scanning for —
+      pushed below the fold. Nobody reads all four. They read the one they are
+      taking, so the detail moves in here and the screen keeps the choice. */
+  transport(id) {
+    const t = Data.transport.find(x => x.id === id);
+    if (!t) return;
+
+    App.openOverlay(`
+      <div class="overlay-head">
+        <div>
+          <p class="t-label">Getting here</p>
+          <h2 style="margin-top:4px">${UI.esc(t.name)}</h2>
+        </div>
+        <button class="closebtn" data-close aria-label="Close">✕</button>
+      </div>
+      <p class="chip" style="margin-bottom:var(--s-3)">${UI.esc(t.headline)}</p>
+      <ul class="tlist">
+        ${t.lines.map(l => `<li>${l}</li>`).join('')}
+      </ul>
+      <p class="access-note" style="margin-top:var(--s-3)">
+        <strong>Access:</strong> ${t.access}</p>
+    `);
+  },
+
   /** Workshop detail (OV-Workshop in the wireframe). */
   workshop(id) {
     const w = Data.workshops.find(x => x.id === id);

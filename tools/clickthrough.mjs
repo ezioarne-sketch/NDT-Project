@@ -176,6 +176,7 @@ const overlayTests = [
   ['map', '[data-pin]', 'map pin'],
   ['schedule', '[data-workshop]', 'workshop'],
   ['shop', '[data-cart]', 'cart sheet'],
+  ['transport', '[data-transport]', 'transport detail'],
 ];
 for (const [route, sel, label] of overlayTests) {
   currentRoute = route;
